@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         className={cx(
-          `bg-gray-200 flex flex-col space-y-3 p-6 w-1/2 rounded-md shadow-lg`,
+          `bg-primary-light flex flex-col space-y-3 p-6 w-1/2 rounded-md shadow-lg`,
           className
         )}
         onClick={(e) => e.stopPropagation()}

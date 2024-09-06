@@ -35,7 +35,7 @@ export const DashboardLayout: React.FC = () => {
               <Button
                 onClick={() => handleNavigate(item.route)}
                 className={cx(
-                  `bg-white !text-gray-400 hover:!text-primary mb-4 hover:bg-white`,
+                  `bg-white !text-gray-400 hover:!text-primary-dark mb-4 hover:bg-white`,
                   location.pathname.includes(item.route)
                     ? "!text-primary-dark bg-white"
                     : ""
@@ -93,13 +93,13 @@ export const DashboardLayout: React.FC = () => {
               </div> */}
               <Button
                 onClick={() => handleNavigate("/")}
-                className="bg-white !text-gray-400 hover:!text-primary-dark hover:border-primary-dark border border-gray-300 hover:bg-white rounded-full"
+                className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
               >
                 <Bell className="h-5 w-5" />
               </Button>
               <Button
                 onClick={() => handleNavigate("/")}
-                className="bg-white !text-gray-400 hover:!text-primary-dark hover:border-primary-dark border border-gray-300 hover:bg-white rounded-full"
+                className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
               >
                 <Settings className="h-5 w-5" />
               </Button>
