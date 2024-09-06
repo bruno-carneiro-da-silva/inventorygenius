@@ -1,0 +1,111 @@
+import Button from "@/components/Button";
+import TextInput from "@/components/Input";
+import Modal from "@/components/Modal";
+import ModalHeader from "@/components/ModalHeader";
+import { LoadingIcon } from "@/icons";
+// import MaskedTextInput from "@/pages/Register/components/PhoneInput";
+import { ContactDetails } from "@/queries/contact/types";
+import { Autocomplete } from "@react-google-maps/api";
+import React from "react";
+import { FormProvider } from "react-hook-form";
+import DateTextInput from "../components/DateInput";
+import useCreateContacts from "@/pages/Clients/Contacts/hooks/useContacts";
+
+interface ModalCreateContactProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSaved?: (customer: ContactDetails) => void;
+}
+
+const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
+  isOpen,
+  onClose,
+  onSaved,
+}) => {
+  const { methods, onSubmit, isLoading, onLoad, onPlaceChanged } =
+    useCreateContacts({
+      onClose,
+      onSaved,
+    });
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalHeader
+        title="New Contact"
+        subtitle="Create a new contact to be part of your audience"
+        onClose={onClose}
+      />
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <div className=" bg-white p-4 rounded-sm flex flex-col space-y-4">
+            <div className="flex flex-row space-x-2">
+              <TextInput
+                name="firstName"
+                label="First name"
+                placeholder="Jonh"
+              />
+              <TextInput
+                name="lastName"
+                label="Last Name"
+                placeholder="Doe"
+                classNameIcon="text-gray-400"
+              />
+            </div>
+
+            <TextInput
+              name="email"
+              label="Email"
+              placeholder="jonhdoe@gmail.com"
+            />
+
+            <Autocomplete
+              className="w-full"
+              onLoad={onLoad}
+              onPlaceChanged={onPlaceChanged}
+            >
+              <TextInput
+                name="address"
+                label="Full Address"
+                placeholder="Street avenue"
+                classNameIcon="text-gray-400"
+              />
+            </Autocomplete>
+
+            <div className="flex flex-row space-x-2">
+              {/* <MaskedTextInput
+                name="phoneNumber"
+                label="Phone"
+                placeholder="+1 123 456 7890"
+                classNameIcon="text-gray-400"
+              /> */}
+              <DateTextInput
+                name="dateOfBirth"
+                label="Date of birth"
+                placeholder="1997/06/03"
+              />
+            </div>
+            <TextInput
+              name="zipCode"
+              label="ZIP Code"
+              placeholder="13037"
+              classNameIcon="text-gray-400"
+            />
+            <div className="flex flex-row-reverse space-x-reverse space-x-2">
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? <LoadingIcon className="" /> : "Create"}
+              </Button>
+              <Button
+                className="bg-white border border-primary !text-primary hover:!text-white font-medium w-24"
+                onClick={onClose}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </form>
+      </FormProvider>
+    </Modal>
+  );
+};
+
+export default ModalCreateContact;
