@@ -12,22 +12,22 @@ interface ModalDeleteProps {
 const ModalDelete: React.FC<ModalDeleteProps> = ({ isOpen, onClose }) => {
   const { handleSubmit, isLoading } = useDeleteContactHook({ onClose });
 
-  const buttonText = isLoading ? <LoadingIcon /> : "Yes, delete";
+  const buttonText = isLoading ? <LoadingIcon /> : "Deletar";
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="!w-4/12">
       <div className="place-items-center rounded-sm flex flex-col space-y-10">
         <div className="text-2xl font-semibold text-gray-500">
-          Delete Contact
+          Deletar Cliente
         </div>
         <div className="text-base font-light text-gray-500">
-          Are you sure you would like to delete this contact?
+          Tem certeza que deseja deletar esse cliente?
         </div>
         <div className="flex flex-row space-x-2">
           <Button
             className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-28"
             onClick={onClose}
           >
-            Cancel
+            Cancelar
           </Button>
           <Button
             type="submit"

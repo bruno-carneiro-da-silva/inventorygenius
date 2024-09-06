@@ -63,7 +63,7 @@ export default function useCreateContacts({
     setIsLoading(true);
     const finalPayload = {
       ...payload,
-      companyUid: companyUid,
+      // companyUid: companyUid,
       address: address,
       latitude: location.lat,
       longitude: location.lng,
