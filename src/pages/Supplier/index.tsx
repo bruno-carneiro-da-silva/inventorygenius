@@ -56,11 +56,10 @@ export default function Supplier() {
         />
         <div className="flex flex-row flex-wrap gap-2">
           {supplier.map((supplier) => (
-            <div className="m-2">
+            <div className="m-2" key={supplier.id}>
               <Card
                 key={supplier.id}
                 item={supplier}
-                id={supplier.id}
                 icon={<Mail />}
                 secondIcon={<Phone />}
                 kebabMenuItems={KebabMenuItems}

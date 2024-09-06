@@ -3,9 +3,11 @@ import Button from "@/components/Button";
 import KebabMenu from "@/components/KebabMenu";
 import { KebabMenuItem } from "@/types/table";
 
-interface CardPropsWithMenu extends CardSupplierProps {
+interface CardPropsWithMenu {
   kebabMenuItems: KebabMenuItem[];
   item: CardSupplierProps;
+  icon: React.ReactNode;
+  secondIcon: React.ReactNode;
 }
 
 const filterData = (

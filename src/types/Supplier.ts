@@ -16,6 +16,7 @@ export type CardSupplierProps = {
   status?: string;
   companyName?: string;
   category?: string;
+  productCategory?: string;
   createdAt?: string;
   updatedAt?: string;
 };
