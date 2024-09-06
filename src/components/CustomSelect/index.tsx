@@ -49,7 +49,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <button
           type="button"
           className={cx(
-            `w-full flex flex-row justify-between bg-white border border-primary-dark text-primary-dark rounded-full shadow-sm px-5 py-4 text-left sm:text-sm`,
+            `w-full flex flex-row justify-between bg-white border border-primary-dark text-primary-dark rounded-full shadow-sm px-5 py-3 text-left sm:text-sm`,
             {
               "border-gray-300": !error,
               "border-red-500": error,
@@ -63,8 +63,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
             <>
               <span
                 className={cx("block truncate self-center font-semibold", {
-                  "text-gray-400": !selectedOption,
-                  "text-gray-600": selectedOption,
+                  "text-primary-dark": !selectedOption,
+                  "text-primary-light": selectedOption,
                 })}
               >
                 {selectedOption ? selectedOption.label : placeholder}
