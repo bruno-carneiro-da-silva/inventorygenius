@@ -1,13 +1,14 @@
 import { ContactDetails, GetContact } from "@/queries/contact/types";
+import { Contact } from "@/types/contact";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 type MyContactStore = {
   contactStore: GetContact;
-  selectedContact: ContactDetails | null;
+  selectedContact: Contact | null;
   isLoading: boolean;
   setContacts: (page: number, contacts: GetContact) => void;
-  setSelectedContact: (selectedContact: ContactDetails) => void;
+  setSelectedContact: (selectedContact: Contact) => void;
   setIsLoading: (isLoading: boolean) => void;
 };
 
@@ -30,7 +31,7 @@ export const useMyContactStore = create(
           contactStore: { ...state.contactStore, [page]: contacts },
         }));
       },
-      setSelectedContact: (selectedContact) => {
+      setSelectedContact: (selectedContact: Contact) => {
         set(() => ({
           selectedContact: selectedContact,
         }));

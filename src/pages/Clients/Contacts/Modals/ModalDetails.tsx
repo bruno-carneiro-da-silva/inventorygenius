@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { TagsConstants } from "@/constants/constants";
-import GroupItem from "@/pages/Clients/Contacts/components/GroupItem";
+import { useMyContactStore } from "@/stores/contacts";
 import {
   extractCityAndCountry,
   maskDateISO,
@@ -11,17 +11,15 @@ import {
 } from "@/utils/functions";
 import cx from "classnames";
 import {
-  ArrowRight,
   // AtSign,
   CalendarDays,
   Mail,
   MapPinned,
-  Phone,
+  Phone
 } from "lucide-react";
 import React, { useState } from "react";
-import LoadingPlaceholder from "../components/LoadingPlaceholder";
-import { useMyContactStore } from "@/stores/contacts";
 import { useNavigate } from "react-router-dom";
+import LoadingPlaceholder from "../components/LoadingPlaceholder";
 
 interface ModalDetailsProps {
   isOpen: boolean;
@@ -34,15 +32,15 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
 
   const [isLoading] = useState(false);
 
-  const { city, country } = selectedContact?.address
-    ? extractCityAndCountry(selectedContact?.address)
+  const { city, country } = selectedContact?.city
+    ? extractCityAndCountry(selectedContact?.city)
     : { city: "", country: "" };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="!w-8/12">
       <ModalHeader
-        title="Contact"
-        subtitle="See in details"
+        title="Clientes"
+        subtitle="Detalhes do cliente"
         onClose={onClose}
       />
       {isLoading ? (
@@ -51,14 +49,14 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
         <div className=" bg-white grid grid-cols-12 p-4 rounded-sm space-y-1 space-x-2">
           <div className="col-span-2 place-self-center">
             <img
-              src={selectedContact?.photoUrl || Icon}
+              src={selectedContact?.photo || Icon}
               className="w-20 h-20 rounded-md"
             />
           </div>
           <div className="flex flex-col col-span-7 space-y-5">
             <div className="w-full flex flex-row space-x-2">
               <div className="text-2xl font-light text-gray-500">
-                {selectedContact?.firstName} {selectedContact?.lastName}
+                {selectedContact?.name} {selectedContact?.lastName}
               </div>
               <div
                 className={cx(
@@ -81,16 +79,14 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-row items-center space-x-2">
                 <Phone className="w-5 h-5" />
                 <div className="font-light text-base">
-                  {maskPhone(selectedContact?.phoneNumber)}{" "}
+                  {maskPhone(selectedContact?.phone)}{" "}
                 </div>
               </div>
             </div>
             <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
               <div className="flex flex-row items-center space-x-2">
                 <MapPinned className="w-5 h-5" />
-                <div className="font-bold text-xs">
-                  {selectedContact?.address}
-                </div>
+                <div className="font-bold text-xs">{selectedContact?.city}</div>
               </div>
             </div>
             <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
@@ -109,7 +105,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-row items-center space-x-2">
                 <CalendarDays className="w-5 h-5" />
                 <div className="font-bold text-xs">
-                  {maskDateISO(selectedContact?.createDate ?? "No info")}
+                  {maskDateISO(selectedContact?.created ?? "No info")}
                 </div>
               </div>
             </div>
@@ -121,7 +117,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
       )}
-      {isLoading ? (
+      {/* {isLoading ? (
         <LoadingPlaceholder />
       ) : selectedContact?.groups?.length ? (
         <div className="flex flex-row space-x-2 justify-between !my-8">
@@ -148,7 +144,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
             <GroupItem group={groupData} key={index} />
           ))}
         </div>
-      )}
+      )} */}
     </Modal>
   );
 };

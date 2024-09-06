@@ -25,7 +25,8 @@ export const maskDate = (value: string) => {
 
 export const maskDateISO = (value: string) => {
   const datePart = value.split("T")[0];
-  return datePart.replace(/-/g, "/");
+  const [year, month, day] = datePart.split("-");
+  return `${day}/${month}/${year}`;
 };
 
 export const extractCityAndCountry = (address: string) => {

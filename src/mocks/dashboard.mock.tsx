@@ -4,11 +4,13 @@ import {
   // FolderKanban,
   LayoutDashboard,
   User,
+  Users,
 } from "lucide-react";
 // import Contacts from "../pages/Clients/Contacts";
 import Dashboard from "../pages/Dashboard";
 import { SiderbarItem } from "../types/dashboard";
 import Supplier from "@/pages/Supplier";
+import Contacts from "@/pages/Clients/Contacts";
 // import Integrations from "../pages/Integrations";
 // // import Webhooks from "../pages/Webhooks";
 // import Campaigns from "../pages/Campaigns";
@@ -26,13 +28,13 @@ export const sidebarItens: SiderbarItem[] = [
     icon: <LayoutDashboard className={className} />,
     element: <Dashboard />,
   },
-  // // {
-  // //   id: "2",
-  // //   name: "Steps",
-  // //   route: "/steps",
-  // //   icon: <AreaChart className={className} />,
-  // //   element: <></>,
-  // // },
+  {
+    id: "2",
+    name: "Clientes",
+    route: "/clientes",
+    icon: <Users className={className} />,
+    element: <Contacts />,
+  },
   {
     id: "3",
     name: "Fornecedores",

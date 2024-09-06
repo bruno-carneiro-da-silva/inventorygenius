@@ -13,14 +13,14 @@ export default function useDeleteContactHook({
 }: useDeleteContactProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { selectedContact } = useMyContactStore();
-  const companyUid = useCompanyStore((state) => state.company?.data.uId || "");
+  // const companyUid = useCompanyStore((state) => state.company?.data.uId || "");
 
   const deleteContact = useDeleteContact();
 
   const handleSubmit = () => {
     setIsLoading(true);
     const finalDeletePayload = {
-      companyUid: companyUid,
+      // companyUid: companyUid,
       customerUid: selectedContact?.uId || "",
     };
 

@@ -37,7 +37,7 @@ const Table: React.FC<TableProps> = ({
         <NotFound />
       ) : (
         <>
-          <div className="flex flex-row px-5">
+          <div className="flex flex-row ">
             {columns.map((column) => (
               <Column key={column.id} {...column} />
             ))}

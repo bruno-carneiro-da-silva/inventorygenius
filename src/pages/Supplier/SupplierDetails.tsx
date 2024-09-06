@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useSupplierStore } from "@/stores/supplier";
-import { Locate, Mail, Phone } from "lucide-react";
-import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import coverImage from "@/assets/cover.png";
+import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
+import { useSupplierStore } from "@/stores/supplier";
+import { maskDateISO } from "@/utils/functions";
+import { Locate, Mail, Phone } from "lucide-react";
+import React from "react";
 
 export default function SupplierDetails() {
-  const { id } = useParams();
+  // const { id } = useParams();
   const { selectedSupplier } = useSupplierStore();
-
-  useEffect(() => {
-    // Lógica para buscar os detalhes do fornecedor usando o ID
-    console.log("Supplier ID:", id);
-    console.log("Selected Supplier:", selectedSupplier);
-  }, [id, selectedSupplier]);
 
   if (!selectedSupplier) {
     return <div>Loading...</div>;
@@ -47,40 +41,56 @@ export default function SupplierDetails() {
               <span>
                 <Locate className="w-5 h-5 text-orange-500" />
               </span>
-              <span className="ml-2 text-primary-darker">{selectedSupplier.address}</span>
+              <span className="ml-2 text-primary-darker">
+                {selectedSupplier.address}
+              </span>
             </div>
             <div className="flex items-center">
               <span className="text-orange-500">
                 <Phone className="w-5 h-5" />
               </span>
-              <span className="ml-2 text-primary-darker">{selectedSupplier.phone}</span>
+              <span className="ml-2 text-primary-darker">
+                {selectedSupplier.phone}
+              </span>
             </div>
             <div className="flex items-center">
               <span className="text-orange-500">
                 <Mail className="w-5 h-5" />
               </span>
-              <span className="ml-2 text-primary-darker">{selectedSupplier.email}</span>
+              <span className="ml-2 text-primary-darker">
+                {selectedSupplier.email}
+              </span>
             </div>
           </div>
         </div>
 
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">Sobre:</h2>
-          <p className="text-primary-darker mt-2">{selectedSupplier.description}</p>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">Cadastro:</h2>
-          <ul className="list-disc ml-7 mt-5">
-            <li className="text-primary-darker">{selectedSupplier.companyName}</li>
-          </ul>
-          <p className="text-gray-500 mt-2 ml-7">
-            {selectedSupplier.createdAt}
+          <p className="text-primary-darker mt-2">
+            {selectedSupplier.description}
           </p>
         </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">Categorias:</h2>
+          <h2 className="text-xl font-semibold text-primary-darker">
+            Cadastro:
+          </h2>
+          <ul className="list-disc ml-7 mt-5">
+            <li className="text-primary-darker">
+              {selectedSupplier.companyName}
+            </li>
+          </ul>
+          <p className="text-gray-500 mt-2 ml-7">
+            Desde -{" "}
+            {selectedSupplier.createdAt &&
+              maskDateISO(selectedSupplier.createdAt)}
+          </p>
+        </div>
+
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-primary-darker">
+            Categorias:
+          </h2>
           <p className=" mt-4 mb-20 text-sm text-primary-darker">
             {selectedSupplier.productCategory &&
               selectedSupplier.productCategory.split(", ").join(", ")}{" "}

@@ -1,11 +1,10 @@
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { Contact, ContactDetails } from "@/queries/contact/types";
-import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
 import { useCreateContact } from "@/queries/contact";
-import { useCompanyStore } from "@/stores/company";
+import { Contact, ContactDetails } from "@/queries/contact/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 // import { useMyContactStore } from "@/stores/contacts";
 
 type useContactProps = {
@@ -38,7 +37,7 @@ export default function useCreateContacts({
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const contactForm = useCreateContact();
-  const companyUid = useCompanyStore((state) => state.company?.data.uId || "");
+  // const companyUid = useCompanyStore((state) => state.company?.data.uId || "");
 
   const onLoad = (autocomplete: google.maps.places.Autocomplete) => {
     autocompleteRef.current = autocomplete;

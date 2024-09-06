@@ -31,22 +31,18 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
-        title="New Contact"
-        subtitle="Create a new contact to be part of your audience"
+        title="Novo cliente"
+        subtitle="Crie um novo cliente para fazer parte da sua lista"
         onClose={onClose}
       />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className=" bg-white p-4 rounded-sm flex flex-col space-y-4">
             <div className="flex flex-row space-x-2">
-              <TextInput
-                name="firstName"
-                label="First name"
-                placeholder="Jonh"
-              />
+              <TextInput name="firstName" label="Nome" placeholder="Jonh" />
               <TextInput
                 name="lastName"
-                label="Last Name"
+                label="Sobrenome"
                 placeholder="Doe"
                 classNameIcon="text-gray-400"
               />
@@ -65,7 +61,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
             >
               <TextInput
                 name="address"
-                label="Full Address"
+                label="Endereço completo"
                 placeholder="Street avenue"
                 classNameIcon="text-gray-400"
               />
@@ -80,7 +76,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
               /> */}
               <DateTextInput
                 name="dateOfBirth"
-                label="Date of birth"
+                label="Data de nascimento"
                 placeholder="1997/06/03"
               />
             </div>
@@ -91,11 +87,15 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
               classNameIcon="text-gray-400"
             />
             <div className="flex flex-row-reverse space-x-reverse space-x-2">
-              <Button type="submit" disabled={isLoading}>
+              <Button
+                className="bg-primary-dark border border-primary-dark !text-white hover:!text-white font-medium w-24"
+                type="submit"
+                disabled={isLoading}
+              >
                 {isLoading ? <LoadingIcon className="" /> : "Create"}
               </Button>
               <Button
-                className="bg-white border border-primary !text-primary hover:!text-white font-medium w-24"
+                className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-24"
                 onClick={onClose}
               >
                 Cancel

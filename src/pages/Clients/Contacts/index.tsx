@@ -3,23 +3,24 @@ import Button from "@/components/Button";
 // import Filter from "@/components/Filter";
 import { DashboardHeaderLayout } from "@/components/Dashboard/DashboardHeaderLayout";
 import Filter from "@/components/Filter";
+import KebabMenu from "@/components/KebabMenu";
+import SubHeader from "@/components/SubHeader";
 import Table from "@/components/Table";
 // import Table from "@/components/Table";
-import { showErrorToast } from "@/components/Toast";
+import { contacts } from "@/mocks/contacts.mock";
 import ModalCreateContact from "@/pages/Clients/Contacts/Modals/ModalCreate";
 import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
-import { useGetCustomer } from "@/queries/contact";
 import { ContactDetails } from "@/queries/contact/types";
-import { useCompanyStore } from "@/stores/company";
 import { useMyContactStore } from "@/stores/contacts";
+import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 // import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { maskDateISO, maskPhone } from "@/utils/functions";
-import { tableLimit } from "@/utils/utils";
-import { Eye, Plus, Trash2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { Eye, Mail, Phone, Plus, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { FormProvider } from "react-hook-form";
 
 export default function Contacts() {
   const [openModalNotes, setOpenModalNotes] = useState(false);
@@ -37,7 +38,7 @@ export default function Contacts() {
     setSelectedContact: state.setSelectedContact,
   }));
 
-  const handleOpenModalDetails = (contact: ContactDetails) => {
+  const handleOpenModalDetails = (contact: Contact) => {
     setSelectedContact(contact);
     setOpenModalDetails(!openModalDetails);
   };
@@ -47,49 +48,75 @@ export default function Contacts() {
   };
   const [page, setPage] = useState<number>(1);
 
-  const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
+  // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  const {
-    data: contact,
-    isLoading,
-    isError,
-  } = useGetCustomer(companyUid, page, tableLimit);
+  // const {
+  //   data: contact,
+  //   isLoading,
+  //   isError,
+  // } = useGetCustomer(companyUid, page, tableLimit);
 
   const handlePage = (page: number) => {
     setPage(page);
   };
 
-  useEffect(() => {
-    if (isError) {
-      showErrorToast("An error occurred while fetching the contact");
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     showErrorToast("An error occurred while fetching the contact");
+  //   }
+  // }, [isError]);
+
+  const handleCreateContact = () => {
+    console.log("Create contact");
+  };
 
   const columns: ColumnTable[] = [
     {
       id: "name",
       label: "Name",
       width: "w-4/12",
-      render: (data: ContactDetails) => (
+      render: (data: Contact) => (
         <div className="flex flex-row space-x-2 items-center">
-          <img src={data.photoUrl || Icon} className="w-8 h-8 rounded-full" />
+          <img src={data.photo || Icon} className="w-8 h-8 rounded-full" />
           <div className="flex flex-col">
-            <div className="text-sm text-gray-500">{`${data.firstName} ${data.lastName}`}</div>
-            <div className="text-xs text-gray-300">{data.email}</div>
+            <div className="text-sm text-primary-dark font-bold">{`${data.name} ${data.lastName}`}</div>
           </div>
         </div>
       ),
     },
     {
-      id: "phone",
-      label: "Phone",
-      render: (data: ContactDetails) => maskPhone(data.phoneNumber),
+      id: "uId",
+      label: "ID",
+      render: (data: Contact) => data.uId,
     },
     {
-      id: "groups",
-      label: "Groups",
-      render: (data: ContactDetails) =>
-        data.groups?.map((group) => group.name).join(", ") || "No group",
+      id: "data",
+      label: "Data",
+      render: (data: Contact) => maskDateISO(data.created),
+    },
+    {
+      id: "lastaName",
+      label: "Sobrenome",
+      render: (data: Contact) => data.lastName,
+    },
+    {
+      id: "city",
+      label: "City",
+      render: (data: Contact) => data.city,
+    },
+    {
+      id: "contact",
+      label: "Contact",
+      render: () => (
+        <div className="flex space-x-2">
+          <button className="flex items-center">
+            <Mail className="w-10 h-8 text-primary-dark bg-primary-light border border-primary-dark rounded-full p-1" />
+          </button>
+          <button className="flex items-center">
+            <Phone className="w-10 h-8 text-primary-dark border bg-primary-light border-primary-dark rounded-full p-1" />
+          </button>
+        </div>
+      ),
     },
     {
       id: "status",
@@ -98,22 +125,15 @@ export default function Contacts() {
         const isActive = data.groups?.map((group) => group.status);
         const statusClass = isActive
           ? "bg-green-500/20 rounded-full"
-          : "bg-pink-500/20";
+          : "bg-red-700/20";
         const statusText = isActive ? "Activated" : "Inactive";
 
         return (
-          <span className={`px-2 py-1 rounded ${statusClass}`}>
+          <span className={`px-2 py-2 rounded-full ${statusClass}`}>
             {statusText}
           </span>
         );
       },
-    },
-    {
-      id: "created",
-      label: "Created",
-      render: (data: ContactDetails) => (
-        <div className="capitalize">{maskDateISO(data.createDate)}</div>
-      ),
     },
   ];
 
@@ -121,7 +141,7 @@ export default function Contacts() {
     {
       id: "details",
       label: "Details",
-      onClick: (data: ContactDetails) => handleOpenModalDetails(data),
+      onClick: (data: Contact) => handleOpenModalDetails(data),
       icon: <Eye />,
     },
     {
@@ -135,36 +155,27 @@ export default function Contacts() {
   return (
     <React.Fragment>
       <div className="flex flex-col space-y-3">
-        <DashboardHeaderLayout
-          title="Contacts"
-          subtitle="Connect, Network, Collaborate"
-          overviewItems={[
-            { number: contact?.data.totalRecords, text: "New" },
-            { number: contact?.data.totalRecords, text: "Working" },
-            { number: contact?.data.totalRecords, text: "Contacted" },
-            { number: contact?.data.totalRecords, text: "Qualified" },
-            { number: contact?.data.totalRecords, text: "Done" },
-          ]}
-        />
-
         <Table
           columns={columns}
-          data={contact?.data?.items || []}
+          data={contacts || []}
           kebabMenu={KebabMenuItems}
           searchComponent={
             <div className="flex items-center space-x-3">
               <Filter itens={columns} />
               <Button
-                onClick={() => handleOpenModalCreate()}
-                className="!bg-transparent !text-gray-500 hover:!text-primary font-medium flex flex-row space-x-2"
+                onClick={handleOpenModalCreate}
+                className="!bg-primary-dark !text-white hover:!text-primary pr-5 pl-5 font-medium flex h-[50px] flex-row items-center space-x-2"
               >
-                <div>New Contact</div> <Plus className="w-5 h-5 self-center" />
+                <div className="flex items-center">
+                  <span>Novo cliente</span>
+                  <Plus className="w-5 h-5 ml-2" />
+                </div>
               </Button>
             </div>
           }
-          totalPages={contact?.data.totalPages || 0}
-          currentPage={contact?.data.currentPage || 0}
-          isLoading={isLoading}
+          totalPages={2}
+          currentPage={1}
+          isLoading={false}
           handlePage={handlePage}
         />
       </div>

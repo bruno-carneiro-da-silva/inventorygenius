@@ -5,6 +5,9 @@ import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import { sidebarItens } from "@/mocks/dashboard.mock";
 import Login from "@/pages/Login";
 import SupplierDetails from "@/pages/Supplier/SupplierDetails";
+import CreateSupplier from "@/pages/Supplier/CreateSupplier";
+import Contacts from "@/pages/Clients/Contacts";
+import { User } from "lucide-react";
 
 type Route = {
   path: string;
@@ -65,13 +68,17 @@ export const routes: Route[] = [
     ],
   },
   {
+    path: "/clientes",
+    element: <Contacts />,
+  },
+  {
     path: "/fornecedores/detalhes/:id",
     element: <SupplierDetails />,
   },
-  // {
-  //   path: "/change-password",
-  //   element: <ChangeNewPassword />,
-  // },
+  {
+    path: "/fornecedores/criar",
+    element: <CreateSupplier />,
+  },
   // {
   //   path: "/confirm-password",
   //   element: <ConfirmNewPassword />,

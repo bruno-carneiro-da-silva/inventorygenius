@@ -24,7 +24,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="flex flex-row space-x-2">
           <Button
-            className="bg-white border border-primary !text-primary hover:!text-white font-medium w-28"
+            className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-28"
             onClick={onClose}
           >
             Cancel
@@ -33,7 +33,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({ isOpen, onClose }) => {
             type="submit"
             onClick={handleSubmit}
             disabled={isLoading}
-            className="bg-primary text-white w-28 font-medium"
+            className="bg-primary-dark text-white w-28 font-medium"
           >
             {buttonText}
           </Button>

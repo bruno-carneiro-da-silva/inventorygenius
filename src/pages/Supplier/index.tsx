@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import Modal from "@/components/Modal";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
 import { supplier } from "@/mocks/supplier";
@@ -6,23 +7,29 @@ import { useSupplierStore } from "@/stores/supplier";
 import { CardSupplierProps } from "@/types/Supplier";
 import { KebabMenuItem } from "@/types/table";
 import { Eye, Mail, Phone, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import ModalDeleteSupplier from "./Modals/DeleteSupplier";
 
 export default function Supplier() {
   const methods = useForm();
   const navigate = useNavigate();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const { setSelectedSupplier } = useSupplierStore();
 
   const handleOpenSupplierDetails = (supplier: CardSupplierProps) => {
-    console.log(supplier);
     setSelectedSupplier(supplier);
     navigate(`/fornecedores/detalhes/${supplier.id}`);
   };
 
+  const handleCreateSupplier = () => {
+    navigate("/fornecedores/criar");
+  }
+
   const handleOpenModalDelete = () => {
-    console.log("delete");
+    setOpenDeleteModal(!openDeleteModal);
   };
 
   const KebabMenuItems: KebabMenuItem[] = [
@@ -53,6 +60,7 @@ export default function Supplier() {
             { label: "Inativos", value: "inactive" },
           ]}
           onChange={(value) => console.log(value)}
+          onClick={handleCreateSupplier}
         />
         <div className="flex flex-row flex-wrap gap-2">
           {supplier.map((supplier) => (
@@ -76,6 +84,12 @@ export default function Supplier() {
           />
         </div>
       </FormProvider>
+      {openDeleteModal && (
+        <ModalDeleteSupplier
+          isOpen={openDeleteModal}
+          onClose={handleOpenModalDelete}
+        />
+      )}
     </div>
   );
 }

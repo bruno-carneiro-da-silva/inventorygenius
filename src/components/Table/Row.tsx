@@ -1,7 +1,7 @@
 import cx from "classnames";
 import React from "react";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
-// import KebabMenu from "@/components/KebabMenu";
+import KebabMenu from "@/components/KebabMenu";
 
 interface RowProps {
   columns: ColumnTable[];
@@ -23,7 +23,7 @@ const Row: React.FC<RowProps> = ({ columns, item, kebabMenu }) => {
           {column.render ? column.render(item) : item[`${column.id}`]}
         </div>
       ))}
-      {/* {kebabMenu && <KebabMenu items={kebabMenu} data={item} />} */}
+      {kebabMenu && <KebabMenu items={kebabMenu} data={item} />}
     </div>
   );
 };
