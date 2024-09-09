@@ -92,13 +92,13 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? <LoadingIcon className="" /> : "Create"}
+                {isLoading ? <LoadingIcon className="" /> : "Criar"}
               </Button>
               <Button
                 className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-24"
                 onClick={onClose}
               >
-                Cancel
+                Cancelar
               </Button>
             </div>
           </div>

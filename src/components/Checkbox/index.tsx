@@ -54,7 +54,7 @@ export const Checkbox: React.FC<InputPayload> = ({
           defaultChecked={checked}
           type="checkbox"
           className={cx(
-            `rounded-md min-w-5 min-h-5 cursor-pointer border w-5 border-gray-400 py-1 pl-1 checked:bg-primary`,
+            `rounded-md min-w-5 min-h-5 cursor-pointer border w-5 border-gray-400 py-1 pl-1 checked:bg-primary-dark`,
             className
           )}
           {...rest}

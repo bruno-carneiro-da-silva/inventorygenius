@@ -1,16 +1,24 @@
 import {
+  DollarSign,
+  HandCoins,
   // Blocks,
   // CircleFadingPlus,
   // FolderKanban,
   LayoutDashboard,
-  User,
+  Store,
+  UserRoundCog,
   Users,
+  Wallet,
 } from "lucide-react";
 // import Contacts from "../pages/Clients/Contacts";
+import Contacts from "@/pages/Clients/Contacts";
+import Employee from "@/pages/Employee";
+import Sells from "@/pages/Sales";
+import Supplier from "@/pages/Supplier";
 import Dashboard from "../pages/Dashboard";
 import { SiderbarItem } from "../types/dashboard";
-import Supplier from "@/pages/Supplier";
-import Contacts from "@/pages/Clients/Contacts";
+import Finance from "@/pages/Finance";
+import FinanceInspector from "@/pages/FinanceInspector";
 // import Integrations from "../pages/Integrations";
 // // import Webhooks from "../pages/Webhooks";
 // import Campaigns from "../pages/Campaigns";
@@ -39,30 +47,37 @@ export const sidebarItens: SiderbarItem[] = [
     id: "3",
     name: "Fornecedores",
     route: "/fornecedores",
-    icon: <User className={className} />,
+    icon: <Store className={className} />,
     element: <Supplier />,
   },
-  // // {
-  // //   id: "4",
-  // //   name: "Clients",
-  // //   route: "/others",
-  // //   icon: <ListTodo className={className} />,
-  // //   element: <></>,
-  // // },
-  // {
-  //   id: "5",
-  //   name: "Clients",
-  //   route: "/clients/",
-  //   icon: <FolderKanban className={className} />,
-  //   subItems: [
-  //     {
-  //       id: "1",
-  //       name: "Contacts",
-  //       route: "/clients/contacts",
-  //       element: <Contacts />,
-  //     },
-  //   ],
-  // },
+  {
+    id: "4",
+    name: "Fiscal",
+    route: "/fiscal",
+    icon: <HandCoins className={className} />,
+    element: <FinanceInspector />,
+  },
+  {
+    id: "5",
+    name: "Financeiro",
+    route: "/financeiro",
+    icon: <Wallet className={className} />,
+    element: <Finance />,
+  },
+  {
+    id: "4",
+    name: "Vendas",
+    route: "/vendas",
+    icon: <DollarSign className={className} />,
+    element: <Sells />,
+  },
+  {
+    id: "5",
+    name: "Funcionários",
+    route: "/funcionarios",
+    icon: <UserRoundCog className={className} />,
+    element: <Employee />,
+  },
   // {
   //   id: "6",
   //   name: "Integrations",

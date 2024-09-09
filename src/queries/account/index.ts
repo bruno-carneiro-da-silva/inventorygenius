@@ -9,7 +9,7 @@ import {
   NumberResetResponse,
   PasswordResetProp,
   PhoneRecoveryProps,
-  RefreshToken,
+  // RefreshToken,
   VerificateCode,
 } from "@/queries/account/types";
 import NumberResetMapper from "@/queries/account/mappers/NumberResetMapper";
@@ -18,17 +18,17 @@ import ForgotPasswordMapper from "@/queries/account/mappers/ForgotPasswordMapper
 const Login = async (payload: LoginCredentials) => {
   const body = LoginMapper.toPersistence(payload);
 
-  const { data } = await api.post<LoginResponse>(`/account/login`, body);
+  const { data } = await api.post<LoginResponse>(`/login`, body);
   return LoginMapper.toDomain(data);
 };
 
-const refresh = async (refreshToken: RefreshToken) => {
-  const { data } = await api.post<LoginResponse>("/account/refresh-token", {
-    refreshToken,
-  });
+// const refresh = async (refreshToken: RefreshToken) => {
+//   const { data } = await api.post<LoginResponse>("/refresh-token", {
+//     refreshToken,
+//   });
 
-  return data;
-};
+//   return data;
+// };
 
 const generateCode = async (phoneNumber: string) => {
   const { data } = await api.post(`/account/phone-number/generate-code`, {
@@ -86,15 +86,15 @@ export const useLogin = () => {
   });
 };
 
-export const useRefreshToken = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (refreshToken: RefreshToken) => refresh(refreshToken),
-    onMutate: () => {
-      queryClient.invalidateQueries({ queryKey: ["refreshToken"] });
-    },
-  });
-};
+// export const useRefreshToken = () => {
+//   const queryClient = useQueryClient();
+//   return useMutation({
+//     mutationFn: (refreshToken: RefreshToken) => refresh(refreshToken),
+//     onMutate: () => {
+//       queryClient.invalidateQueries({ queryKey: ["refreshToken"] });
+//     },
+//   });
+// };
 
 export const useGenerateCode = () => {
   const queryClient = useQueryClient();

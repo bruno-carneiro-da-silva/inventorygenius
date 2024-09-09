@@ -1,5 +1,4 @@
 import Card from "@/components/Card";
-import Modal from "@/components/Modal";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
 import { supplier } from "@/mocks/supplier";
@@ -26,7 +25,7 @@ export default function Supplier() {
 
   const handleCreateSupplier = () => {
     navigate("/fornecedores/criar");
-  }
+  };
 
   const handleOpenModalDelete = () => {
     setOpenDeleteModal(!openDeleteModal);
@@ -76,7 +75,7 @@ export default function Supplier() {
           ))}
         </div>
 
-        <div className="mt-32 flex flex-row items-center justify-center">
+        <div className="mt-16 flex flex-row items-center justify-center">
           <Pagination
             currentPage={1}
             totalPages={100}

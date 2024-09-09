@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import cx from "classnames";
-import { maskPhone } from "@/utils/functions";
+import { maskPhone } from "@/utils/functions"; // Supondo que a função maskPhone esteja neste caminho
 import { getValueByKey } from "@/utils/utils";
 
 export interface InputPayload
@@ -63,7 +63,7 @@ export const MaskedTextInput: React.FC<InputPayload> = ({
       )}
       <div
         className={cx(
-          "relative bg-white border border-gray-300 rounded-md p-2 w-full",
+          "relative bg-white border rounded-full border-gray-300  p-2 w-full",
           iconInput && "!pl-12",
           classNameContainer,
           isFieldError && "border-red-400"
@@ -73,7 +73,7 @@ export const MaskedTextInput: React.FC<InputPayload> = ({
           id={name}
           type={typeInput}
           className={cx(
-            "rounded-md p-2 w-full focus:outline-none focus:border-transparent",
+            "rounded-full p-2 w-full focus:outline-none focus:border-transparent",
             className
           )}
           placeholder={placeholder}

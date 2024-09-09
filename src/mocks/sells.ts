@@ -1,0 +1,40 @@
+import { salesProps } from "@/types/sales";
+
+export const sellsMock: salesProps[] = [
+  {
+    id: 1,
+    product: "Camiseta",
+    customer: "João",
+    tag: "feminino",
+    price: "R$ 50,00",
+    rating: 4.5,
+    totalSells: 1000,
+    interestings: "100%",
+    progressBar: 25,
+    image: "https://via.placeholder.com/150",
+  },
+  {
+    id: 2,
+    product: "Camiseta",
+    customer: "Maria",
+    tag: "feminino",
+    price: "R$ 100,00",
+    rating: 4.8,
+    totalSells: 1000,
+    interestings: "100%",
+    progressBar: 50,
+    image: "https://via.placeholder.com/150",
+  },
+  {
+    id: 3,
+    product: "Camiseta",
+    customer: "João",
+    tag: "feminino",
+    price: "R$ 50,00",
+    rating: 4.5,
+    totalSells: 1000,
+    interestings: "100%",
+    progressBar: 40,
+    image: "https://via.placeholder.com/150",
+  },
+];

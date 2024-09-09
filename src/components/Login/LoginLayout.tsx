@@ -1,4 +1,4 @@
-import BackgroundImage from "@/assets/react.svg";
+import BackgroundImage from "@/assets/logo_transparent.png";
 
 export interface LoginLayoutPayload {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export const LoginLayoutPayload: React.FC<LoginLayoutPayload> = ({
         <img
           src={BackgroundImage}
           alt="background"
-          className={`w-full h-screen hidden md:block`}
+          className={` h-screen hidden md:block bg-primary-dark`}
         />
       </div>
       <div className="col-span-5 md:col-span-2 overflow-auto max-h-screen">

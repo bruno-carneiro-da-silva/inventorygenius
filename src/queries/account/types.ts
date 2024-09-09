@@ -1,35 +1,34 @@
 export interface LoginData {
   accessToken: string;
-  expiresIn: number;
-  userToken: {
-    id: number;
-    uId: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    claims: {
-      type: string;
-      value: string;
-    }[];
-  };
-  refreshToken: string;
+  // expiresIn: number;
+  // userToken: {
+  //   id: number;
+  //   uId: number;
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  //   claims: {
+  //     type: string;
+  //     value: string;
+  //   }[];
+  // };
 }
 
 export type LoginResponse = {
-  succeeded: boolean;
-  errors: {
-    key: string;
-    message: string;
-  }[];
-  data: LoginData;
+  // succeeded: boolean;
+  // errors: {
+  //   key: string;
+  //   message: string;
+  // }[];
+  accessToken: string;
 };
 export interface LoginCredentials {
-  phoneNumber: string;
+  username: string;
   password: string;
-  isPersistent: boolean;
+  isPersistent?: boolean;
 }
 
-export type RefreshToken = Pick<LoginData, "refreshToken">;
+// export type RefreshToken = Pick<LoginData, "refreshToken">;
 
 export type VerificateCode = {
   phoneNumber: string;

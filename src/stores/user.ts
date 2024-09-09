@@ -11,21 +11,20 @@ type UserStore = {
 };
 
 const initialLoginState: LoginResponse = {
-  succeeded: false,
-  errors: [],
-  data: {
-    accessToken: "",
-    expiresIn: 0,
-    userToken: {
-      id: 0,
-      uId: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      claims: [],
-    },
-    refreshToken: "",
-  },
+  // succeeded: false,
+  // errors: [],
+  // data: {
+  accessToken: "",
+  // expiresIn: 0,
+  // userToken: {
+  //   id: 0,
+  //   uId: 0,
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   claims: [],
+  // },
+  // refreshToken: "",
 };
 
 export const useUserStore = create(

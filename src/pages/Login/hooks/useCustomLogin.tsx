@@ -9,31 +9,18 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 type LoginCredentials = {
-  phoneNumber: string;
+  username: string;
   password: string;
-  isPersistent: boolean;
-};
-const cleanPhoneNumber = (phoneNumber: string) => {
-  return phoneNumber.replace(/\D/g, "");
+  isPersistent?: boolean;
 };
 
 const schema: yup.ObjectSchema<LoginCredentials> = yup.object({
-  phoneNumber: yup
-    .string()
-    .required("Phone is required")
-    .test(
-      "is-valid-phone",
-      "Phone number must be between 10 and 15 digits",
-      (value) => {
-        const cleaned = cleanPhoneNumber(value || "");
-        return /^\d{10,15}$/.test(cleaned);
-      }
-    ),
+  username: yup.string().required("Usuário é obrigatório"),
   password: yup
     .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long"),
-  isPersistent: yup.boolean().required(),
+    .required("Senha é obrigatoria")
+    .min(8, "Senha deve ter no mínimo 8 caracteres"),
+  isPersistent: yup.boolean(),
 });
 
 export default function useCustomLogin() {
@@ -51,18 +38,18 @@ export default function useCustomLogin() {
       .mutateAsync(credentials)
       .then((res) => {
         setLogin(res);
-        setIsPersistent(credentials.isPersistent);
+        // setIsPersistent(credentials?.isPersistent);
         navigate("/dashboard");
       })
       .catch((err) => {
-        const errorMessage =
-          err?.response?.data?.errors?.[0]?.message || "An error occurred";
+        const errorMessage = err?.response?.data?.error || "Ocorreu um erro";
         showErrorToast(errorMessage);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
+
   return {
     navigate,
     methods,

@@ -11,11 +11,6 @@ const getSessionData = () => {
   return JSON.parse(localStorage.getItem("user") || "{}");
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const setSessionData = (data: any) => {
-  localStorage.setItem("user", JSON.stringify(data));
-};
-
 const addAuthorizationHeader = (
   config: InternalAxiosRequestConfig,
   token: string
@@ -47,27 +42,20 @@ api.interceptors.response.use(
       isPersistent
     ) {
       originalRequest._retry = true;
-      const sessionData = getSessionData();
-      const refreshToken = sessionData?.state?.login?.data?.refreshToken;
-
-      if (!refreshToken) {
-        return Promise.reject(error);
-      }
 
       try {
-        const response = await axios.post(
-          `${API_BASE_URL}/account/refresh-token`,
-          {
-            token: refreshToken,
-          }
-        );
-        const newAccessToken = response?.data?.accessToken;
-        sessionData.state.login.data.accessToken = newAccessToken;
-        setSessionData(sessionData);
-        api.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const sessionData = getSessionData();
+        const newAccessToken = sessionData?.state?.login?.data?.accessToken;
+
+        if (newAccessToken) {
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${newAccessToken}`;
+          addAuthorizationHeader(originalRequest, newAccessToken);
+          return api(originalRequest);
+        }
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }

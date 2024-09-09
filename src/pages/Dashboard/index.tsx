@@ -1,27 +1,27 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { DashboardHeaderLayout } from "@/components/Dashboard/DashboardHeaderLayout";
-import { showErrorToast } from "@/components/Toast";
-import { useListCompany } from "@/queries/company";
-import { useCompanyStore } from "@/stores/company";
+// import { showErrorToast } from "@/components/Toast";
+// import { useListCompany } from "@/queries/company";
+// import { useCompanyStore } from "@/stores/company";
 
 export default function Dashboard() {
-  const { setCompany } = useCompanyStore((state) => ({
-    setCompany: state.setCompany,
-  }));
+  // const { setCompany } = useCompanyStore((state) => ({
+  //   setCompany: state.setCompany,
+  // }));
 
-  const { data, isError } = useListCompany();
+  // const { data, isError } = useListCompany();
 
-  useEffect(() => {
-    if (data) {
-      setCompany(data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     setCompany(data);
+  //   }
+  // }, [data]);
 
-  useEffect(() => {
-    if (isError) {
-      showErrorToast("An error occurred while fetching the company");
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     showErrorToast("An error occurred while fetching the company");
+  //   }
+  // }, [isError]);
 
   return (
     <React.Fragment>

@@ -11,7 +11,7 @@ const ProtectedRoutes = ({ children }: ProtectedRoutesProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!login || !login.data || !login.data.accessToken) {
+    if (!login || !login.accessToken) {
       navigate("/");
     }
   }, [login, navigate]);

@@ -35,6 +35,16 @@ export const useDashboard = () => {
     setOpen(false);
   };
 
+  const [openOptions, setOpenOptions] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenOptions = () => {
+    setOpenOptions((prev) => !prev);
+  };
+  const handleProfileClick = () => {
+    setOpenModal((prev) => !prev);
+  };
+
   const handleLogout = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -55,5 +65,9 @@ export const useDashboard = () => {
     setOpen,
     handleOpen,
     onClose,
+    openOptions,
+    handleOpenOptions,
+    handleProfileClick,
+    openModal,
   };
 };

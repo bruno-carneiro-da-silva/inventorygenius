@@ -9,6 +9,8 @@ import { Bell, LogOut, Settings } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { Outlet } from "react-router-dom";
 import { useDashboard } from "./hooks/useDashboard";
+// import DropdownProfile from "../DropdownMenu";
+// import ModalContactDetails from "./components/ModalContactDetails";
 
 export const DashboardLayout: React.FC = () => {
   const {
@@ -20,6 +22,10 @@ export const DashboardLayout: React.FC = () => {
     handleLogout,
     subItems,
     methods,
+    // openOptions,
+    handleOpenOptions,
+    // handleProfileClick,
+    // openModal,
   } = useDashboard();
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
@@ -30,8 +36,8 @@ export const DashboardLayout: React.FC = () => {
           <div className="w-20 self-center flex place-content-center mb-10">
             <img src={Icon} alt="logo" className="w-10 place-self-center" />
           </div>
-          {sidebarItens.map((item) => (
-            <Tooltip key={item.id} text={item.name}>
+          {sidebarItens.map((item, index) => (
+            <Tooltip key={index} text={item.name}>
               <Button
                 onClick={() => handleNavigate(item.route)}
                 className={cx(
@@ -63,21 +69,19 @@ export const DashboardLayout: React.FC = () => {
       <div className="w-full fixed pl-28 bg-white z-20">
         <div className="flex flex-row justify-between">
           <div className="flex space-x-5">
-            {subItems.map((item) => (
-              <>
-                <Button
-                  key={`subitem-${item.id}`}
-                  onClick={() => handleNavigate(item.route)}
-                  className={cx(
-                    `bg-white uppercase  font-semibold hover:bg-primary-light/20 rounded-none  border-primary`,
-                    location.pathname == item.route
-                      ? "!text-primary border-primary !border-b-4"
-                      : "border-white !text-gray-400"
-                  )}
-                >
-                  {item.name}
-                </Button>
-              </>
+            {subItems.map((item, index) => (
+              <Button
+                key={index}
+                onClick={() => handleNavigate(item.route)}
+                className={cx(
+                  `bg-white uppercase  font-semibold hover:bg-primary-light/20 rounded-none  border-primary`,
+                  location.pathname == item.route
+                    ? "!text-primary border-primary !border-b-4"
+                    : "border-white !text-gray-400"
+                )}
+              >
+                {item.name}
+              </Button>
             ))}
           </div>
           <FormProvider {...methods}>
@@ -92,24 +96,32 @@ export const DashboardLayout: React.FC = () => {
                 />
               </div> */}
               <Button
-                onClick={() => handleNavigate("/")}
+                onClick={() => console.log("/")}
                 className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
               >
                 <Bell className="h-5 w-5" />
               </Button>
               <Button
-                onClick={() => handleNavigate("/")}
+                onClick={() => console.log("/")}
                 className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
               >
                 <Settings className="h-5 w-5" />
               </Button>
-              <button className="border-l-2 pl-2 flex-row flex space-x-3">
+              <button
+                onClick={handleOpenOptions}
+                className="border-l-2 pl-2 pr-5 flex-row flex space-x-3"
+              >
                 <div className="text-primary-dark">
                   John Doe <br></br>
                   <span className="text-primary text-sm">Admin</span>
                 </div>
                 <img
                   className="bg-cover w-9 h-9 border-2 border-primary rounded-full"
+                  onError={(
+                    e: React.SyntheticEvent<HTMLImageElement, Event>
+                  ) => {
+                    e.currentTarget.src = PerfilImg;
+                  }}
                   src={PerfilImg}
                 />
               </button>
@@ -123,7 +135,7 @@ export const DashboardLayout: React.FC = () => {
       {open && (
         <Modal isOpen={open} onClose={onClose} className="!w-4/12">
           <div className="place-items-center rounded-sm flex flex-col space-y-10">
-            <div className="text-2xl font-semibold text-gray-500">
+            <div className="text-2xl font-semibold text-primary-dark">
               Sair da conta
             </div>
             <div className="text-base font-light text-gray-500">
@@ -131,7 +143,7 @@ export const DashboardLayout: React.FC = () => {
             </div>
             <div className="flex flex-row space-x-2">
               <Button
-                className="bg-white border border-primary !text-primary hover:!text-white font-medium w-28"
+                className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-28"
                 onClick={onClose}
               >
                 Cancelar
@@ -148,6 +160,26 @@ export const DashboardLayout: React.FC = () => {
           </div>
         </Modal>
       )}
+      {/* {openOptions && (
+        <DropdownProfile
+          onClose={handleOpenOptions}
+          onProfileClick={() => {
+            handleProfileClick();
+            handleOpenOptions();
+          }}
+          onLogoutClick={handleOpen}
+          company={() => console.log("company")}
+          imageProfile={PerfilImg}
+        />
+      )}
+      {openModal && (
+        <ModalContactDetails
+          company={company}
+          isLoading={isCompanyLoading}
+          isOpen={openModal}
+          onClose={handleProfileClick}
+        />
+      )} */}
     </div>
   );
 };

@@ -11,7 +11,7 @@ const PublicRoutes = ({ children }: PublicRoutesProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (login && login.data && login.data.accessToken) {
+    if (login && login.accessToken) {
       navigate("/dashboard");
     }
   }, [login, navigate]);

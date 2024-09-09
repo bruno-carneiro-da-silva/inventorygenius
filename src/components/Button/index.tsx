@@ -11,7 +11,7 @@ export const Button = ({ className, children, ...rest }: ButtonPayload) => {
   return (
     <button
       className={cx(
-        "bg-primary text-white font-light p-3 rounded-full",
+        "bg-primary-dark text-white font-light p-3 rounded-full",
         "hover:bg-primary-dark",
         className
       )}
