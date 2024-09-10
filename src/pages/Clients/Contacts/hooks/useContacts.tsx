@@ -13,15 +13,15 @@ type useContactProps = {
 };
 const schema: yup.ObjectSchema<Contact> = yup.object({
   companyUid: yup.string(),
-  firstName: yup.string().required("First name is required"),
-  dateOfBirth: yup.string().required("Date of birth is required"),
-  lastName: yup.string().required("Last name is required"),
-  email: yup.string().email().required("Email is required"),
-  phoneNumber: yup.string().required("Phone is required"),
-  address: yup.string().required("Address is required"),
+  firstName: yup.string().required("Nome é obrigatório"),
+  dateOfBirth: yup.string().required("Data de nascimento é obrigatório"),
+  lastName: yup.string().required("Sobrenome é obrigatório"),
+  email: yup.string().email().required("Email é obrigatório"),
+  phoneNumber: yup.string().required("Telefone é obrigatório"),
+  address: yup.string().required("Endereço é obrigatório"),
   latitude: yup.number(),
   longitude: yup.number(),
-  zipCode: yup.string().required("ZIP Code is required"),
+  zipCode: yup.string().required("CEP é obrigatório"),
 });
 
 export default function useCreateContacts({

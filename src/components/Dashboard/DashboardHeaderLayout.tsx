@@ -38,8 +38,8 @@ export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
           }
           style={{ backgroundImage: `url(${Background})` }}
         >
-          <div className="bg-primary-light/30 w-full h-full font-bold text-white text-2xl text-center place-content-center">
-            {coverText ? coverText : "OVERVIEW"}
+          <div className="bg-primary-light/30 w-full h-full font-bold text-primary-dark text-2xl text-center place-content-center">
+            {coverText ? coverText : "Visão geral"}
           </div>
         </div>
         <div className="bg-cover flex flex-row space-x-10 px-10 w-8/12 rounded-e-md bg-white place-items-center">

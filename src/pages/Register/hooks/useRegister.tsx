@@ -27,7 +27,6 @@ const schema: yup.ObjectSchema<CreateCompanyInit> = yup.object({
   emailCompany: yup.string().required("Company e-mail is required"),
   phoneNumberCompany: yup.string().required("Company phone is required"),
   addressCompany: yup.string().required("Address is required"),
-  timeZoneIdCompany: yup.string().required("Timezone is required"),
   terms: yup.boolean().required("You must accept the terms"),
 });
 

@@ -62,7 +62,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
               <TextInput
                 name="address"
                 label="Endereço completo"
-                placeholder="Street avenue"
+                placeholder="Rua fulano de tal, 239"
                 classNameIcon="text-gray-400"
               />
             </Autocomplete>
@@ -82,7 +82,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
             </div>
             <TextInput
               name="zipCode"
-              label="ZIP Code"
+              label="CEP da rua"
               placeholder="13037"
               classNameIcon="text-gray-400"
             />

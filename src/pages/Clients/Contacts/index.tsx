@@ -73,7 +73,7 @@ export default function Contacts() {
   const columns: ColumnTable[] = [
     {
       id: "name",
-      label: "Name",
+      label: "Nome",
       width: "w-4/12",
       render: (data: Contact) => (
         <div className="flex flex-row space-x-2 items-center">
@@ -101,12 +101,12 @@ export default function Contacts() {
     },
     {
       id: "city",
-      label: "City",
+      label: "Cidade",
       render: (data: Contact) => data.city,
     },
     {
       id: "contact",
-      label: "Contact",
+      label: "Contato",
       render: () => (
         <div className="flex space-x-2">
           <button className="flex items-center">
@@ -126,10 +126,10 @@ export default function Contacts() {
         const statusClass = isActive
           ? "bg-green-500/20 rounded-full"
           : "bg-red-700/20";
-        const statusText = isActive ? "Activated" : "Inactive";
+        const statusText = isActive ? "Ativo" : "Inativo";
 
         return (
-          <span className={`px-2 py-2 rounded-full ${statusClass}`}>
+          <span className={`px-3 py-2 rounded-full ${statusClass}`}>
             {statusText}
           </span>
         );
@@ -140,13 +140,13 @@ export default function Contacts() {
   const KebabMenuItems: KebabMenuItem[] = [
     {
       id: "details",
-      label: "Details",
+      label: "Detalhes",
       onClick: (data: Contact) => handleOpenModalDetails(data),
       icon: <Eye />,
     },
     {
       id: "delete",
-      label: "Delete",
+      label: "Deletar",
       onClick: handleOpenModalDelete,
       icon: <Trash2 />,
     },

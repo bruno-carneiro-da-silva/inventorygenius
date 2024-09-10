@@ -15,7 +15,7 @@ import {
   CalendarDays,
   Mail,
   MapPinned,
-  Phone
+  Phone,
 } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -112,7 +112,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
           </div>
           <div className="col-span-3  text-right">
             <Button className="font-medium text-xs w-36">
-              Update contact info
+              Atualizar informações
             </Button>
           </div>
         </div>

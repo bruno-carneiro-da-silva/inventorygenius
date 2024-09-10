@@ -66,7 +66,6 @@ export type CreateCompanyInit = {
   emailCompany: string;
   phoneNumberCompany: string;
   addressCompany: string;
-  timeZoneIdCompany: number | string;
   terms: boolean;
 };
 export type CreateCompanyInitResponse = {

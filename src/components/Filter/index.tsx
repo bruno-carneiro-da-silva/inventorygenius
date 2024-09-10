@@ -20,7 +20,7 @@ const Filter: React.FC<FilterProps> = ({ itens }) => {
   return (
     <div className={cx("flex flex-row space-x-1 items-center w-[300px]")}>
       <div className="font-light text-base w-[100px] text-primary-dark">
-        Filter by:
+        Filtrar por:
       </div>
       <CustomSelect name="filter" options={options} onChange={handleChange} />
     </div>

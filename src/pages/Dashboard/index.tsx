@@ -28,13 +28,13 @@ export default function Dashboard() {
       <div className="flex flex-col space-y-3">
         <DashboardHeaderLayout
           title="Dashboard"
-          subtitle="Connect, Network, Collaborate"
+          subtitle="Conectar, Criar redes, Colaborar"
           overviewItems={[
-            { number: 100, text: "New" },
-            { number: 50, text: "Working" },
-            { number: 200, text: "Contacted" },
-            { number: 20, text: "Qualified" },
-            { number: 10, text: "Done" },
+            { number: 100, text: "Novos" },
+            { number: 50, text: "Em progresso" },
+            { number: 200, text: "Contactado" },
+            { number: 20, text: "Qualificado" },
+            { number: 10, text: "Feito" },
           ]}
         />
       </div>
