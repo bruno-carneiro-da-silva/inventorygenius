@@ -4,18 +4,14 @@ class NumberResetMapper {
   toPersistence(domainPhoneNumber: NumberResetProp) {
     return {
       newPassword: domainPhoneNumber.newPassword,
-      phoneNumber: domainPhoneNumber.phoneNumber,
-      token: domainPhoneNumber.token,
+      phoneNumberAdmin: domainPhoneNumber.phoneNumberAdmin,
+      code: domainPhoneNumber.code,
     };
   }
 
   toDomain(persistencePhoneNumber: NumberResetResponse) {
     return {
-      id: persistencePhoneNumber.data.id,
-      newPassword: persistencePhoneNumber.data.newPassword,
-      phoneNumber: persistencePhoneNumber.data.phoneNumber,
-      token: persistencePhoneNumber.data.token,
-      user: persistencePhoneNumber.data.user,
+      message: persistencePhoneNumber.message,
     };
   }
 }

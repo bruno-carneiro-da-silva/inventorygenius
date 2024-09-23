@@ -1,19 +1,18 @@
 import {
   ForgotPasswordResponse,
-  PhoneRecoveryProps,
+  PasswordRecoveryProps,
 } from "@/queries/account/types";
 
 class ForgotPasswordMapper {
-  toPersistence(domainFogotPassword: PhoneRecoveryProps) {
+  toPersistence(domainFogotPassword: PasswordRecoveryProps) {
     return {
-      phoneNumber: domainFogotPassword.phoneNumber,
+      emailAdmin: domainFogotPassword.emailAdmin,
     };
   }
 
   toDomain(persistenceForgotPassword: ForgotPasswordResponse) {
     return {
-      phoneNumber: persistenceForgotPassword.data.phoneNumber,
-      token: persistenceForgotPassword.data.token,
+      message: persistenceForgotPassword.message,
     };
   }
 }

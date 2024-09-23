@@ -12,6 +12,10 @@ import Employee from "@/pages/Employee";
 import FinanceInspector from "@/pages/FinanceInspector";
 import Finance from "@/pages/Finance";
 import Register from "@/pages/Register";
+import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
+import ChangeNewPassword from "@/pages/ForgotPassword/ChangeNewPassword";
+import ConfirmNewPassword from "@/pages/ForgotPassword/ConfirmNewPassword";
+import ValidateCode from "@/pages/ForgotPassword/ValidateCode";
 
 type Route = {
   path: string;
@@ -74,6 +78,22 @@ export const routes: Route[] = [
     children: [
       // Adicione aqui as rotas filhas do dashboard, se houver
     ],
+  },
+  {
+    path: "/recovery-password",
+    element: <RecoveryPassword />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangeNewPassword />,
+  },
+  {
+    path: "/confirm-password",
+    element: <ConfirmNewPassword />,
+  },
+  {
+    path: "/validate-code",
+    element: <ValidateCode />,
   },
   {
     path: "/clientes",

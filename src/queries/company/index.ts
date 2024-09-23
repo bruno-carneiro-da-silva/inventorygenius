@@ -33,10 +33,7 @@ const createCompany = async (payload: Company) => {
 
 const createCompanyInit = async (payload: CreateCompanyInit) => {
   const body = CreateCompanyInitMapper.toPersistence(payload);
-  const { data } = await api.post<CreateCompanyInitResponse>(
-    "/company/create/init",
-    body
-  );
+  const { data } = await api.post<CreateCompanyInitResponse>("/users", body);
   return data;
 };
 

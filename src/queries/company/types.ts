@@ -66,7 +66,7 @@ export type CreateCompanyInit = {
   emailCompany: string;
   phoneNumberCompany: string;
   addressCompany: string;
-  terms: boolean;
+  terms?: boolean | null;
 };
 export type CreateCompanyInitResponse = {
   data: {

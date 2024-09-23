@@ -1,6 +1,5 @@
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
-import CustomSelect from "@/components/CustomSelect";
 import TextInput from "@/components/Input";
 import { LoginLayoutPayload } from "@/components/Login/LoginLayout";
 import Header from "@/components/LogoHeader";
@@ -19,7 +18,7 @@ import {
   Phone,
 } from "lucide-react";
 import { useState } from "react";
-import { Controller, FieldError, FormProvider } from "react-hook-form";
+import { FieldError, FormProvider } from "react-hook-form";
 import MaskedTextInput from "./components/PhoneInput";
 
 export default function Register() {

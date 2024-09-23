@@ -1,7 +1,7 @@
 import { showErrorToast } from "@/components/Toast";
 import { useLogin } from "@/queries/account/index";
 import { useUserStore } from "@/stores/user";
-import { setIsPersistent } from "@/utils/sessionManager";
+import { unmaskPhone } from "@/utils/functions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 type LoginCredentials = {
-  username: string;
+  phoneNumberAdmin: string;
   password: string;
   isPersistent?: boolean;
 };
 
 const schema: yup.ObjectSchema<LoginCredentials> = yup.object({
-  username: yup.string().required("Usuário é obrigatório"),
+  phoneNumberAdmin: yup.string().required("Telefone é obrigatório"),
   password: yup
     .string()
     .required("Senha é obrigatoria")
@@ -30,15 +30,21 @@ export default function useCustomLogin() {
   const methods = useForm<LoginCredentials>({
     resolver: yupResolver(schema),
   });
-  const { setLogin } = useUserStore();
+  const { setLogin, setIsPersistent } = useUserStore();
 
   const onSubmit = (credentials: LoginCredentials) => {
     setIsLoading(true);
+
+    const finalPayload = {
+      ...credentials,
+      phoneNumberAdmin: unmaskPhone(credentials.phoneNumberAdmin),
+    };
+    
     login
-      .mutateAsync(credentials)
+      .mutateAsync(finalPayload)
       .then((res) => {
         setLogin(res);
-        // setIsPersistent(credentials?.isPersistent);
+        setIsPersistent(res.user?.terms || false);
         navigate("/dashboard");
       })
       .catch((err) => {

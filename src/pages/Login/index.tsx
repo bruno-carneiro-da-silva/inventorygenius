@@ -5,11 +5,11 @@ import { LoginLayoutPayload } from "@/components/Login/LoginLayout";
 import { LoadingIcon } from "@/icons";
 import useCustomLogin from "@/pages/Login/hooks/useCustomLogin";
 import { getValueByKey } from "@/utils/utils";
-import { Eye, EyeOff, User } from "lucide-react";
-import { useEffect, useState } from "react";
-import { FormProvider, FieldError } from "react-hook-form";
 import cx from "classnames";
-import TextInput from "@/components/Input";
+import { Eye, EyeOff, User } from "lucide-react";
+import { useState } from "react";
+import { FieldError, FormProvider } from "react-hook-form";
+import MaskedTextInput from "../Register/components/PhoneInput";
 
 export default function Login() {
   const { navigate, methods, onSubmit, isLoading } = useCustomLogin();
@@ -49,10 +49,10 @@ export default function Login() {
             onSubmit={methods.handleSubmit(onSubmit)}
             className="flex flex-col space-y-4"
           >
-            <TextInput
-              name="username"
+            <MaskedTextInput
+              name="phoneNumberAdmin"
               type="text"
-              placeholder="Usuário"
+              placeholder="Telefone"
               icon={<User />}
             />
             <div

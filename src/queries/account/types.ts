@@ -15,20 +15,30 @@ export interface LoginData {
 }
 
 export type LoginResponse = {
-  // succeeded: boolean;
-  // errors: {
-  //   key: string;
-  //   message: string;
-  // }[];
   accessToken: string;
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    emailAdmin: string;
+    phoneNumberAdmin: string;
+    nameCompany: string;
+    emailCompany: string;
+    phoneNumberCompany: string;
+    addressCompany: string;
+    terms: boolean;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 };
 export interface LoginCredentials {
-  username: string;
+  phoneNumberAdmin: string;
   password: string;
   isPersistent?: boolean;
 }
 
-// export type RefreshToken = Pick<LoginData, "refreshToken">;
+// export type RefreshToken = Pick<LoginData, refreshToken">;
 
 export type VerificateCode = {
   phoneNumber: string;
@@ -39,8 +49,8 @@ export type PasswordResetProp = Pick<NumberResetProp, "newPassword"> & {
   currentPassword: string;
 };
 
-export type PhoneRecoveryProps = {
-  phoneNumber: string;
+export type PasswordRecoveryProps = {
+  emailAdmin: string;
 };
 
 export type UserDetails = {
@@ -61,15 +71,13 @@ export type ForgotPasswordData = {
 };
 
 export type ForgotPasswordResponse = {
-  succeeded: boolean;
-  errors: string[] | null;
-  data: ForgotPasswordData;
+  message: string;
 };
 
 export type NumberResetProp = {
   newPassword: string;
-  phoneNumber: string;
-  token: string;
+  phoneNumberAdmin: string;
+  code: string;
 };
 
 export type NumberResetData = {
@@ -83,9 +91,7 @@ export type NumberResetData = {
 };
 
 export type NumberResetResponse = {
-  succeeded: boolean;
-  errors: string[] | null;
-  data: NumberResetData;
+  message: string;
 };
 
 export type ICreateCustomerAccount = {

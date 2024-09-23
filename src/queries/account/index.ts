@@ -1,19 +1,19 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "@/services/api";
+import ForgotPasswordMapper from "@/queries/account/mappers/ForgotPasswordMapper";
 import LoginMapper from "@/queries/account/mappers/LoginMapper";
+import NumberResetMapper from "@/queries/account/mappers/NumberResetMapper";
 import {
   ForgotPasswordResponse,
   LoginCredentials,
   LoginResponse,
   NumberResetProp,
   NumberResetResponse,
+  PasswordRecoveryProps,
   PasswordResetProp,
-  PhoneRecoveryProps,
   // RefreshToken,
   VerificateCode,
 } from "@/queries/account/types";
-import NumberResetMapper from "@/queries/account/mappers/NumberResetMapper";
-import ForgotPasswordMapper from "@/queries/account/mappers/ForgotPasswordMapper";
+import api from "@/services/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Login = async (payload: LoginCredentials) => {
   const body = LoginMapper.toPersistence(payload);
@@ -30,9 +30,9 @@ const Login = async (payload: LoginCredentials) => {
 //   return data;
 // };
 
-const generateCode = async (phoneNumber: string) => {
-  const { data } = await api.post(`/account/phone-number/generate-code`, {
-    phoneNumber,
+const generateCode = async (emailAdmin: string) => {
+  const { data } = await api.post(`/send_code`, {
+    emailAdmin,
   });
   return data;
 };
@@ -45,29 +45,26 @@ const verificateCode = async ({ phoneNumber, code }: VerificateCode) => {
   return data;
 };
 
-const forgotPassword = async (payload: PhoneRecoveryProps) => {
-  const { phoneNumber } = payload;
-  const { data } = await api.post<ForgotPasswordResponse>(
-    `/account/forgot-password`,
-    {
-      phoneNumber,
-    }
-  );
+const forgotPassword = async (payload: PasswordRecoveryProps) => {
+  const { emailAdmin } = payload;
+  const { data } = await api.post<ForgotPasswordResponse>(`/send_code`, {
+    emailAdmin,
+  });
   return ForgotPasswordMapper.toDomain(data);
 };
 
 const phoneNumberReset = async (payload: NumberResetProp) => {
   const body = NumberResetMapper.toPersistence(payload);
 
-  const { data } = await api.put<NumberResetResponse>(
-    `/account/password/phone-number/reset`,
+  const { data } = await api.post<NumberResetResponse>(
+    `/verify_password`,
     body
   );
   return data;
 };
 
 const passwordReset = async (payload: PasswordResetProp) => {
-  const { data } = await api.put(`/account/password/reset`, payload);
+  const { data } = await api.post(`/verify_password`, payload);
   return data;
 };
 
@@ -120,8 +117,8 @@ export const useVerificationCode = () => {
 export const useForgotPassword = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (phoneNumber: PhoneRecoveryProps) =>
-      forgotPassword(phoneNumber),
+    mutationFn: (emailAdmin: PasswordRecoveryProps) =>
+      forgotPassword(emailAdmin),
     onMutate: () => {
       queryClient.invalidateQueries({ queryKey: ["forgotPassword"] });
     },

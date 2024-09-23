@@ -27,7 +27,7 @@ const schema: yup.ObjectSchema<CreateCompanyInit> = yup.object({
   emailCompany: yup.string().required("Company e-mail is required"),
   phoneNumberCompany: yup.string().required("Company phone is required"),
   addressCompany: yup.string().required("Address is required"),
-  terms: yup.boolean().required("You must accept the terms"),
+  terms: yup.boolean().nullable(),
 });
 
 export const useRegister = () => {
@@ -51,15 +51,16 @@ export const useRegister = () => {
   //   })) || [];
 
   const onSubmit = (company: CreateCompanyInit) => {
+    console.log("teste", company);
     setIsLoading(true);
     createCompany
       .mutateAsync(company)
       .then(() => {
-        // const credentials: LoginCredentials = {
-        //   // phoneNumber: company.phoneNumberAdmin,
-        //   password: company.password,
-        //   isPersistent: false,
-        // };
+        const credentials: LoginCredentials = {
+          emailAdmin: company.emailAdmin,
+          password: company.password,
+          isPersistent: false,
+        };
         login
           .mutateAsync(credentials)
           .then((res) => {
@@ -71,7 +72,9 @@ export const useRegister = () => {
             const errors = err?.response?.data?.errors;
             if (errors && Array.isArray(errors)) {
               errors.forEach((error) => {
-                showErrorToast(error.message);
+                showErrorToast(
+                  error.message || "An unexpected error occurred."
+                );
               });
             } else {
               showErrorToast("An unexpected error occurred.");

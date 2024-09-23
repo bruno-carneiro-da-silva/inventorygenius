@@ -15,6 +15,10 @@ export const maskPhone = (value?: string) => {
     .replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
 };
 
+export const unmaskPhone = (phone: string) => {
+  return phone.replace(/\D/g, "");
+};
+
 export const maskDate = (value: string) => {
   return value
     .replace(/\D/g, "")
