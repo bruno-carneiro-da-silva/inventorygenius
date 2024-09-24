@@ -1,45 +1,47 @@
-import { Plan } from "../types/plans";
+import { Plan } from "@/types/plan";
 
 export const plans: Plan[] = [
   {
     id: 1,
     uid: "45412f3c-1ca7-4d33-a0b4-c1a7be1dc927",
-    name: "Free",
-    description: "Our most popular plan for small teams",
+    name: "Grátis",
+    description: "Nosso plano mais popular para pequenas empresas",
     externalIntegrationPaymentId: null,
     statusId: 1,
     features: [
       {
-        name: "Branded QR Codes",
-        description: "Customize QR codes to match your brand",
+        name: "QR Code Personalizado",
+        description: "Customize seus QR codes conforme sua marca",
       },
       {
-        name: "Data Insights",
-        description: "Analyze user behavior with unlimited scans",
+        name: "Insights dos dados",
+        description:
+          "Analise o comportamento do usuário com escaneamentos ilimitados",
       },
       {
-        name: "Secure Encoding",
-        description: "Encrypt QR codes for enhanced security",
+        name: "Codificação Segura",
+        description: "Criptografe QR codes para maior segurança",
       },
       {
-        name: "Integration Ease",
-        description: "Seamlessly integrate QR scanning",
+        name: "Facilidade de Integração",
+        description: "Integre a leitura de QR codes de forma simples",
       },
       {
-        name: "Personalized Engagement",
-        description: "Deliver tailored content via QR scans",
+        name: "Engajamento Personalizado",
+        description:
+          "Forneça conteúdo personalizado via escaneamentos de QR codes",
       },
     ],
     prices: [
       {
         id: 4,
-        name: "Year",
+        name: "Ano",
         price: 0,
         benefits: "teste",
       },
       {
         id: 8,
-        name: "Month",
+        name: "Mês",
         price: 0,
         benefits: "teste",
       },
@@ -49,41 +51,41 @@ export const plans: Plan[] = [
     id: 2,
     uid: "3c36075d-a9f2-4f63-9ed5-d33e846dec09",
     name: "Core",
-    description: "Our most popular plan for startups",
+    description: "Nosso plano mais popular para startups",
     externalIntegrationPaymentId: null,
     statusId: 1,
     features: [
       {
-        name: "Analytics Insights",
+        name: "Insights Analíticos",
         description:
-          "Access 30 days of detailed click and scan data for informed decision-making",
+          "Acesse 30 dias de dados detalhados de cliques e escaneamentos para tomada de decisões informadas",
       },
       {
-        name: "UTM Builder",
+        name: "Construtor de UTM",
         description:
-          "Create trackable links with UTM parameters for precise campaign analysis",
+          "Crie links rastreáveis com parâmetros UTM para análise precisa de campanhas",
       },
       {
-        name: "Custom QR Features",
+        name: "Recursos de QR Personalizados",
         description:
-          "Unlock advanced customization options for your QR codes, tailored to your branding needs",
+          "Desbloqueie opções avançadas de personalização para seus QR codes, adaptadas às suas necessidades de branding",
       },
       {
-        name: "Redirect Functionality",
+        name: "Funcionalidade de Redirecionamento",
         description:
-          "Easily redirect users via links or QR codes to desired destinations, optimizing user experience and engagement",
+          "Redirecione facilmente os usuários via links ou QR codes para destinos desejados, otimizando a experiência e o engajamento do usuário",
       },
     ],
     prices: [
       {
         id: 3,
-        name: "Year",
+        name: "Ano",
         price: 999.99,
         benefits: "teste",
       },
       {
         id: 7,
-        name: "Month",
+        name: "Mês",
         price: 99.99,
         benefits: "teste",
       },
@@ -92,42 +94,42 @@ export const plans: Plan[] = [
   {
     id: 3,
     uid: "5f92a154-71d1-4068-906d-7e70c757237a",
-    name: "Growth",
-    description: "Our most popular plan for companies",
+    name: "Crescimento",
+    description: "Nosso plano mais popular para empresas",
     externalIntegrationPaymentId: null,
     statusId: 1,
     features: [
       {
-        name: "Custom Domain",
+        name: "Domínio Personalizado",
         description:
-          "Enjoy a complimentary custom domain for your branded links, enhancing your online presence",
+          "Desfrute de um domínio personalizado gratuito para seus links de marca, melhorando sua presença online",
       },
       {
-        name: "Branded Links",
+        name: "Links de Marca",
         description:
-          "Create personalized links reflecting your brand identify for increased recognition and trust",
+          "Crie links personalizados que refletem a identidade da sua marca para maior reconhecimento e confiança",
       },
       {
-        name: "Extended Analytics",
+        name: "Análises Estendidas",
         description:
-          "Access four months of comprehensive click and scan data for deeper insights into user behavior",
+          "Acesse quatro meses de dados abrangentes de cliques e escaneamentos para obter insights mais profundos sobre o comportamento do usuário",
       },
       {
-        name: "Bulk Shortening",
+        name: "Encurtamento em Massa",
         description:
-          "Quickly shorten multiple links at once for efficient management and distribution",
+          "Encurte rapidamente vários links de uma vez para gerenciamento e distribuição eficientes",
       },
     ],
     prices: [
       {
         id: 2,
-        name: "Year",
+        name: "Ano",
         price: 999.99,
         benefits: "teste",
       },
       {
         id: 6,
-        name: "Month",
+        name: "Mês",
         price: 99.99,
         benefits: "teste",
       },
@@ -137,41 +139,41 @@ export const plans: Plan[] = [
     id: 4,
     uid: "03116240-340a-499d-bfa1-3f84957dab45",
     name: "Premium",
-    description: "Our most popular plan for enterprises",
+    description: "Nosso plano mais popular para grandes empresas",
     externalIntegrationPaymentId: null,
     statusId: 1,
     features: [
       {
-        name: "Year-Long Analytics",
+        name: "Análises de Um Ano",
         description:
-          "Access one year of detailed click and scan data to track long-term performance and trends",
+          "Acesse um ano de dados detalhados de cliques e escaneamentos para acompanhar o desempenho e as tendências a longo prazo",
       },
       {
-        name: "Custom Campaign Tracking",
+        name: "Rastreamento de Campanha Personalizado",
         description:
-          "Implement custom tracking parameters at the campaign level for precise analysis and attribution",
+          "Implemente parâmetros de rastreamento personalizados no nível da campanha para análise e atribuição precisas",
       },
       {
-        name: "City-Level & Device Insights",
+        name: "Insights por Cidade e Dispositivo",
         description:
-          "Gain insights into click and scan data at the city and device level, allowing targeted optimizations and audience segmentation",
+          "Obtenha insights sobre dados de cliques e escaneamentos no nível da cidade e do dispositivo, permitindo otimizações direcionadas e segmentação de público",
       },
       {
-        name: "Mobile Deep Linking",
+        name: "Deep Linking Móvel",
         description:
-          "Enable seamless navigation to specific app content with mobile deep linking, enhancing user experience and engagement",
+          "Habilite a navegação perfeita para conteúdo específico do aplicativo com deep linking móvel, melhorando a experiência e o engajamento do usuário",
       },
     ],
     prices: [
       {
         id: 1,
-        name: "Year",
+        name: "Ano",
         price: 999.99,
         benefits: "teste",
       },
       {
         id: 5,
-        name: "Month",
+        name: "Mês",
         price: 99.99,
         benefits: "teste",
       },
