@@ -6,6 +6,7 @@ import { CreateCompanyInit } from "@/queries/company/types";
 // import { useGetAllTimeZone } from "@/queries/location";
 import { useUserStore } from "@/stores/user";
 import { ApiError } from "@/types/ApiError";
+import { unmaskPhone } from "@/utils/functions";
 import { setIsPersistent } from "@/utils/sessionManager";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
@@ -57,7 +58,7 @@ export const useRegister = () => {
       .mutateAsync(company)
       .then(() => {
         const credentials: LoginCredentials = {
-          emailAdmin: company.emailAdmin,
+          phoneNumberAdmin: unmaskPhone(company.phoneNumberAdmin),
           password: company.password,
           isPersistent: false,
         };
@@ -68,17 +69,10 @@ export const useRegister = () => {
             setIsPersistent(credentials.isPersistent);
             navigate("/register/choose-plan");
           })
-          .catch((err: ApiError) => {
-            const errors = err?.response?.data?.errors;
-            if (errors && Array.isArray(errors)) {
-              errors.forEach((error) => {
-                showErrorToast(
-                  error.message || "An unexpected error occurred."
-                );
-              });
-            } else {
-              showErrorToast("An unexpected error occurred.");
-            }
+          .catch((err) => {
+            const errorMessage =
+              err?.response?.data?.error || "Ocorreu um erro";
+            showErrorToast(errorMessage);
           })
           .finally(() => {
             setIsLoading(false);

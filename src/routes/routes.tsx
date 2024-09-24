@@ -16,6 +16,9 @@ import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
 import ChangeNewPassword from "@/pages/ForgotPassword/ChangeNewPassword";
 import ConfirmNewPassword from "@/pages/ForgotPassword/ConfirmNewPassword";
 import ValidateCode from "@/pages/ForgotPassword/ValidateCode";
+import ChoosePlan from "@/pages/Register/ChoosePlan";
+import ChooseCycle from "@/pages/Register/ChooseCycle";
+import BillingDetails from "@/pages/Register/BillingDetails";
 
 type Route = {
   path: string;
@@ -155,22 +158,22 @@ export const routes: Route[] = [
   //   path: "/register",
   //   element: <Register />,
   // },
-  // {
-  //   path: "/register/choose-plan",
-  //   element: <ChoosePlan />,
-  // },
-  // {
-  //   path: "/register/choose-cycle/:planId",
-  //   element: <ChooseCycle />,
-  // },
+  {
+    path: "/register/choose-plan",
+    element: <ChoosePlan />,
+  },
+  {
+    path: "/register/choose-cycle/:planId",
+    element: <ChooseCycle />,
+  },
   // {
   //   path: "/register/review-confirm",
   //   element: <ReviewConfirm />,
   // },
-  // {
-  //   path: "/register/billing-details",
-  //   element: <BillingDetails />,
-  // },
+  {
+    path: "/register/billing-details",
+    element: <BillingDetails />,
+  },
   // {
   //   path: "/account-created",
   //   element: <AccountCreated />,

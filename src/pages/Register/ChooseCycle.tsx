@@ -14,7 +14,7 @@ export default function ChooseCycle() {
   } = useCycle();
 
   if (planNotFound) {
-    return <div>Plan not found</div>;
+    return <div>Plano não encontrado</div>;
   }
 
   return (
@@ -23,17 +23,15 @@ export default function ChooseCycle() {
         <Header />
       </div>
       <div className="flex flex-col space-y-3 w-6/12 self-center p-3">
-        <h1 className="text-xl font-bold text-left">
-          2. Choose your subscription cycle
-        </h1>
+        <h1 className="text-xl font-bold text-left">2. Escolha seu plano</h1>
         <div className="flex flex-col space-y-5 bg-white rounded-md p-4">
           {selectedPlan?.prices.map((price) => (
             <RadioButton
               label={price.name}
               description={
                 price.price !== 0
-                  ? `Billed USD ${price.price} annually`
-                  : "Billed annually"
+                  ? `Cobrado R$ ${price.price} anualmente`
+                  : "Cobrado anualmente"
               }
               className="justify-between"
               value="option1"
@@ -41,7 +39,7 @@ export default function ChooseCycle() {
               onChange={() => handleCycleSelection(price.name, price.id)}
             >
               <div className="text-lg font-bold flex items-center">
-                USD {formatNumber(price.price)}/mo
+                R$ {formatNumber(price.price)}/mo
               </div>
             </RadioButton>
           ))}
