@@ -1,24 +1,25 @@
-import { ReactElement } from "react";
-import ProtectedRoutes from "../utils/ProtectedRoutes";
-import PublicRoutes from "@/utils/PublicRoutes";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import { sidebarItens } from "@/mocks/dashboard.mock";
-import Login from "@/pages/Login";
-import SupplierDetails from "@/pages/Supplier/SupplierDetails";
-import CreateSupplier from "@/pages/Supplier/CreateSupplier";
 import Contacts from "@/pages/Clients/Contacts";
-import Sells from "@/pages/Sales";
 import Employee from "@/pages/Employee";
-import FinanceInspector from "@/pages/FinanceInspector";
 import Finance from "@/pages/Finance";
-import Register from "@/pages/Register";
-import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
+import FinanceInspector from "@/pages/FinanceInspector";
 import ChangeNewPassword from "@/pages/ForgotPassword/ChangeNewPassword";
 import ConfirmNewPassword from "@/pages/ForgotPassword/ConfirmNewPassword";
+import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
 import ValidateCode from "@/pages/ForgotPassword/ValidateCode";
-import ChoosePlan from "@/pages/Register/ChoosePlan";
-import ChooseCycle from "@/pages/Register/ChooseCycle";
+import Login from "@/pages/Login";
+import Register from "@/pages/Register";
 import BillingDetails from "@/pages/Register/BillingDetails";
+import ChooseCycle from "@/pages/Register/ChooseCycle";
+import ChoosePlan from "@/pages/Register/ChoosePlan";
+import CreateSupplier from "@/pages/Supplier/CreateSupplier";
+import SupplierDetails from "@/pages/Supplier/SupplierDetails";
+import PublicRoutes from "@/utils/PublicRoutes";
+import { ReactElement } from "react";
+import ProtectedRoutes from "../utils/ProtectedRoutes";
+import SalesDetails from "@/pages/Sales/SalesDetails";
+import Sales from "@/pages/Sales";
 
 type Route = {
   path: string;
@@ -131,7 +132,7 @@ export const routes: Route[] = [
     ),
   },
   {
-    path: "/financeiro",
+    path: "/financas",
     element: (
       <ProtectedRoutes>
         <Finance />
@@ -142,7 +143,15 @@ export const routes: Route[] = [
     path: "/vendas",
     element: (
       <ProtectedRoutes>
-        <Sells />
+        <Sales />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/vendas/:id",
+    element: (
+      <ProtectedRoutes>
+        <SalesDetails />
       </ProtectedRoutes>
     ),
   },

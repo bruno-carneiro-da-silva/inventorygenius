@@ -1,4 +1,5 @@
 import {
+  Calendar,
   DollarSign,
   HandCoins,
   // Blocks,
@@ -7,18 +8,17 @@ import {
   LayoutDashboard,
   Store,
   UserRoundCog,
-  Users,
-  Wallet,
+  Users
 } from "lucide-react";
 // import Contacts from "../pages/Clients/Contacts";
 import Contacts from "@/pages/Clients/Contacts";
 import Employee from "@/pages/Employee";
+import Finance from "@/pages/Finance";
+import FinanceInspector from "@/pages/FinanceInspector";
 import Sells from "@/pages/Sales";
 import Supplier from "@/pages/Supplier";
 import Dashboard from "../pages/Dashboard";
 import { SiderbarItem } from "../types/dashboard";
-import Finance from "@/pages/Finance";
-import FinanceInspector from "@/pages/FinanceInspector";
 // import Integrations from "../pages/Integrations";
 // // import Webhooks from "../pages/Webhooks";
 // import Campaigns from "../pages/Campaigns";
@@ -53,26 +53,26 @@ export const sidebarItens: SiderbarItem[] = [
   {
     id: "4",
     name: "Fiscal",
+    route: "/financas",
+    icon: <Calendar className={className} />,
+    element: <Finance />,
+  },
+  {
+    id: "5",
+    name: "Financas",
     route: "/fiscal",
     icon: <HandCoins className={className} />,
     element: <FinanceInspector />,
   },
   {
-    id: "5",
-    name: "Financeiro",
-    route: "/financeiro",
-    icon: <Wallet className={className} />,
-    element: <Finance />,
-  },
-  {
-    id: "4",
+    id: "6",
     name: "Vendas",
     route: "/vendas",
     icon: <DollarSign className={className} />,
     element: <Sells />,
   },
   {
-    id: "5",
+    id: "7",
     name: "Funcionários",
     route: "/funcionarios",
     icon: <UserRoundCog className={className} />,

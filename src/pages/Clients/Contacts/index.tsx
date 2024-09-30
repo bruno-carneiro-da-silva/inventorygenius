@@ -20,7 +20,7 @@ import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { maskDateISO, maskPhone } from "@/utils/functions";
 import { Eye, Mail, Phone, Plus, Trash2 } from "lucide-react";
 import React, { useState } from "react";
-import { FormProvider } from "react-hook-form";
+// import { FormProvider } from "react-hook-form";
 
 export default function Contacts() {
   const [openModalNotes, setOpenModalNotes] = useState(false);
@@ -46,7 +46,7 @@ export default function Contacts() {
   const handleOpenModalCreate = () => {
     setOpenModalCreate(!openModalCreate);
   };
-  const [page, setPage] = useState<number>(1);
+  const [_page, setPage] = useState<number>(1);
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 

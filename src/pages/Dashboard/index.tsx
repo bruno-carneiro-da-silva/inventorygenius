@@ -27,14 +27,10 @@ export default function Dashboard() {
     <React.Fragment>
       <div className="flex flex-col space-y-3">
         <DashboardHeaderLayout
-          title="Dashboard"
-          subtitle="Conectar, Criar redes, Colaborar"
           overviewItems={[
-            { number: 100, text: "Novos" },
-            { number: 50, text: "Em progresso" },
-            { number: 200, text: "Contactado" },
-            { number: 20, text: "Qualificado" },
-            { number: 10, text: "Feito" },
+            { number: 100, text: "Total de Vendas", percentage: 30 },
+            { number: 50, text: "Total de Fornecedores", percentage: 20 },
+            { number: 200, text: "Balanço", percentage: 50 },
           ]}
         />
       </div>

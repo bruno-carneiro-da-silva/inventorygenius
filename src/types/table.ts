@@ -1,6 +1,6 @@
 export interface ColumnTable {
   id: string;
-  label: string;
+  label?: string;
   width?: string;
   align?: string;
   render?: (data: any) => React.ReactNode;

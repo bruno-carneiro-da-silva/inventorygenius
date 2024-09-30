@@ -4,7 +4,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "1",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/1.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -26,7 +26,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "2",
     name: "Bruno carneiro",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/2.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -48,7 +48,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "3",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/3.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -70,7 +70,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "4",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/4.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -92,7 +92,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "5",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/5.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -114,7 +114,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "6",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/6.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -136,7 +136,7 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "7",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/7.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",
@@ -158,7 +158,29 @@ export const supplier: CardSupplierProps[] = [
   {
     id: "8",
     name: "John Doe",
-    url: "https://placeholder.com/150",
+    url: "https://randomuser.me/api/portraits/men/8.jpg",
+    product: "Product",
+    icon: "Mail",
+    secondIcon: "Phone",
+    email: "jonhdoe@email.teste",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+    phone: "+11 345 6789 0",
+    address: "Rua fulano 234, São Paulo, Brasil",
+    city: "São Paulo",
+    state: "São Paulo",
+    country: "Brasil",
+    status: "Ativo",
+    companyName: "Jeans’s fashion - LTDA",
+    category: "Fornecedor",
+    productCategory: "Roupas, jeans, camisetas",
+    createdAt: "2023-02-01T00:00:00Z",
+    updatedAt: "2023-02-01T00:00:00Z",
+  },
+  {
+    id: "9",
+    name: "John Doe",
+    url: "https://randomuser.me/api/portraits/men/9.jpg",
     product: "Product",
     icon: "Mail",
     secondIcon: "Phone",

@@ -1,4 +1,3 @@
-import { default as Icon, default as PerfilImg } from "@/assets/react.svg";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import Tooltip from "@/components/Tooltip";
@@ -29,12 +28,17 @@ export const DashboardLayout: React.FC = () => {
   } = useDashboard();
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
+  const PerfilImg = "https://randomuser.me/api/portraits/men/1.jpg";
   return (
     <div className="flex flex-row">
       <div className="bg-primary-dark h-screen fixed z-30 py-5 justify-between flex flex-col place-items-center place-content-center space-y-2 w-20">
         <div className="text-center">
           <div className="w-20 self-center flex place-content-center mb-10">
-            <img src={Icon} alt="logo" className="w-10 place-self-center" />
+            <img
+              src={PerfilImg}
+              alt="logo"
+              className="w-10 place-self-center rounded-full"
+            />
           </div>
           {sidebarItens.map((item, index) => (
             <Tooltip key={index} text={item.name}>

@@ -78,7 +78,7 @@ export default function Supplier() {
         <div className="mt-16 flex flex-row items-center justify-center">
           <Pagination
             currentPage={1}
-            totalPages={100}
+            totalPages={3}
             onPageChange={(page) => console.log(page)}
           />
         </div>
