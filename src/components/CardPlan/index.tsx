@@ -6,7 +6,7 @@ import { PlanDetails } from "@/types/plan";
 
 type CardPlanProps = {
   item: PlanDetails;
-  kebabMenuItems: KebabMenuItem[];
+  kebabMenuItems?: KebabMenuItem[];
 };
 
 export const CardPlan: React.FC<CardPlanProps> = ({ kebabMenuItems, item }) => {
@@ -20,6 +20,10 @@ export const CardPlan: React.FC<CardPlanProps> = ({ kebabMenuItems, item }) => {
     return filteredData;
   };
 
+  if (!kebabMenuItems) {
+    kebabMenuItems = [];
+  }
+
   return (
     <div className="bg-white mt-8">
       <div
@@ -31,7 +35,7 @@ export const CardPlan: React.FC<CardPlanProps> = ({ kebabMenuItems, item }) => {
         </div>
         <div className="absolute inset-0 p-6 flex flex-col justify-between text-white">
           <div>
-            <h2 className="text-lg font-semibold">Your Plan</h2>
+            <h2 className="text-lg font-semibold">Seu Plano</h2>
             <h1 className="text-4xl font-bold mt-2">{item.name}</h1>
           </div>
           <div className="mt-6">
@@ -44,12 +48,12 @@ export const CardPlan: React.FC<CardPlanProps> = ({ kebabMenuItems, item }) => {
               </li>
             </ul>
             <p className="mt-4 text-sm">
-              Upgrade to Premium Plan to get more Features & Storage memory
+              Mude para Plano Premium para pegar mais Funcionalidades & Memória
             </p>
           </div>
           <div className="mt-6">
             <button className="px-4 py-2 bg-white text-primary-dark font-semibold rounded-full">
-              Upgrade Plan
+              Mudar o Plano
             </button>
           </div>
         </div>

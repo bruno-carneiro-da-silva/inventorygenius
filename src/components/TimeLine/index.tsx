@@ -25,9 +25,9 @@ const TimeLine: React.FC<TimelineItemProp> = ({ item }) => {
               {item.from && item.to && (
                 <>
                   {" "}
-                  from <span className="text-gray-600">
+                  de <span className="text-gray-600">
                     {item.from}
-                  </span> to{" "}
+                  </span> para{" "}
                   <span className="text-primary-dark font-bold">{item.to}</span>
                 </>
               )}

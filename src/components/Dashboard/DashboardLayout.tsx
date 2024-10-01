@@ -28,6 +28,10 @@ export const DashboardLayout: React.FC = () => {
   } = useDashboard();
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
+  // const imageProfile = `${
+  //   company?.data.photoUrl ?? ""
+  // }?t=${new Date().getTime()}`;
+
   const PerfilImg = "https://randomuser.me/api/portraits/men/1.jpg";
   return (
     <div className="flex flex-row">
@@ -164,7 +168,7 @@ export const DashboardLayout: React.FC = () => {
           </div>
         </Modal>
       )}
-      {/* {openOptions && (
+      {/* {/* {openOptions && (
         <DropdownProfile
           onClose={handleOpenOptions}
           onProfileClick={() => {

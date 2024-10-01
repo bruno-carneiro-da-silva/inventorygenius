@@ -16,6 +16,7 @@ export const useSalesStore = create(
     (set) => ({
       sell: {
         id: "",
+        uId: "",
         photo: "",
         name: "",
         price: 0,

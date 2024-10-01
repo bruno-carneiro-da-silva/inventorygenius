@@ -4,12 +4,16 @@ import { useSalesStore } from "@/stores/sales";
 import { Product } from "@/types/sales";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { BarChart2Icon, Eye, MoveUpRight, Star, Trash2 } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import ModalDeleteSell from "./Modals/DeleteSell";
 
 export default function Sales() {
   const methods = useForm();
   const navigate = useNavigate();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
   const columns: ColumnTable[] = [
     {
       id: "productName",
@@ -117,6 +121,10 @@ export default function Sales() {
     navigate(`/vendas/${sell.uId}`);
   };
 
+  const handleOpenModalDelete = () => {
+    setOpenDeleteModal(!openDeleteModal);
+  };
+
   const KebabMenuItems: KebabMenuItem[] = [
     {
       id: "details",
@@ -127,22 +135,30 @@ export default function Sales() {
     {
       id: "delete",
       label: "Deletar",
-      onClick: () => console.log("Deleted"),
+      onClick: handleOpenModalDelete,
       icon: <Trash2 />,
     },
   ];
 
   return (
     <div>
-      <SellsTable
-        columns={columns}
-        data={productMock}
-        kebabMenu={KebabMenuItems}
-        totalPages={5}
-        isLoading={false}
-        handlePage={() => {}}
-        currentPage={1}
-      />
+      <FormProvider {...methods}>
+        <SellsTable
+          columns={columns}
+          data={productMock}
+          kebabMenu={KebabMenuItems}
+          totalPages={5}
+          isLoading={false}
+          handlePage={() => {}}
+          currentPage={1}
+        />
+      </FormProvider>
+      {openDeleteModal && (
+        <ModalDeleteSell
+          isOpen={openDeleteModal}
+          onClose={handleOpenModalDelete}
+        />
+      )}
     </div>
   );
 }
