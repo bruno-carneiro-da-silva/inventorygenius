@@ -10,7 +10,7 @@ import FilterButtons from "./FilterButtons";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
-  data: { [key: string]: string | number; gender: string }[];
+  data: any[];
   searchComponent?: React.ReactNode;
   kebabMenu?: KebabMenuItem[];
   totalPages: number;
