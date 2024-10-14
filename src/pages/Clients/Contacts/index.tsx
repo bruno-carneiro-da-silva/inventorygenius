@@ -1,10 +1,7 @@
 import Icon from "@/assets/react.svg";
 import Button from "@/components/Button";
 // import Filter from "@/components/Filter";
-import { DashboardHeaderLayout } from "@/components/Dashboard/DashboardHeaderLayout";
 import Filter from "@/components/Filter";
-import KebabMenu from "@/components/KebabMenu";
-import SubHeader from "@/components/SubHeader";
 import Table from "@/components/Table";
 // import Table from "@/components/Table";
 import { contacts } from "@/mocks/contacts.mock";
@@ -17,7 +14,7 @@ import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 // import { ColumnTable, KebabMenuItem } from "@/types/table";
-import { maskDateISO, maskPhone } from "@/utils/functions";
+import { maskDateISO } from "@/utils/functions";
 import { Eye, Mail, Phone, Plus, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 // import { FormProvider } from "react-hook-form";
@@ -160,7 +157,7 @@ export default function Contacts() {
           data={contacts || []}
           kebabMenu={KebabMenuItems}
           searchComponent={
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-6">
               <Filter itens={columns} />
               <Button
                 onClick={handleOpenModalCreate}

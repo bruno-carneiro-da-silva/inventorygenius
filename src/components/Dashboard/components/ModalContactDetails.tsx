@@ -161,8 +161,8 @@ const ModalContactDetails = ({
     <>
       <Modal isOpen={isOpen} onClose={handleClose} className="!w-8/12">
         <ModalHeader
-          title="Company Details"
-          subtitle="See in details"
+          title="Detalhes da empresa"
+          subtitle="Ver em detalhes"
           onClose={handleClose}
         />
         {isLoading ? (
@@ -180,7 +180,7 @@ const ModalContactDetails = ({
                     <TextInput
                       name="name"
                       icon={<PencilIcon className="h-5 w-5" />}
-                      label="Name"
+                      label="Nome"
                       className="font-light text-gray-500 text-base"
                     />
                   </div>
@@ -196,7 +196,7 @@ const ModalContactDetails = ({
                   <div className="text-sm font-light flex flex-row space-x-2 w-full text-gray-500">
                     <MaskedTextInput
                       name="phoneNumber"
-                      label="Phone Number"
+                      label="Telefone"
                       icon={<Phone className="w-5 h-5" />}
                       className="font-light text-base"
                     />
@@ -205,7 +205,7 @@ const ModalContactDetails = ({
                     <Autocomplete className="w-full">
                       <TextInput
                         name="address"
-                        label="Address"
+                        label="Endereço"
                         icon={<MapPinned className="w-5 h-5" />}
                         className="font-light w-full text-base"
                       />
@@ -213,7 +213,7 @@ const ModalContactDetails = ({
                   </div>
                   <div className="col-span-3 text-right">
                     <Button type="submit" className="font-medium text-xs w-36">
-                      {isCompanyLoading ? <LoadingIcon /> : "Save Changes"}
+                      {isCompanyLoading ? <LoadingIcon /> : "Salvar"}
                     </Button>
                   </div>
                 </div>
@@ -225,23 +225,23 @@ const ModalContactDetails = ({
       {showAlert && (
         <Modal isOpen={showAlert} onClose={() => setShowAlert(false)}>
           <div className="flex flex-col space-y-4 p-4">
-            <h2 className="text-lg font-semibold">Unsaved Changes</h2>
+            <h2 className="text-lg font-semibold">Alterações sem salvar</h2>
             <p>
-              You have unsaved changes. If you close this modal, your changes
-              will be lost. Are you sure you want to proceed?
+              Você não salvou as alterações. Se você fechar esse modal, suas
+              alterações vão ser perdidas. Tem certeza que deseja continuar?
             </p>
             <div className="flex flex-row  items-center justify-center space-x-4">
               <Button
                 onClick={handleConfirmClose}
-                className="!bg-primary !text-white"
+                className="!bg-primary-dark !text-white"
               >
-                Yes, close it
+                Sim, fechar
               </Button>
               <Button
                 onClick={() => setShowAlert(false)}
-                className="!bg-white !text-primary"
+                className="!bg-white !text-primary-dark"
               >
-                Cancel
+                Cancelar
               </Button>
             </div>
           </div>

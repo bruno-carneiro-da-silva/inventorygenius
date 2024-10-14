@@ -19,8 +19,6 @@ const Input = styled.input`
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-
-  /* Caixa de seleção normal */
   appearance: none;
 
   &:checked::before {

@@ -4,12 +4,14 @@ import Tooltip from "@/components/Tooltip";
 import { LoadingIcon } from "@/icons";
 import { sidebarItens } from "@/mocks/dashboard.mock";
 import cx from "classnames";
-import { Bell, LogOut, Settings } from "lucide-react";
+import { Bell, LogOut, Search, Settings } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { Outlet } from "react-router-dom";
 import { useDashboard } from "./hooks/useDashboard";
-// import DropdownProfile from "../DropdownMenu";
-// import ModalContactDetails from "./components/ModalContactDetails";
+import TextInput from "../Input";
+import DropdownProfile from "../DropdownMenu";
+import ModalContactDetails from "./components/ModalContactDetails";
+import { companyMock } from "@/mocks/company.mock";
 
 export const DashboardLayout: React.FC = () => {
   const {
@@ -21,10 +23,11 @@ export const DashboardLayout: React.FC = () => {
     handleLogout,
     subItems,
     methods,
-    // openOptions,
+    openOptions,
     handleOpenOptions,
-    // handleProfileClick,
-    // openModal,
+    handleProfileClick,
+    openModal,
+    isCompanyLoading,
   } = useDashboard();
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
@@ -94,7 +97,7 @@ export const DashboardLayout: React.FC = () => {
           </div>
           <FormProvider {...methods}>
             <div className="flex items-center rounded-full flex-row space-x-2 p-2">
-              {/* <div>
+              <div>
                 <TextInput
                   name="search"
                   placeholder="Search here"
@@ -102,7 +105,7 @@ export const DashboardLayout: React.FC = () => {
                   icon={<Search />}
                   classNameIcon="text-gray-400"
                 />
-              </div> */}
+              </div>
               <Button
                 onClick={() => console.log("/")}
                 className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
@@ -168,7 +171,7 @@ export const DashboardLayout: React.FC = () => {
           </div>
         </Modal>
       )}
-      {/* {/* {openOptions && (
+      {openOptions && (
         <DropdownProfile
           onClose={handleOpenOptions}
           onProfileClick={() => {
@@ -176,18 +179,18 @@ export const DashboardLayout: React.FC = () => {
             handleOpenOptions();
           }}
           onLogoutClick={handleOpen}
-          company={() => console.log("company")}
+          company={companyMock}
           imageProfile={PerfilImg}
         />
       )}
       {openModal && (
         <ModalContactDetails
-          company={company}
+          company={companyMock}
           isLoading={isCompanyLoading}
           isOpen={openModal}
           onClose={handleProfileClick}
         />
-      )} */}
+      )}
     </div>
   );
 };

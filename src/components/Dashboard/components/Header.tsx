@@ -16,17 +16,15 @@ interface DashboardHeaderLayoutPayload {
   overviewItems: OverviewItem[];
 }
 
-export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
+export const HeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
   title,
   subtitle,
   showTitles = true,
   overviewItems,
 }) => {
-  const sales = overviewItems.find(
-    (item) => item.text === "Total de Vendas"
-  ) || {
+  const sales = overviewItems.find((item) => item.text === "Clientes") || {
     number: 0,
-    text: "Total de Vendas",
+    text: "Clientes",
     percentage: 0,
   };
   const suppliers = overviewItems.find(
@@ -61,21 +59,7 @@ export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
                 {sales.text}
               </div>
               <div className="text-3xl font-bold text-primary-dark mt-2">
-                {sales.number?.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
-              </div>
-              <div
-                className={`mt-1 text-sm ${
-                  sales.percentage && sales.percentage > 0
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
-              >
-                {(sales.percentage ?? 0) > 0
-                  ? `▲ ${sales.percentage}% a mais`
-                  : `▼ ${sales.percentage}% a menos`}
+                {sales.number}
               </div>
             </div>
           </div>
@@ -92,17 +76,6 @@ export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
               </div>
               <div className="text-3xl font-bold text-primary-dark mt-2">
                 {suppliers.number}
-              </div>
-              <div
-                className={`mt-1 text-sm ${
-                  suppliers.percentage && suppliers.percentage > 0
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
-              >
-                {(suppliers.percentage ?? 0) > 0
-                  ? `▲ ${suppliers.percentage}% a mais`
-                  : `▼ ${suppliers.percentage}% a menos`}
               </div>
             </div>
           </div>
@@ -121,17 +94,6 @@ export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
                   style: "currency",
                   currency: "BRL",
                 })}
-              </div>
-              <div
-                className={`mt-1 text-sm ${
-                  balance.percentage && balance.percentage > 0
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
-              >
-                {(balance.percentage ?? 0) > 0
-                  ? `▲ ${balance.percentage}% a mais`
-                  : `▼ ${balance.percentage}% a menos`}
               </div>
             </div>
           </div>

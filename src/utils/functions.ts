@@ -79,3 +79,84 @@ export const getFileExtension = (url: string): string => {
   const parts = url.split(".");
   return parts[parts.length - 1];
 };
+
+export const getMonthOptions = () => {
+  const months = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
+  const currentMonth = new Date().getMonth();
+  return months.slice(currentMonth).map((month, index) => ({
+    value: (currentMonth + index + 1).toString().padStart(2, "0"),
+    label: month,
+  }));
+};
+
+export const getYearOptions = () => {
+  const currentYear = new Date().getFullYear();
+  return Array.from({ length: 5 }, (_, i) => ({
+    value: (currentYear + i).toString(),
+    label: (currentYear + i).toString(),
+  }));
+};
+
+export const daysOfWeek = [
+  "Segunda",
+  "Terça",
+  "Quarta",
+  "Quinta",
+  "Sexta",
+  "Sábado",
+  "Domingo",
+];
+
+// Função para calcular todas as datas do mês atual
+export const getDatesOfMonth = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const dates = [];
+
+  // Obter o primeiro dia do mês
+  const firstDayOfMonth = new Date(year, month, 1);
+  // Obter o último dia do mês
+  const lastDayOfMonth = new Date(year, month + 1, 0);
+
+  // Obter o dia da semana do primeiro dia do mês (0 = Domingo, 6 = Sábado)
+  const firstDayOfWeek = firstDayOfMonth.getDay();
+  // Ajustar para começar na segunda-feira
+  const adjustedFirstDayOfWeek = (firstDayOfWeek + 6) % 7;
+
+  // Preencher os dias do mês anterior
+  for (let i = 0; i < adjustedFirstDayOfWeek; i++) {
+    const date = new Date(firstDayOfMonth);
+    date.setDate(firstDayOfMonth.getDate() - adjustedFirstDayOfWeek + i);
+    dates.push({ date, isCurrentMonth: false });
+  }
+
+  // Preencher as datas do mês atual
+  for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
+    dates.push({ date: new Date(year, month, day), isCurrentMonth: true });
+  }
+
+  // Preencher os dias do próximo mês até completar a última semana
+  const totalDays = dates.length;
+  const remainingDays = (7 - (totalDays % 7)) % 7; // Calcula os dias restantes para completar a semana
+  for (let i = 0; i < remainingDays; i++) {
+    const date = new Date(lastDayOfMonth);
+    date.setDate(lastDayOfMonth.getDate() + i + 1);
+    dates.push({ date, isCurrentMonth: false });
+  }
+
+  return dates;
+};

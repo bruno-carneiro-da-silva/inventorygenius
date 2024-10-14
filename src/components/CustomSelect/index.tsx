@@ -62,10 +62,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           ) : (
             <>
               <span
-                className={cx("block truncate self-center font-semibold", {
-                  "text-primary-dark": !selectedOption,
-                  "text-primary-light": selectedOption,
-                })}
+                className={cx("block truncate self-center font-semibold text-primary-dark")}
               >
                 {selectedOption ? selectedOption.label : placeholder}
               </span>
@@ -88,8 +85,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                   key={option.value}
                   className={`cursor-pointer select-none relative py-2 font-semibold hover:bg-gray-100 pl-3 pr-9 ${
                     selectedOption?.value === option.value
-                      ? "text-gray-500 bg-gray-300"
-                      : "text-gray-500"
+                      ? "text-primary-dark bg-gray-300"
+                      : "text-primary-dark"
                   }`}
                   onClick={() => handleSelectOption(option)}
                 >

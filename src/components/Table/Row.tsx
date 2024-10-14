@@ -11,7 +11,7 @@ interface RowProps {
 
 const Row: React.FC<RowProps> = ({ columns, item, kebabMenu }) => {
   return (
-    <div className="flex flex-row bg-white p-5 rounded-md">
+    <div className="flex flex-row space-y-5 bg-white p-5 rounded-md">
       {columns.map((column) => (
         <div
           key={column.id}

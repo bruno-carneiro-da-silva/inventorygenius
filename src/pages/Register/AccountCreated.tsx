@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import { LoginLayoutPayload } from "@/components/Layouts/Login/LoginLayout";
+import { LoginLayoutPayload } from "@/components/Login/LoginLayout";
 import Header from "@/components/LogoHeader";
 import { useNavigate } from "react-router-dom";
 

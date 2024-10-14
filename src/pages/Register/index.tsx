@@ -117,30 +117,6 @@ export default function Register() {
               placeholder="Telefone da empresa"
               icon={<Phone />}
             />
-            {/* <div className="text-md font-semibold text-gray-600">Time zone</div> */}
-            {/* <Controller
-              control={methods.control}
-              name="timeZoneIdCompany"
-              render={({
-                field: { onChange, value },
-                fieldState: { error },
-              }) => {
-                const selectedOption = options.find(
-                  (option) => option.value === value
-                );
-                return (
-                  <CustomSelect
-                    options={options}
-                    name="timeZoneIdCompany"
-                    onChange={onChange}
-                    value={selectedOption}
-                    error={error ? error.message : null}
-                    placeholder="Select a timezone"
-                    isLoading={isLoading}
-                  />
-                );
-              }}
-            /> */}
             <div className="text-md font-semibold">Endereço</div>
             <Autocomplete>
               <TextInput

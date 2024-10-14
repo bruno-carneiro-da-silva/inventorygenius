@@ -10,7 +10,7 @@ interface FilterProps {
 const Filter: React.FC<FilterProps> = ({ itens }) => {
   const options = itens.map((item) => ({
     value: item.id,
-    label: item.label,
+    label: item.label || '',
   }));
 
   const handleChange = (value: string) => {

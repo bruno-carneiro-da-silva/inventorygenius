@@ -11,6 +11,7 @@ export const useDashboard = () => {
   const methods = useForm();
   const { logout } = useUserStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [isCompanyLoading, setIsCompanyLoading] = useState(false);
 
   const handleNavigate = (route: string) => {
     navigate(route);
@@ -69,5 +70,7 @@ export const useDashboard = () => {
     handleOpenOptions,
     handleProfileClick,
     openModal,
+    isCompanyLoading,
+    setIsCompanyLoading,
   };
 };

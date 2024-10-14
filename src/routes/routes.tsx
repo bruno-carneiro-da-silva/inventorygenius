@@ -10,9 +10,6 @@ import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
 import ValidateCode from "@/pages/ForgotPassword/ValidateCode";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import BillingDetails from "@/pages/Register/BillingDetails";
-import ChooseCycle from "@/pages/Register/ChooseCycle";
-import ChoosePlan from "@/pages/Register/ChoosePlan";
 import CreateSupplier from "@/pages/Supplier/CreateSupplier";
 import SupplierDetails from "@/pages/Supplier/SupplierDetails";
 import PublicRoutes from "@/utils/PublicRoutes";
@@ -20,6 +17,7 @@ import { ReactElement } from "react";
 import ProtectedRoutes from "../utils/ProtectedRoutes";
 import SalesDetails from "@/pages/Sales/SalesDetails";
 import Sales from "@/pages/Sales";
+import ConfirmAccountCreated from "@/pages/ConfirmAccount";
 
 type Route = {
   path: string;
@@ -71,6 +69,10 @@ export const routes: Route[] = [
   {
     path: "/cadastrar",
     element: <Register />,
+  },
+  {
+    path: "/cadastrar/confirm-account",
+    element: <ConfirmAccountCreated />,
   },
   {
     path: "/dashboard",
@@ -163,36 +165,4 @@ export const routes: Route[] = [
       </ProtectedRoutes>
     ),
   },
-  // {
-  //   path: "/register",
-  //   element: <Register />,
-  // },
-  {
-    path: "/register/choose-plan",
-    element: <ChoosePlan />,
-  },
-  {
-    path: "/register/choose-cycle/:planId",
-    element: <ChooseCycle />,
-  },
-  // {
-  //   path: "/register/review-confirm",
-  //   element: <ReviewConfirm />,
-  // },
-  {
-    path: "/register/billing-details",
-    element: <BillingDetails />,
-  },
-  // {
-  //   path: "/account-created",
-  //   element: <AccountCreated />,
-  // },
-  // {
-  //   path: "/account-not-integrated",
-  //   element: <AccountNotIntegrated />,
-  // },
-  // {
-  //   path: "/create-customer-account/:companyUid",
-  //   element: <CreateCustomerAccount />,
-  // },
 ];

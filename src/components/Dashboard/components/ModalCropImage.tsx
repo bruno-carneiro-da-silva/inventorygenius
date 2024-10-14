@@ -95,7 +95,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
         />
         <button
           className="absolute -bottom-3 left-0 right-0 m-auto w-fit p-[.35rem] rounded-full bg-white hover:bg-gray-200 border border-gray-200"
-          title="Change photo"
+          title="Mudar foto"
           type="button"
           onClick={() => fileInputRef?.current?.click()}
         >
@@ -132,13 +132,13 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
                       className="rounded-md p-1 inline-flex items-center justify-center text-gray-400 hover:bg-gray-300 focus:outline-none"
                       onClick={() => setModalOpen(false)}
                     >
-                      <span className="sr-only">Close menu</span>
+                      <span className="sr-only">Fechar o menu</span>
                       <CloseIcon />
                     </button>
                   </div>
                   <div className="p-11 mx-auto flex items-center justify-center rounded-md">
                     <label className="block mb-3 w-fit">
-                      <span className="sr-only">Choose profile photo</span>
+                      <span className="sr-only">Escolha a foto de perfil</span>
                     </label>
                     {error && <p className="text-red-400 text-xs">{error}</p>}
                     {imgSrc && (
@@ -160,7 +160,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
                           />
                         </ReactCrop>
                         <button
-                          className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-primary hover:bg-primary-light"
+                          className="text-white font-mono text-xs py-2 px-4 rounded-2xl mt-4 bg-primary-dark hover:bg-primary-darker"
                           onClick={() => {
                             if (imgRef.current && previewCanvasRef.current) {
                               setCanvasPreview({
@@ -192,7 +192,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
                             }
                           }}
                         >
-                          Crop Image
+                          Cortar a imagem
                         </button>
                       </div>
                     )}

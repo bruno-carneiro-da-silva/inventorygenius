@@ -62,19 +62,19 @@ const DropdownProfile: React.FC<DropdownProfileProps> = ({
         </div>
         <button
           type="button"
-          className="cursor-pointer flex flex-row space-x-2 text-left text-sm hover:text-primary-light"
+          className="cursor-pointer flex flex-row space-x-2 text-left text-sm hover:text-primary-dark"
           onClick={onProfileClick}
         >
           <Pencil className="w-5 h-5" />
-          <li>Edit Profile</li>
+          <li>Editar Perfil</li>
         </button>
         <button
           type="button"
-          className="cursor-pointer flex flex-row space-x-2  text-left text-sm hover:text-primary-light"
+          className="cursor-pointer flex flex-row space-x-2  text-left text-sm hover:text-primary-dark"
           onClick={onLogoutClick}
         >
           <LogOut className="w-5 h-5" />
-          <li>Logout</li>
+          <li>Sair</li>
         </button>
       </ul>
     </div>

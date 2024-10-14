@@ -14,11 +14,12 @@ const filterData = (
   data: CardSupplierProps
 ): Record<string, string | number> => {
   const filteredData: Record<string, string | number> = {};
-  for (const key in data) {
-    if (typeof data[key] === "string" || typeof data[key] === "number") {
-      filteredData[key] = data[key] as string | number;
+  Object.keys(data).forEach((key) => {
+    const value = data[key as keyof CardSupplierProps];
+    if (typeof value === "string" || typeof value === "number") {
+      filteredData[key] = value;
     }
-  }
+  });
   return filteredData;
 };
 
