@@ -6,25 +6,25 @@ interface ReportDetailsProps {
 }
 
 const ReportDetails: React.FC<ReportDetailsProps> = ({ onClick }) => {
-  const selectedReport = {
-    date: "2021-03-10",
-    sales: [
-      {
-        productName: "Justas Jeans Biker Generic",
-        category: "Feminino",
-        quantitySold: 20,
-        totalRevenue: 1500,
-        time: "09:00",
-      },
-      {
-        productName: "Jeans Com Lycra",
-        category: "Jeans",
-        quantitySold: 15,
-        totalRevenue: 1200,
-        time: "10:00",
-      },
-    ],
-  };
+  // const selectedReport = {
+  //   date: "2021-03-10",
+  //   sales: [
+  //     {
+  //       productName: "Justas Jeans Biker Generic",
+  //       category: "Feminino",
+  //       quantitySold: 20,
+  //       totalRevenue: 1500,
+  //       time: "09:00",
+  //     },
+  //     {
+  //       productName: "Jeans Com Lycra",
+  //       category: "Jeans",
+  //       quantitySold: 15,
+  //       totalRevenue: 1200,
+  //       time: "10:00",
+  //     },
+  //   ],
+  // };
 
   const datesOfMonth = getDatesOfMonth();
 

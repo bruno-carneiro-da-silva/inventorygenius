@@ -1,7 +1,4 @@
-import {
-  CreateCompanyInit,
-  GetCompany
-} from "@/queries/company/types";
+import { CreateCompanyInit, GetCompany } from "@/queries/company/types";
 
 class CreateCompanyInitMapper {
   toPersistence(domainCreateCompanyInit: CreateCompanyInit) {
@@ -21,7 +18,6 @@ class CreateCompanyInitMapper {
         ""
       ),
       addressCompany: domainCreateCompanyInit.addressCompany,
-      timeZoneIdCompany: domainCreateCompanyInit.timeZoneIdCompany,
     };
   }
   toDomain(persistenceCreateCompanyInit: GetCompany) {

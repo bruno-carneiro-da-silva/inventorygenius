@@ -1,4 +1,4 @@
-import { ContactDetails, GetContact } from "@/queries/contact/types";
+import { GetContact } from "@/queries/contact/types";
 import { Contact } from "@/types/contact";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
