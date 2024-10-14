@@ -34,4 +34,5 @@ export type Product = {
   material: string[];
   caracteristic: string;
   description: string;
+  gender: string;
 };

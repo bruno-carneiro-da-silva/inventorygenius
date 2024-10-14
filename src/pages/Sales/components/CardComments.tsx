@@ -1,6 +1,5 @@
 import { CardPlan } from "@/components/CardPlan";
 import { freePlan } from "@/mocks/plan";
-import React from "react";
 
 export default function CardCommentsList() {
   return (

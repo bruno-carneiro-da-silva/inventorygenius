@@ -63,10 +63,6 @@ export default function Contacts() {
   //   }
   // }, [isError]);
 
-  const handleCreateContact = () => {
-    console.log("Create contact");
-  };
-
   const columns: ColumnTable[] = [
     {
       id: "name",

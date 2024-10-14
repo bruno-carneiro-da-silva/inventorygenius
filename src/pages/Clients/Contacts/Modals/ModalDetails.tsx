@@ -18,7 +18,6 @@ import {
   Phone,
 } from "lucide-react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
 
 interface ModalDetailsProps {
@@ -28,7 +27,6 @@ interface ModalDetailsProps {
 
 const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
   const { selectedContact } = useMyContactStore();
-  const navigate = useNavigate();
 
   const [isLoading] = useState(false);
 

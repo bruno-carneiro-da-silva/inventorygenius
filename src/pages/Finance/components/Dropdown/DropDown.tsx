@@ -1,6 +1,5 @@
 // Dropdown.tsx
 import React from "react";
-import { useStore } from "@/stores/finance";
 
 interface DropdownProps {
   options: string[];

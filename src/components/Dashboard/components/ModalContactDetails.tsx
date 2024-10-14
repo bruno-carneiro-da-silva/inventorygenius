@@ -2,14 +2,10 @@ import Button from "@/components/Button";
 import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
-import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { LoadingIcon } from "@/icons";
 import LoadingPlaceholder from "@/pages/Clients/Contacts/components/LoadingPlaceholder";
 import MaskedTextInput from "@/pages/Register/components/PhoneInput";
-import { useUpdateCompany, useUpdateCompanyLogo } from "@/queries/company";
-import { Company, UpdateCompany } from "@/queries/company/types";
-import { ApiError } from "@/types/ApiError";
-import { BlockBlobClient, BlockBlobUploadResponse } from "@azure/storage-blob";
+import { Company } from "@/queries/company/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Autocomplete } from "@react-google-maps/api";
 import { Mail, MapPinned, PencilIcon, Phone } from "lucide-react";
@@ -47,9 +43,9 @@ const ModalContactDetails = ({
   company,
   isLoading,
 }: ModalContactDetailsProps) => {
-  const [isCompanyLoading, setIsCompanyLoading] = useState(false);
+  const [isCompanyLoading, _setIsCompanyLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  const [_file, setFile] = useState<File | null>(null);
   const methods = useForm({
     defaultValues: {
       name: company?.data.name || "",
@@ -65,41 +61,41 @@ const ModalContactDetails = ({
     setFile(file);
   };
 
-  const updateCompany = useUpdateCompany();
-  const updateCompanyLogo = useUpdateCompanyLogo();
+  // const updateCompany = useUpdateCompany();
+  // const updateCompanyLogo = useUpdateCompanyLogo();
 
-  const uploadFileToBlob = (
-    file: File,
-    sasUrl: string
-  ): Promise<BlockBlobUploadResponse> => {
-    const blobClient = new BlockBlobClient(sasUrl);
-    return blobClient.upload(file, file.size, {
-      blobHTTPHeaders: { blobContentType: file.type },
-    });
-  };
+  // const uploadFileToBlob = (
+  //   file: File,
+  //   sasUrl: string
+  // ): Promise<BlockBlobUploadResponse> => {
+  //   const blobClient = new BlockBlobClient(sasUrl);
+  //   return blobClient.upload(file, file.size, {
+  //     blobHTTPHeaders: { blobContentType: file.type },
+  //   });
+  // };
 
-  const updateCompanySubmit = (companyPayload: UpdateCompany) => {
-    if (!company) return;
-    updateCompany
-      .mutateAsync(companyPayload)
-      .then(() => {
-        showSuccessToast("Company updated successfully");
-        onClose();
-      })
-      .catch((err: ApiError) => {
-        const errors = err?.response?.data?.errors;
-        if (errors && Array.isArray(errors)) {
-          errors.forEach((error) => {
-            showErrorToast(error.message || "An unexpected error occurred.");
-          });
-        } else {
-          showErrorToast("An unexpected error occurred.");
-        }
-      })
-      .finally(() => {
-        setIsCompanyLoading(false);
-      });
-  };
+  // const updateCompanySubmit = (companyPayload: UpdateCompany) => {
+  //   if (!company) return;
+  //   updateCompany
+  //     .mutateAsync(companyPayload)
+  //     .then(() => {
+  //       showSuccessToast("Company updated successfully");
+  //       onClose();
+  //     })
+  //     .catch((err: ApiError) => {
+  //       const errors = err?.response?.data?.errors;
+  //       if (errors && Array.isArray(errors)) {
+  //         errors.forEach((error) => {
+  //           showErrorToast(error.message || "An unexpected error occurred.");
+  //         });
+  //       } else {
+  //         showErrorToast("An unexpected error occurred.");
+  //       }
+  //     })
+  //     .finally(() => {
+  //       setIsCompanyLoading(false);
+  //     });
+  // };
 
   // const onSubmit = (data: FormValues) => {
   //   setIsCompanyLoading(true);

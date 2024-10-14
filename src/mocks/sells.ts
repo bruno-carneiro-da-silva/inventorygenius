@@ -104,6 +104,7 @@ const productMock: Product[] = [
       "Kit 3 Calça Jeans Masculina, direto da fabrica, pronta entrega! O kit é enviado com 3 cores de calça diferentes, conforme imagem. Forma das calças pequena, na dúvida sempre",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    gender: "feminino",
   },
   {
     id: "4",
@@ -130,6 +131,7 @@ const productMock: Product[] = [
       "Kit 3 Calça Jeans Masculina, direto da fabrica, pronta entrega! O kit é enviado com 3 cores de calça diferentes, conforme imagem. Forma das calças pequena, na dúvida sempre",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    gender: "feminino",
   },
   {
     id: "3",
@@ -156,6 +158,7 @@ const productMock: Product[] = [
       "Kit 3 Calça Jeans Masculina, direto da fabrica, pronta entrega! O kit é enviado com 3 cores de calça diferentes, conforme imagem. Forma das calças pequena, na dúvida sempre",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    gender: "feminino",
   },
   {
     id: "2",
@@ -182,6 +185,7 @@ const productMock: Product[] = [
       "Kit 3 Calça Jeans Masculina, direto da fabrica, pronta entrega! O kit é enviado com 3 cores de calça diferentes, conforme imagem. Forma das calças pequena, na dúvida sempre",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    gender: "feminino",
   },
   {
     id: "1",
@@ -208,6 +212,7 @@ const productMock: Product[] = [
       "Kit 3 Calça Jeans Masculina, direto da fabrica, pronta entrega! O kit é enviado com 3 cores de calça diferentes, conforme imagem. Forma das calças pequena, na dúvida sempre",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    gender: "feminino",
   },
 ];
 
