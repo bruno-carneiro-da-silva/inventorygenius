@@ -33,11 +33,12 @@ export default function Login() {
         <img
           src={Logo}
           alt="logo"
-          className="w-36 self-center bg-primary-dark rounded-full"
+          className="w-36 self-center bg-primary-dark mb-4 rounded-full"
         />
         <div className="text-sm font-light">
-          Domine a conectividade com a Techne para traçar seu caminho rumo ao
-          sucesso no Dashboard nesta emocionante aventura digital.
+          Domine o controle do seu estoque com o inventory genius para traçar
+          seu caminho rumo ao sucesso no mercado nesta emocionante aventura
+          digital.
         </div>
       </div>
       <div className="flex flex-col space-y-6">
