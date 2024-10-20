@@ -8,7 +8,7 @@ export const LoginLayoutPayload: React.FC<LoginLayoutPayload> = ({
   children,
 }) => {
   return (
-    <div className="grid grid-cols-5">
+    <div className="grid grid-cols-5 overflow-hidden">
       <div className="col-span-3 flex flex-col items-center justify-center h-screen bg-primary-dark">
         <img
           src={BackgroundImage}
