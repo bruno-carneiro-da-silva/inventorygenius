@@ -10,17 +10,16 @@ export default function AccountCreated() {
     <LoginLayoutPayload>
       <Header />
       <div className="flex flex-col space-y-6">
-        <h1 className="text-2xl font-bold text-center">Account was created</h1>
+        <h1 className="text-2xl font-bold text-center">
+          Conta criada com sucesso!
+        </h1>
         <div className="text-center text-sm font-light ">
-          Our team will be in touch with the email{" "}
-          <span className="font-bold">user@company.com</span> to activate the
-          account once review is completed
+          Para mais detalhes ou dúvidas nos mande um email{" "}
+          <span className="font-bold">technetecnology@gmail.com</span> para
+          tirar suas dúvidas ou resolver qualquer problema.
         </div>
-        <Button
-          type="submit"
-          onClick={() => navigate("/account-not-integrated")}
-        >
-          Go to dashboard
+        <Button type="submit" onClick={() => navigate("/")}>
+          Ir para login
         </Button>
       </div>
     </LoginLayoutPayload>

@@ -27,13 +27,16 @@ const getCompanyByUid = async (uid: string) => {
 
 const createCompany = async (payload: Company) => {
   const body = CreateCompanyMapper.toDomain(payload);
-  const { data } = await api.post<CreateCompanyResponse>("/company", body);
+  const { data } = await api.post<CreateCompanyResponse>("/companies", body);
   return data;
 };
 
 const createCompanyInit = async (payload: CreateCompanyInit) => {
   const body = CreateCompanyInitMapper.toPersistence(payload);
-  const { data } = await api.post<CreateCompanyInitResponse>("/users", body);
+  const { data } = await api.post<CreateCompanyInitResponse>(
+    "/companies",
+    body
+  );
   return data;
 };
 
@@ -90,7 +93,7 @@ export const useCreateCompanyInit = () => {
 };
 
 export const useUpdateCompany = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); 
   return useMutation({
     mutationFn: (payload: UpdateCompany) => updateCompany(payload),
     onMutate: () => {

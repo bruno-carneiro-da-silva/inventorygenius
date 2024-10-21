@@ -18,6 +18,7 @@ class CreateCompanyInitMapper {
         ""
       ),
       addressCompany: domainCreateCompanyInit.addressCompany,
+      role: domainCreateCompanyInit.role,
     };
   }
   toDomain(persistenceCreateCompanyInit: GetCompany) {

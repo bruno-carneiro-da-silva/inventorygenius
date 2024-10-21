@@ -21,6 +21,7 @@ const schema: yup.ObjectSchema<CreateCompanyInit> = yup.object({
   phoneNumberCompany: yup.string().required("Company phone is required"),
   addressCompany: yup.string().required("Address is required"),
   terms: yup.boolean().nullable(),
+  role: yup.string().nullable(),
 });
 
 export const useRegister = () => {
@@ -32,16 +33,14 @@ export const useRegister = () => {
   });
 
   const onSubmit = (company: CreateCompanyInit) => {
-    console.log("teste", company);
     setIsLoading(true);
     createCompany
       .mutateAsync(company)
       .then(() => {
-        navigate("/login");
+        navigate("/cadastrar/confirm-account");
       })
       .catch((err) => {
-        const errorMessage =
-          err?.response?.data?.errors?.[0]?.message || "An error occurred";
+        const errorMessage = err?.response?.data?.error || "Ocorreu um erro";
         showErrorToast(errorMessage);
         setIsLoading(false);
       });

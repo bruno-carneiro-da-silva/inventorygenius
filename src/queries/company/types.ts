@@ -37,13 +37,16 @@ export type Company = {
   }[];
   succeeded: boolean;
   data: {
-    id: number;
-    uId?: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    photoUrl: string;
-    address: string;
+    firstName: number;
+    lastName?: string;
+    emailAdmin: string;
+    phoneNumberAdmin: string;
+    password: string;
+    nameCompany: string;
+    emailCompany: string;
+    phoneNumberCompany: string;
+    addressCompany: string;
+    role: string;
   };
 };
 
@@ -67,6 +70,7 @@ export type CreateCompanyInit = {
   phoneNumberCompany: string;
   addressCompany: string;
   terms?: boolean | null;
+  role?: string | null;
 };
 export type CreateCompanyInitResponse = {
   data: {
