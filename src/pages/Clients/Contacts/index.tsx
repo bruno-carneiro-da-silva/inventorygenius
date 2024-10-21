@@ -78,9 +78,14 @@ export default function Contacts() {
       ),
     },
     {
-      id: "uId",
-      label: "ID",
-      render: (data: Contact) => data.uId,
+      id: "lastaName",
+      label: "Sobrenome",
+      render: (data: Contact) => data.lastName,
+    },
+    {
+      id: "email",
+      label: "Email",
+      render: (data: Contact) => data.email,
     },
     {
       id: "data",
@@ -88,29 +93,24 @@ export default function Contacts() {
       render: (data: Contact) => maskDateISO(data.created),
     },
     {
-      id: "lastaName",
-      label: "Sobrenome",
-      render: (data: Contact) => data.lastName,
-    },
-    {
       id: "city",
       label: "Cidade",
       render: (data: Contact) => data.city,
     },
-    {
-      id: "contact",
-      label: "Contato",
-      render: () => (
-        <div className="flex space-x-2">
-          <button className="flex items-center">
-            <Mail className="w-10 h-8 text-primary-dark bg-primary-light border border-primary-dark rounded-full p-1" />
-          </button>
-          <button className="flex items-center">
-            <Phone className="w-10 h-8 text-primary-dark border bg-primary-light border-primary-dark rounded-full p-1" />
-          </button>
-        </div>
-      ),
-    },
+    // {
+    //   id: "contact",
+    //   label: "Contato",
+    //   render: () => (
+    //     <div className="flex space-x-2">
+    //       <button className="flex items-center">
+    //         <Mail className="w-10 h-8 text-primary-dark bg-primary-light border border-primary-dark rounded-full p-1" />
+    //       </button>
+    //       <button className="flex items-center">
+    //         <Phone className="w-10 h-8 text-primary-dark border bg-primary-light border-primary-dark rounded-full p-1" />
+    //       </button>
+    //     </div>
+    //   ),
+    // },
     {
       id: "status",
       label: "Status",
