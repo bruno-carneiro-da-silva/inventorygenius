@@ -10,6 +10,7 @@ import {
   PackageOpen,
   Phone,
   Plus,
+  ReceiptText,
   User,
 } from "lucide-react";
 import React from "react";
@@ -39,11 +40,12 @@ export default function CreateProduct() {
                 className="w-full"
               />
               <TextInput
-                label="Categoria *"
-                name="lastName"
-                icon={<User />}
-                placeholder="Nome"
-                className="w-ful"
+                label="Estoque máximo *"
+                type="textarea"
+                name="capacity"
+                icon={<PackageOpen />}
+                placeholder="1000"
+                className="w-full"
               />
             </div>
             <div className="space-y-5">
@@ -64,11 +66,11 @@ export default function CreateProduct() {
             </div>
             <div className="space-y-5">
               <TextInput
-                label="Estoque máximo *"
+                label="Descrição do produto *"
                 type="textarea"
-                name="capacity"
-                icon={<Box />}
-                placeholder="1000"
+                name="description"
+                icon={<ReceiptText />}
+                placeholder="100% algodão com gola slim"
                 className="w-full"
               />
               <div className="flex items-center justify-between mb-4">
@@ -78,14 +80,14 @@ export default function CreateProduct() {
                   placeholder="Jeans"
                   onChange={(value) => console.log(value)}
                   options={[
-                    { label: "Unidade", value: "unidade" },
-                    { label: "Kg", value: "kg" },
-                    { label: "Litro", value: "litro" },
+                    { label: "Jeans", value: "jeans" },
+                    { label: "Masculino", value: "masculino" },
+                    { label: "Feminino", value: "feminino" },
                   ]}
                 />
                 <Button
                   onClick={handleCreateCategory}
-                  className="bg-primary-dark mt-6 pr-6 ml-4 flex items-center justify-center h-12"
+                  className="bg-primary-dark mt-8 pr-6 ml-4 flex items-center justify-center h-12"
                 >
                   <Plus className="w-6 h-6 mr-2" />
                   Adicionar
