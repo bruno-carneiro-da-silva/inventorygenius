@@ -19,7 +19,7 @@ export default function Product() {
 
   const { selectedProduct } = useProductStore();
 
-  const { data, isLoading } = useGetProduct();
+  const { data } = useGetProduct();
 
   useEffect(() => {
     if (data) {

@@ -2,17 +2,7 @@ import Button from "@/components/Button";
 import CustomSelect from "@/components/CustomSelect";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import TextInput from "@/components/Input";
-import {
-  Box,
-  Coins,
-  Mail,
-  MapPinned,
-  PackageOpen,
-  Phone,
-  Plus,
-  ReceiptText,
-  User,
-} from "lucide-react";
+import { Coins, PackageOpen, Plus, ReceiptText, User } from "lucide-react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
