@@ -6,9 +6,10 @@ import {
   // CircleFadingPlus,
   // FolderKanban,
   LayoutDashboard,
+  Shirt,
   Store,
   UserRoundCog,
-  Users
+  Users,
 } from "lucide-react";
 // import Contacts from "../pages/Clients/Contacts";
 import Contacts from "@/pages/Clients/Contacts";
@@ -19,6 +20,7 @@ import Sells from "@/pages/Sales";
 import Supplier from "@/pages/Supplier";
 import Dashboard from "../pages/Dashboard";
 import { SiderbarItem } from "../types/dashboard";
+import Product from "@/pages/Product";
 // import Integrations from "../pages/Integrations";
 // // import Webhooks from "../pages/Webhooks";
 // import Campaigns from "../pages/Campaigns";
@@ -52,27 +54,34 @@ export const sidebarItens: SiderbarItem[] = [
   },
   {
     id: "4",
+    name: "Produtos",
+    route: "/produtos",
+    icon: <Shirt className={className} />,
+    element: <Product />,
+  },
+  {
+    id: "5",
     name: "Fiscal",
     route: "/financas",
     icon: <Calendar className={className} />,
     element: <Finance />,
   },
   {
-    id: "5",
+    id: "6",
     name: "Financas",
     route: "/fiscal",
     icon: <HandCoins className={className} />,
     element: <FinanceInspector />,
   },
   {
-    id: "6",
+    id: "7",
     name: "Vendas",
     route: "/vendas",
     icon: <DollarSign className={className} />,
     element: <Sells />,
   },
   {
-    id: "7",
+    id: "8",
     name: "Funcionários",
     route: "/funcionarios",
     icon: <UserRoundCog className={className} />,

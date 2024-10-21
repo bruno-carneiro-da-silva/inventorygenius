@@ -1,21 +1,16 @@
 import coverImage from "@/assets/cover.png";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
-import { LoadingIcon } from "@/icons";
 import { useSupplierStore } from "@/stores/supplier";
 import { maskDateISO } from "@/utils/functions";
 import { Locate, Mail, Phone } from "lucide-react";
 import React from "react";
 
-export default function SupplierDetails() {
+export default function ProductDetails() {
   // const { id } = useParams();
   const { selectedSupplier } = useSupplierStore();
 
   if (!selectedSupplier) {
-    return (
-      <div>
-        <LoadingIcon />
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
   return (

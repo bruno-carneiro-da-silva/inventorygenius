@@ -18,6 +18,8 @@ import ProtectedRoutes from "../utils/ProtectedRoutes";
 import SalesDetails from "@/pages/Sales/SalesDetails";
 import Sales from "@/pages/Sales";
 import ConfirmAccountCreated from "@/pages/ConfirmAccount";
+import CreateProduct from "@/pages/Product/CreateProduct";
+import ProductDetails from "@/pages/Product/ProductDetails";
 
 type Route = {
   path: string;
@@ -122,6 +124,22 @@ export const routes: Route[] = [
     element: (
       <ProtectedRoutes>
         <CreateSupplier />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/produtos/criar",
+    element: (
+      <ProtectedRoutes>
+        <CreateProduct />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/produtos/detalhes/:id",
+    element: (
+      <ProtectedRoutes>
+        <ProductDetails />
       </ProtectedRoutes>
     ),
   },
