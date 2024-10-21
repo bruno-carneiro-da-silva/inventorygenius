@@ -1,4 +1,3 @@
-import { persist } from "zustand/middleware";
 import CreateCompanyMapper from "@/queries/company/mappers/CompanyMapper";
 import CreateCompanyAdminMapper from "@/queries/company/mappers/CreateCompanyAdminMapper";
 import CreateCompanyInitMapper from "@/queries/company/mappers/CreateCompanyInitMapper";

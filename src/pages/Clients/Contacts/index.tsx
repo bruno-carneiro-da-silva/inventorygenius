@@ -15,7 +15,7 @@ import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 // import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { maskDateISO } from "@/utils/functions";
-import { Eye, Mail, Phone, Plus, Trash2 } from "lucide-react";
+import { Eye, Plus, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 // import { FormProvider } from "react-hook-form";
 
