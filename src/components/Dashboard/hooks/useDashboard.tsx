@@ -9,7 +9,11 @@ export const useDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const methods = useForm();
-  const { logout } = useUserStore();
+  const { logout, login } = useUserStore((state) => ({
+    logout: state.logout,
+    login: state.login,
+  }));
+
   const [isLoading, setIsLoading] = useState(false);
   const [isCompanyLoading, setIsCompanyLoading] = useState(false);
 
@@ -72,5 +76,6 @@ export const useDashboard = () => {
     openModal,
     isCompanyLoading,
     setIsCompanyLoading,
+    login,
   };
 };

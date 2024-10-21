@@ -6,28 +6,30 @@ import customerMock from "@/mocks/customer.mock";
 import { Customer } from "@/types/customer";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { Eye, Printer, Trash2, User } from "lucide-react";
-// import { showErrorToast } from "@/components/Toast";
-// import { useListCompany } from "@/queries/company";
-// import { useCompanyStore } from "@/stores/company";
+import { showErrorToast } from "@/components/Toast";
+import { useListCompany } from "@/queries/company";
+import { useCompanyStore } from "@/stores/company";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  // const { setCompany } = useCompanyStore((state) => ({
-  //   setCompany: state.setCompany,
-  // }));
+  const { setCompany, company } = useCompanyStore((state) => ({
+    setCompany: state.setCompany,
+    company: state.company,
+  }));
 
-  // const { data, isError } = useListCompany();
+  const { data, isError } = useListCompany();
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setCompany(data);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      setCompany(data);
+    }
+  }, [data]);
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     showErrorToast("An error occurred while fetching the company");
-  //   }
-  // }, [isError]);
+  useEffect(() => {
+    if (isError) {
+      showErrorToast("Um erro aconteceu ao carregar os dados");
+    }
+  }, [isError]);
   const columns: ColumnTable[] = [
     {
       id: "productName",
@@ -109,9 +111,21 @@ export default function Dashboard() {
       <div className="flex flex-col space-y-3">
         <HeaderLayout
           overviewItems={[
-            { number: 100, text: "Clientes", percentage: 30 },
-            { number: 50, text: "Total de Fornecedores", percentage: 20 },
-            { number: 200, text: "Balanço", percentage: 50 },
+            {
+              number: company?.[0]?._count.contacts,
+              text: "Clientes",
+              percentage: 30,
+            },
+            {
+              number: company?.[0]?._count.suppliers,
+              text: "Total de Fornecedores",
+              percentage: 20,
+            },
+            {
+              number: company?.[0]?._count.sales,
+              text: "Balanço",
+              percentage: 50,
+            },
           ]}
         />
       </div>

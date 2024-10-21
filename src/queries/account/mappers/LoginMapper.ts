@@ -12,7 +12,7 @@ class LoginMapper {
   toDomain(persistenceLogin: LoginResponse) {
     return {
       accessToken: persistenceLogin.accessToken,
-      user: {
+      user: persistenceLogin.user ? {
         id: persistenceLogin.user.id,
         firstName: persistenceLogin.user.firstName,
         lastName: persistenceLogin.user.lastName,
@@ -26,7 +26,7 @@ class LoginMapper {
         role: persistenceLogin.user.role,
         createdAt: persistenceLogin.user.createdAt,
         updatedAt: persistenceLogin.user.updatedAt,
-      },
+      } : null,
     };
   }
 }

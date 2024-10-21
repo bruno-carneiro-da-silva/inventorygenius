@@ -31,33 +31,47 @@ export interface CompanyDetails {
 }
 
 export type Company = {
-  errors: {
-    key: string;
-    message: string;
-  }[];
-  succeeded: boolean;
-  data: {
-    firstName: number;
-    lastName?: string;
-    emailAdmin: string;
-    phoneNumberAdmin: string;
-    password: string;
-    nameCompany: string;
-    emailCompany: string;
-    phoneNumberCompany: string;
-    addressCompany: string;
-    role: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
+  emailAdmin: string;
+  phoneNumberAdmin: string;
+  nameCompany: string;
+  emailCompany: string;
+  phoneNumberCompany: string;
+  addressCompany: string;
+  terms: false;
+  role: {
+    name: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+  planId: null;
+  _count: {
+    contacts: number;
+    suppliers: number;
+    sales: number;
   };
 };
 
 export type CreateCompanyResponse = {
-  id: number;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  photoUrl: string;
-  address: string;
-  timeZoneId: number;
+  id?: string;
+  firstName: string;
+  lastName: string;
+  emailAdmin: string;
+  phoneNumberAdmin: string;
+  nameCompany: string;
+  emailCompany: string;
+  phoneNumberCompany: string;
+  addressCompany: string;
+  terms: boolean;
+  refreshToken: string | null;
+  verificationCode: string | null;
+  verificationCodeExpiresAt: null;
+  createdAt: string;
+  updatedAt: string;
+  planId: string | null;
+  roleId: number;
 };
 export type CreateCompanyInit = {
   firstName: string;
@@ -96,8 +110,7 @@ export type CreateCompanyInitResponse = {
 };
 
 export type UpdateCompany = {
-  id?: number;
-  companyUid: string;
+  id?: string;
   name: string;
   email: string;
   phoneNumber: string;

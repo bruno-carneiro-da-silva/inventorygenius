@@ -5,7 +5,7 @@ import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
 import LoadingPlaceholder from "@/pages/Clients/Contacts/components/LoadingPlaceholder";
 import MaskedTextInput from "@/pages/Register/components/PhoneInput";
-import { Company } from "@/queries/company/types";
+// import { Company, UpdateCompany } from "@/queries/company/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Autocomplete } from "@react-google-maps/api";
 import { Mail, MapPinned, PencilIcon, Phone } from "lucide-react";
@@ -13,6 +13,10 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import ModalCropImage from "./ModalCropImage";
+import { LoginResponse } from "@/queries/account/types";
+// import { showErrorToast, showSuccessToast } from "@/components/Toast";
+// import { ApiError } from "@/types/ApiError";
+// import { useUpdateCompany } from "@/queries/company";
 
 type FormValues = {
   name: string;
@@ -33,7 +37,7 @@ const schema: yup.ObjectSchema<FormValues> = yup.object({
 type ModalContactDetailsProps = {
   isOpen: boolean;
   onClose: () => void;
-  company?: Company;
+  company?: LoginResponse | null;
   isLoading: boolean;
 };
 
@@ -48,11 +52,11 @@ const ModalContactDetails = ({
   const [_file, setFile] = useState<File | null>(null);
   const methods = useForm({
     defaultValues: {
-      name: company?.data.name || "",
-      email: company?.data.email || "",
-      phoneNumber: company?.data.phoneNumber || "",
-      address: company?.data.address || "",
-      photoUrl: company?.data.photoUrl || null,
+      name: company?.user?.nameCompany || "",
+      email: company?.user?.emailCompany || "",
+      phoneNumber: company?.user?.phoneNumberCompany || "",
+      address: company?.user?.addressCompany || "",
+      photoUrl: company?.user?.photoUrl || null,
     },
     resolver: yupResolver(schema),
   });
@@ -101,8 +105,8 @@ const ModalContactDetails = ({
   //   setIsCompanyLoading(true);
   //   if (!company) return;
   //   const companyPayload: UpdateCompany = {
-  //     companyUid: company?.data.uId,
-  //     photoUrl: data.photoUrl,
+  //     id: company?.user?.id,
+  //     photoUrl: data.photoUrl || "",
   //     name: data.name,
   //     email: data.email,
   //     phoneNumber: data.phoneNumber,
@@ -112,7 +116,7 @@ const ModalContactDetails = ({
   //   if (file) {
   //     updateCompanyLogo
   //       .mutateAsync({
-  //         companyUid: company?.data.uId,
+  //         user: company?.user?.id,
   //       })
   //       .then((res) => {
   //         const photoUrl: string = res.data.photoUrl;

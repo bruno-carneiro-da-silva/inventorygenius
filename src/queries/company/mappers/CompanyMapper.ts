@@ -3,34 +3,37 @@ import { Company } from "@/queries/company/types";
 class CreateCompanyMapper {
   toPersistence(domainCreateCompany: Company) {
     return {
-      firstName: domainCreateCompany.data.firstName,
-      lastName: domainCreateCompany.data.lastName,
-      emailAdmin: domainCreateCompany.data.emailAdmin,
-      phoneNumberAdmin: domainCreateCompany.data.phoneNumberAdmin,
-      password: domainCreateCompany.data.password,
-      nameCompany: domainCreateCompany.data.nameCompany,
-      emailCompany: domainCreateCompany.data.emailCompany,
-      phoneNumberCompany: domainCreateCompany.data.phoneNumberCompany,
-      addressCompany: domainCreateCompany.data.addressCompany,
-      role: domainCreateCompany.data.role,
+      firstName: domainCreateCompany.firstName,
+      lastName: domainCreateCompany.lastName,
+      emailAdmin: domainCreateCompany.emailAdmin,
+      phoneNumberAdmin: domainCreateCompany.phoneNumberAdmin.replace(/\D/g, ""),
+      nameCompany: domainCreateCompany.nameCompany,
+      emailCompany: domainCreateCompany.emailCompany,
+      phoneNumberCompany: domainCreateCompany.phoneNumberCompany.replace(
+        /\D/g,
+        ""
+      ),
+      addressCompany: domainCreateCompany.addressCompany,
     };
   }
 
-  toDomain(persistenceCreateCompany: Company) {
-    return {
-      errors: persistenceCreateCompany.errors.map((error) => error),
-      succeeded: persistenceCreateCompany.succeeded,
-      firstName: persistenceCreateCompany.data.firstName,
-      lastName: persistenceCreateCompany.data.lastName,
-      emailAdmin: persistenceCreateCompany.data.emailAdmin,
-      phoneNumberAdmin: persistenceCreateCompany.data.phoneNumberAdmin,
-      password: persistenceCreateCompany.data.password,
-      nameCompany: persistenceCreateCompany.data.nameCompany,
-      emailCompany: persistenceCreateCompany.data.emailCompany,
-      phoneNumberCompany: persistenceCreateCompany.data.phoneNumberCompany,
-      addressCompany: persistenceCreateCompany.data.addressCompany,
-      role: persistenceCreateCompany.data.role,
-    };
+  toDomain(persistenceCreateCompany: Company[]) {
+    return persistenceCreateCompany.map(company => ({
+      firstName: company.firstName,
+      lastName: company.lastName,
+      emailAdmin: company.emailAdmin,
+      phoneNumberAdmin: company.phoneNumberAdmin.replace(/\D/g, ""),
+      nameCompany: company.nameCompany,
+      emailCompany: company.emailCompany,
+      phoneNumberCompany: company.phoneNumberCompany.replace(/\D/g, ""),
+      addressCompany: company.addressCompany,
+      terms: company.terms,
+      role: company.role,
+      createdAt: company.createdAt,
+      updatedAt: company.updatedAt,
+      planId: company.planId,
+      _count: company._count,
+    }));
   }
 }
 

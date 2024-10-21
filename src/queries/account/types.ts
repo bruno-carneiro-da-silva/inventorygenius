@@ -20,6 +20,7 @@ export type LoginResponse = {
     id: string;
     firstName: string;
     lastName: string;
+    photoUrl?: string;
     emailAdmin: string;
     phoneNumberAdmin: string;
     nameCompany: string;
@@ -27,10 +28,17 @@ export type LoginResponse = {
     phoneNumberCompany: string;
     addressCompany: string;
     terms: boolean;
-    role: string;
+    role: {
+      uId: string;
+      createdAt: string;
+      updatedAt: string;
+      permissions: string[];
+      id: number;
+      name: string;
+    } | null;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
 };
 export interface LoginCredentials {
   phoneNumberAdmin: string;

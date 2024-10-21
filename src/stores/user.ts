@@ -12,21 +12,7 @@ type UserStore = {
 
 const initialLoginState: LoginResponse = {
   accessToken: "",
-  user: {
-    id: "",
-    firstName: "",
-    lastName: "",
-    emailAdmin: "",
-    phoneNumberAdmin: "",
-    nameCompany: "",
-    emailCompany: "",
-    phoneNumberCompany: "",
-    addressCompany: "",
-    terms: false,
-    role: "",
-    createdAt: "",
-    updatedAt: "",
-  },
+  user: null,
 };
 
 export const useUserStore = create(

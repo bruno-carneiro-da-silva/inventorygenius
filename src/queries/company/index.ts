@@ -1,3 +1,4 @@
+import { persist } from "zustand/middleware";
 import CreateCompanyMapper from "@/queries/company/mappers/CompanyMapper";
 import CreateCompanyAdminMapper from "@/queries/company/mappers/CreateCompanyAdminMapper";
 import CreateCompanyInitMapper from "@/queries/company/mappers/CreateCompanyInitMapper";
@@ -16,8 +17,8 @@ import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const listCompany = async () => {
-  const { data } = await api.get<Company>("/company");
-  return data;
+  const { data } = await api.get<Company[]>("/companies");
+  return CreateCompanyMapper.toDomain(data);
 };
 
 const getCompanyByUid = async (uid: string) => {
@@ -26,7 +27,7 @@ const getCompanyByUid = async (uid: string) => {
 };
 
 const createCompany = async (payload: Company) => {
-  const body = CreateCompanyMapper.toDomain(payload);
+  const body = CreateCompanyMapper.toPersistence(payload);
   const { data } = await api.post<CreateCompanyResponse>("/companies", body);
   return data;
 };
@@ -42,7 +43,8 @@ const createCompanyInit = async (payload: CreateCompanyInit) => {
 
 const updateCompany = async (payload: UpdateCompany) => {
   const body = UpdateCompanyMapper.toDomain(payload);
-  const { data } = await api.put("/company/update", body);
+  const { id } = payload;
+  const { data } = await api.put(`/companies/${id}`, body);
   return data;
 };
 
@@ -93,7 +95,7 @@ export const useCreateCompanyInit = () => {
 };
 
 export const useUpdateCompany = () => {
-  const queryClient = useQueryClient(); 
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (payload: UpdateCompany) => updateCompany(payload),
     onMutate: () => {

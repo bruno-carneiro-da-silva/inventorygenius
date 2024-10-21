@@ -3,8 +3,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { Company } from "@/queries/company/types";
 
 type CompanyStore = {
-  company: Company | null;
-  setCompany: (company: Company | null) => void;
+  company: Company[] | null;
+  setCompany: (company: Company[] | null) => void;
 };
 
 export const useCompanyStore = create(

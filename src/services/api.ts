@@ -11,6 +11,10 @@ const getSessionData = () => {
   return JSON.parse(localStorage.getItem("user") || "{}");
 };
 
+const setSessionData = (data: any) => {
+  localStorage.setItem("user", JSON.stringify(data));
+};
+
 const addAuthorizationHeader = (
   config: InternalAxiosRequestConfig,
   token: string
@@ -23,7 +27,7 @@ const addAuthorizationHeader = (
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const sessionData = getSessionData();
-    const token = sessionData?.state?.login?.data?.accessToken;
+    const token = sessionData?.state?.login?.accessToken;
     addAuthorizationHeader(config, token);
     return config;
   },
@@ -47,15 +51,15 @@ api.interceptors.response.use(
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         const sessionData = getSessionData();
-        const newAccessToken = sessionData?.state?.login?.data?.accessToken;
+        const newAccessToken = sessionData?.state?.login?.accessToken;
+        sessionData.state.login.data.accessToken = newAccessToken;
+        setSessionData(sessionData);
 
-        if (newAccessToken) {
-          api.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${newAccessToken}`;
-          addAuthorizationHeader(originalRequest, newAccessToken);
-          return api(originalRequest);
-        }
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${newAccessToken}`;
+        addAuthorizationHeader(originalRequest, newAccessToken);
+        return api(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }

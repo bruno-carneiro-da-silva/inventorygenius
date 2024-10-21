@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import Logo from "@/assets/logo_transparent.png";
 import Modal from "@/components/Modal";
 import Tooltip from "@/components/Tooltip";
 import { LoadingIcon } from "@/icons";
@@ -11,7 +12,6 @@ import { useDashboard } from "./hooks/useDashboard";
 import TextInput from "../Input";
 import DropdownProfile from "../DropdownMenu";
 import ModalContactDetails from "./components/ModalContactDetails";
-import { companyMock } from "@/mocks/company.mock";
 
 export const DashboardLayout: React.FC = () => {
   const {
@@ -28,14 +28,15 @@ export const DashboardLayout: React.FC = () => {
     handleProfileClick,
     openModal,
     isCompanyLoading,
+    login,
   } = useDashboard();
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
-  // const imageProfile = `${
-  //   company?.data.photoUrl ?? ""
-  // }?t=${new Date().getTime()}`;
+  const imageProfile = `${
+    login?.user?.photoUrl ?? Logo
+  }?t=${new Date().getTime()}`;
 
-  const PerfilImg = "https://randomuser.me/api/portraits/men/1.jpg";
+  const PerfilImg = login?.user?.photoUrl ?? Logo;
   return (
     <div className="flex flex-row">
       <div className="bg-primary-dark h-screen fixed z-30 py-5 justify-between flex flex-col place-items-center place-content-center space-y-2 w-20">
@@ -123,11 +124,13 @@ export const DashboardLayout: React.FC = () => {
                 className="border-l-2 pl-2 pr-5 flex-row flex space-x-3"
               >
                 <div className="text-primary-dark">
-                  John Doe <br></br>
-                  <span className="text-primary text-sm">Admin</span>
+                  {login?.user?.firstName} <br></br>
+                  <span className="text-primary text-sm">
+                    {login?.user?.role?.name}
+                  </span>
                 </div>
                 <img
-                  className="bg-cover w-9 h-9 border-2 border-primary rounded-full"
+                  className="bg-cover w-9 h-9 border-2 border-primary bg-primary-dark rounded-full"
                   onError={(
                     e: React.SyntheticEvent<HTMLImageElement, Event>
                   ) => {
@@ -179,13 +182,13 @@ export const DashboardLayout: React.FC = () => {
             handleOpenOptions();
           }}
           onLogoutClick={handleOpen}
-          company={companyMock}
-          imageProfile={PerfilImg}
+          company={login}
+          imageProfile={imageProfile}
         />
       )}
       {openModal && (
         <ModalContactDetails
-          company={companyMock}
+          company={login}
           isLoading={isCompanyLoading}
           isOpen={openModal}
           onClose={handleProfileClick}

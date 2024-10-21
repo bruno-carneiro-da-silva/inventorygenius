@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
-import { Company } from "@/queries/company/types";
 import { LogOut, Pencil } from "lucide-react";
 import React from "react";
 import User from "@/assets/cover.png";
+import { LoginResponse } from "@/queries/account/types";
 
 type DropdownProfileProps = {
   onProfileClick: () => void;
   onLogoutClick: () => void;
-  company?: Company;
+  company?: LoginResponse | null;
   onClose?: () => void;
   imageProfile?: string;
 };
@@ -53,10 +53,10 @@ const DropdownProfile: React.FC<DropdownProfileProps> = ({
           />
           <div className="flex flex-col">
             <div className="text-sm font-semibold text-gray-500">
-              {company?.data.name}
+              {company?.user?.nameCompany || "Sem nome"}
             </div>
             <div className="text-xs font-light text-gray-500">
-              {company?.data.email}
+              {company?.user?.emailCompany || "Sem email"}
             </div>
           </div>
         </div>

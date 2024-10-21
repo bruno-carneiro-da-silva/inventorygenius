@@ -10,14 +10,15 @@ import ReactCrop, {
 } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { PencilIcon } from "lucide-react";
-import { Company } from "@/queries/company/types";
+// import { Company } from "@/queries/company/types";
+import { LoginResponse } from "@/queries/account/types";
 
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
 
 type ModalProps = {
   updateFile: (file: File) => void;
-  company?: Company;
+  company?: LoginResponse | null;
 };
 
 const ModalCropImage = ({ updateFile, company }: ModalProps) => {
@@ -30,7 +31,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const avatarUrl = useRef(
-    `${company?.data.photoUrl ?? ""}?t=${new Date().getTime()}`
+    `${company?.user?.photoUrl ?? ""}?t=${new Date().getTime()}`
   );
 
   const updateAvatar = (imgSrc: string) => {
@@ -53,7 +54,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
         const { naturalWidth, naturalHeight } =
           e.currentTarget as HTMLImageElement;
         if (naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
-          showErrorToast("Image must be at least 150 x 150 pixels.");
+          showErrorToast("A imagem precisa estar 150 x 150 pixels.");
           return setImgSrc("");
         }
       });
