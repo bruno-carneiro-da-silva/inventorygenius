@@ -11,6 +11,7 @@ import ModalDeleteProduct from "./Modals/DeleteProduct";
 import { useProductStore } from "@/stores/product";
 import { ProductResponse } from "@/queries/product/types";
 import { useGetProduct } from "@/queries/product";
+import { showErrorToast } from "@/components/Toast";
 
 export default function Product() {
   const methods = useForm();
@@ -22,8 +23,8 @@ export default function Product() {
   const { data } = useGetProduct();
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
+    if (!data) {
+      showErrorToast("Erro ao buscar produtos");
     }
   }, []);
 

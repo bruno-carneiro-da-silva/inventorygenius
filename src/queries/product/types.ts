@@ -26,7 +26,7 @@ export interface ProductResponse {
 }
 
 export interface ProductInit {
-  id?: string;
+  id?: string | null;
   name: string;
   qtd: number;
   price: number;
