@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useCreateCategory } from "@/queries/category";
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
-import { useCategoryStore } from "@/stores/category";
 
 type useCategoryProps = {
   onClose: () => void;
