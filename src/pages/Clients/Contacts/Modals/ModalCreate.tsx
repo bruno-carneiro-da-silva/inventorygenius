@@ -31,7 +31,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
-        title="Novo cliente"
+        title="Nova cliente"
         subtitle="Crie um novo cliente para fazer parte da sua lista"
         onClose={onClose}
       />

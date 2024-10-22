@@ -80,7 +80,7 @@ export default function useCreateContacts({
       })
       .catch((errors) => {
         const errorMessage =
-          errors?.response?.data?.errors?.[0]?.message || "An error occurred";
+          errors?.response?.data?.error || "An error occurred";
         showErrorToast(errorMessage);
       })
       .finally(() => {

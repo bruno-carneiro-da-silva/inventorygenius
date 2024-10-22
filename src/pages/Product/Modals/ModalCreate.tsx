@@ -28,8 +28,8 @@ const ModalCreateCategory: React.FC<ModalCreateCategoryProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
-        title="Novo cliente"
-        subtitle="Crie um novo cliente para fazer parte da sua lista"
+        title="Nova categoria"
+        subtitle="Crie uma nova categoria para fazer parte da sua lista"
         onClose={onClose}
       />
       <FormProvider {...methods}>
