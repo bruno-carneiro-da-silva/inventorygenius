@@ -1,22 +1,24 @@
-import Icon from "@/assets/react.svg";
+import ProfileImg from "@/assets/logo_transparent.png";
 import Button from "@/components/Button";
 // import Filter from "@/components/Filter";
 import Filter from "@/components/Filter";
 import Table from "@/components/Table";
+import { showErrorToast } from "@/components/Toast";
 // import Table from "@/components/Table";
-import { contacts } from "@/mocks/contacts.mock";
+// import { contacts } from "@/mocks/contacts.mock";
 import ModalCreateContact from "@/pages/Clients/Contacts/Modals/ModalCreate";
 import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
-import { ContactDetails } from "@/queries/contact/types";
+import { useGetContact } from "@/queries/contact";
+import { ContactDetails, GetContact } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 // import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { maskDateISO } from "@/utils/functions";
 import { Eye, Plus, Trash2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { FormProvider } from "react-hook-form";
 
 export default function Contacts() {
@@ -47,32 +49,31 @@ export default function Contacts() {
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  // const {
-  //   data: contact,
-  //   isLoading,
-  //   isError,
-  // } = useGetCustomer(companyUid, page, tableLimit);
+  const { data: contact, isError } = useGetContact();
 
   const handlePage = (page: number) => {
     setPage(page);
   };
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     showErrorToast("An error occurred while fetching the contact");
-  //   }
-  // }, [isError]);
+  useEffect(() => {
+    if (isError) {
+      showErrorToast("Ocorreu um erro ao buscar os contatos");
+    }
+  }, [isError]);
 
   const columns: ColumnTable[] = [
     {
       id: "name",
       label: "Nome",
       width: "w-4/12",
-      render: (data: Contact) => (
+      render: (data: GetContact) => (
         <div className="flex flex-row space-x-2 items-center">
-          <img src={data.photo || Icon} className="w-8 h-8 rounded-full" />
+          <img
+            src={data.name || ProfileImg}
+            className="w-8 h-8 rounded-full bg-primary-dark"
+          />
           <div className="flex flex-col">
-            <div className="text-sm text-primary-dark font-bold">{`${data.name} ${data.lastName}`}</div>
+            <div className="text-sm text-primary-dark font-bold">{`${data.name}`}</div>
           </div>
         </div>
       ),
@@ -80,22 +81,22 @@ export default function Contacts() {
     {
       id: "lastaName",
       label: "Sobrenome",
-      render: (data: Contact) => data.lastName,
+      render: (data: GetContact) => data.lastName,
     },
     {
       id: "email",
       label: "Email",
-      render: (data: Contact) => data.email,
+      render: (data: GetContact) => data.email,
     },
     {
       id: "data",
       label: "Data",
-      render: (data: Contact) => maskDateISO(data.created),
+      render: (data: GetContact) => maskDateISO(data.createdAt),
     },
     {
       id: "city",
       label: "Cidade",
-      render: (data: Contact) => data.city,
+      render: (data: GetContact) => data.city,
     },
     // {
     //   id: "contact",
@@ -150,7 +151,7 @@ export default function Contacts() {
       <div className="flex flex-col space-y-3">
         <Table
           columns={columns}
-          data={contacts || []}
+          data={contact || []}
           kebabMenu={KebabMenuItems}
           searchComponent={
             <div className="flex items-center space-x-6">

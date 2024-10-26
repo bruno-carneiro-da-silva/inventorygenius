@@ -9,7 +9,7 @@ import Row from "./Row";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
-  data: Record<number, string | number>[];
+  data: any[];
   searchComponent?: React.ReactNode;
   kebabMenu?: KebabMenuItem[];
   totalPages: number;

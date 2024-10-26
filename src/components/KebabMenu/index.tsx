@@ -4,7 +4,7 @@ import { KebabMenuItem } from "@/types/table";
 
 interface KebabMenuProps {
   items: KebabMenuItem[];
-  data: Record<string, number | string>;
+  data: any;
 }
 
 const KebabMenu: React.FC<KebabMenuProps> = ({ items, data }) => {

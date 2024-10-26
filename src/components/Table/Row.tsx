@@ -5,7 +5,7 @@ import KebabMenu from "@/components/KebabMenu";
 
 interface RowProps {
   columns: ColumnTable[];
-  item: Record<string, number | string>;
+  item: any;
   kebabMenu?: KebabMenuItem[];
 }
 

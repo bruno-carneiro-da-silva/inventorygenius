@@ -1,4 +1,4 @@
-import Icon from "@/assets/react.svg";
+import Profile from "@/assets/logo_transparent.png";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
@@ -47,7 +47,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
         <div className=" bg-white grid grid-cols-12 p-4 rounded-sm space-y-1 space-x-2">
           <div className="col-span-2 place-self-center">
             <img
-              src={selectedContact?.photo || Icon}
+              src={selectedContact?.photo || Profile}
               className="w-20 h-20 rounded-md"
             />
           </div>

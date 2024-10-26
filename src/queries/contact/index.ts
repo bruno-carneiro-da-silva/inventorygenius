@@ -15,12 +15,8 @@ import {
 } from "@/queries/contact/types";
 import DeleteContactMapper from "@/queries/contact/mappers/DeleteContactMapper";
 
-const getContact = async (ctx: QueryFunctionContext) => {
-  const [, companyUid, page, pageSize] = ctx.queryKey;
-  if (!companyUid || !page || !pageSize) return;
-  const { data } = await api.get<GetContact>(
-    `/customer/company/${companyUid}/${page}/${pageSize}`
-  );
+const getContact = async () => {
+  const { data } = await api.get<GetContact[]>(`/contacts`);
   return CreateContactMapper.toDomain(data);
 };
 
@@ -55,13 +51,9 @@ const deleteContact = async (payload: DeleteContact) => {
   return data;
 };
 
-export const useGetCustomer = (
-  companyUid: string,
-  page: number,
-  pageSize: number
-) => {
+export const useGetContact = () => {
   return useQuery({
-    queryKey: ["contact", companyUid, page, pageSize],
+    queryKey: ["contact"],
     queryFn: getContact,
   });
 };

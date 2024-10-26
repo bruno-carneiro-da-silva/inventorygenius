@@ -21,19 +21,31 @@ export type CreateContactResponse = {
 };
 
 export type GetContact = {
-  succeeded?: boolean;
-  errors?: {
-    key: string;
-    message: string;
-  }[];
-  data: {
-    totalRecords: number;
-    totalPages: number;
-    currentPage: number;
-    pageSize: number;
-    items: ContactDetails[];
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  categoryId: string;
+  companyId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  category: {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
   };
 };
+
+export interface ContactResponse {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  categoryId: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export type ContactDetails = {
   id: number;

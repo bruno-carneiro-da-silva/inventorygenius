@@ -1,34 +1,38 @@
-import { Contact, GetContactMapper } from "@/queries/contact/types";
+import { Contact, GetContact } from "@/queries/contact/types";
 
 class CreateContactMapper {
-  toPersistence(persistenceCreateContact: Contact) {
+  toPersistence(domainCreateContact: Contact) {
     return {
-      companyUid: persistenceCreateContact.companyUid,
-      firstName: persistenceCreateContact.firstName,
-      dateOfBirth: new Date(persistenceCreateContact.dateOfBirth).toISOString(),
-      lastName: persistenceCreateContact.lastName,
-      email: persistenceCreateContact.email,
-      phoneNumber: persistenceCreateContact.phoneNumber.replace(/\D/g, ""),
-      address: persistenceCreateContact.address,
-      latitude: persistenceCreateContact.latitude,
-      longitude: persistenceCreateContact.longitude,
-      zipCode: persistenceCreateContact.zipCode,
+      companyUid: domainCreateContact.companyUid,
+      firstName: domainCreateContact.firstName,
+      dateOfBirth: domainCreateContact.dateOfBirth,
+      lastName: domainCreateContact.lastName,
+      email: domainCreateContact.email,
+      phoneNumber: domainCreateContact.phoneNumber,
+      address: domainCreateContact.address,
+      latitude: domainCreateContact.latitude,
+      longitude: domainCreateContact.longitude,
+      zipCode: domainCreateContact.zipCode,
     };
   }
 
-  toDomain(persistenceCreateContact: GetContactMapper) {
-    console.log("here", persistenceCreateContact);
-    return {
-      succeeded: persistenceCreateContact.succeeded,
-      errors: persistenceCreateContact.errors,
-      data: {
-        totalRecords: persistenceCreateContact.data.totalRecords,
-        totalPages: persistenceCreateContact.data.totalPages,
-        currentPage: persistenceCreateContact.data.currentPage,
-        pageSize: persistenceCreateContact.data.pageSize,
-        items: persistenceCreateContact.data.items,
+  toDomain(persistenceCreateContact: GetContact[]) {
+    return persistenceCreateContact.map((contact) => ({
+      id: contact.id,
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      categoryId: contact.categoryId,
+      companyId: contact.companyId,
+      createdAt: contact.createdAt,
+      updatedAt: contact.updatedAt,
+      category: {
+        id: contact.category.id,
+        name: contact.category.name,
+        createdAt: contact.category.createdAt,
+        updatedAt: contact.category.updatedAt,
       },
-    };
+    }));
   }
 }
 
