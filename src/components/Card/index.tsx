@@ -1,21 +1,21 @@
-import { CardSupplierProps } from "@/types/Supplier";
 import Button from "@/components/Button";
 import KebabMenu from "@/components/KebabMenu";
+import { SupplierResponse } from "@/queries/supplier/types";
 import { KebabMenuItem } from "@/types/table";
 
 interface CardPropsWithMenu {
   kebabMenuItems: KebabMenuItem[];
-  item: CardSupplierProps;
+  item: SupplierResponse;
   icon: React.ReactNode;
   secondIcon: React.ReactNode;
 }
 
 const filterData = (
-  data: CardSupplierProps
+  data: SupplierResponse
 ): Record<string, string | number> => {
   const filteredData: Record<string, string | number> = {};
   Object.keys(data).forEach((key) => {
-    const value = data[key as keyof CardSupplierProps];
+    const value = data[key as keyof SupplierResponse];
     if (typeof value === "string" || typeof value === "number") {
       filteredData[key] = value;
     }
@@ -35,11 +35,11 @@ export const Card = ({
         <KebabMenu items={kebabMenuItems} data={filterData(item)} />
       </div>
       <div className="mt-4 flex flex-col items-center justify-center">
-        <img src={item.url} alt="placeholder" className="rounded-full mb-4" />
+        <img src={item.photo} alt="Foto do fornecedor" className="rounded-full mb-4" />
         <h1 className="text-center text-2xl text-primary-dark font-bold mb-2">
           {item.name}
         </h1>
-        <span className="text-center mb-4 text-gray-400">{item.product}</span>
+        <span className="text-center mb-4 text-gray-400">{item.niche}</span>
       </div>
       <div className="flex space-x-2">
         <Button

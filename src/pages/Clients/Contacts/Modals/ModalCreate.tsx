@@ -8,9 +8,9 @@ import { ContactDetailResponse, ContactDetails } from "@/queries/contact/types";
 import { Autocomplete } from "@react-google-maps/api";
 import React from "react";
 import { FormProvider } from "react-hook-form";
-import DateTextInput from "../components/DateInput";
 import useCreateContacts from "@/pages/Clients/Contacts/hooks/useContacts";
 import MaskedTextInput from "@/pages/Register/components/PhoneInput";
+import DateTextInput from "@/components/DateInput/DateInput";
 
 interface ModalCreateContactProps {
   isOpen: boolean;

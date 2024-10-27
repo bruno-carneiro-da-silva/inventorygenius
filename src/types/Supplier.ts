@@ -1,25 +1,4 @@
-export type CardSupplierProps = {
-  id: string;
-  children?: React.ReactNode;
-  url: string;
-  name: string;
-  product: string;
-  icon: React.ReactNode;
-  secondIcon: React.ReactNode;
-  email?: string;
-  description?: string;
-  phone?: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  status?: string;
-  companyName?: string;
-  category?: string;
-  productCategory?: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
+import { SupplierResponse } from "@/queries/supplier/types";
 
 export type GetSupplier = {
   succeeded?: boolean;
@@ -32,6 +11,6 @@ export type GetSupplier = {
     totalPages: number;
     currentPage: number;
     pageSize: number;
-    items: CardSupplierProps[];
+    items: SupplierResponse[];
   };
 };

@@ -1,15 +1,16 @@
 import Card from "@/components/Card";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
-import { supplier } from "@/mocks/supplier";
 import { useSupplierStore } from "@/stores/supplier";
-import { CardSupplierProps } from "@/types/Supplier";
 import { KebabMenuItem } from "@/types/table";
 import { Eye, Mail, Phone, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteSupplier from "./Modals/DeleteSupplier";
+import { useGetSuppliers } from "@/queries/supplier";
+import { SupplierResponse } from "@/queries/supplier/types";
+import NotFound from "@/components/NotFound/NotFound";
 
 export default function Supplier() {
   const methods = useForm();
@@ -18,7 +19,12 @@ export default function Supplier() {
 
   const { setSelectedSupplier } = useSupplierStore();
 
-  const handleOpenSupplierDetails = (supplier: CardSupplierProps) => {
+  const [filter, setFilter] = useState('')
+  const [page, setPage] = useState(1)
+
+  const { data: suppliersResponse, isLoading } = useGetSuppliers(page, filter)
+
+  const handleOpenSupplierDetails = (supplier: SupplierResponse) => {
     setSelectedSupplier(supplier);
     navigate(`/fornecedores/detalhes/${supplier.id}`);
   };
@@ -58,29 +64,43 @@ export default function Supplier() {
             { label: "Ativos", value: "active" },
             { label: "Inativos", value: "inactive" },
           ]}
-          onChange={(value) => console.log(value)}
+          onChange={(value) => setFilter(value)}
           onClick={handleCreateSupplier}
         />
-        <div className="flex flex-row flex-wrap gap-2">
-          {supplier.map((supplier) => (
-            <div className="m-2" key={supplier.id}>
-              <Card
-                key={supplier.id}
-                item={supplier}
-                icon={<Mail />}
-                secondIcon={<Phone />}
-                kebabMenuItems={KebabMenuItems}
-              />
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="flex flex-row space-x-3 bg-white p-4 rounded-md text-gray-500 hover:bg-gray-100 mt-4">
+            <div className="animate-pulse bg-gray-200 h-80 w-full rounded-md"></div>
+            <div className="animate-pulse bg-gray-200 h-80 w-full rounded-md"></div>
+            <div className="animate-pulse bg-gray-200 h-80 w-full rounded-md"></div>
+            <div className="animate-pulse bg-gray-200 h-80 w-full rounded-md"></div>
+          </div>
+        ) : (
+          <div className="flex flex-row flex-wrap gap-2">
+            {suppliersResponse?.suppliers?.map((supplier) => (
+              <div className="m-2" key={supplier.id}>
+                <Card
+                  key={supplier.id}
+                  item={supplier}
+                  icon={<Mail />}
+                  secondIcon={<Phone />}
+                  kebabMenuItems={KebabMenuItems}
+                />
+              </div>
+            ))}
+            {suppliersResponse?.suppliers?.length === 0 && (
+              <div className="w-full flex items-center justify-center">
+                <NotFound no_create_text={!!filter} />
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="mt-16 flex flex-row items-center justify-center">
-          <Pagination
-            currentPage={1}
-            totalPages={3}
-            onPageChange={(page) => console.log(page)}
-          />
+          {suppliersResponse && suppliersResponse.total > 0 && <Pagination
+            currentPage={page}
+            totalPages={suppliersResponse ? Math.ceil(suppliersResponse.total / suppliersResponse.per_page) : 0}
+            onPageChange={(page) => setPage(page)}
+          />}
         </div>
       </FormProvider>
       {openDeleteModal && (
