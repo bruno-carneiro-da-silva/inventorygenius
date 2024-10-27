@@ -13,6 +13,7 @@ import {
   DeleteContact,
   DeleteContactResponse,
   ContactDetailResponse,
+  EditContactPayload,
 } from "@/queries/contact/types";
 
 const getContacts = async () => {
@@ -44,6 +45,15 @@ const createContact = async (payload: Contact) => {
   const body = CreateContactMapper.toPersistence(payload);
   const { data } = await api.post<CreateContactResponse>(
     "/contacts",
+    body
+  );
+  return data;
+};
+
+const updateContact = async ({ id, ...payload }: EditContactPayload) => {
+  const body = CreateContactMapper.toPersistence(payload);
+  const { data } = await api.put<CreateContactResponse>(
+    `/contacts/${id}`,
     body
   );
   return data;
@@ -92,6 +102,20 @@ export const useCreateContact = () => {
     },
   });
 };
+
+export const useUpdateContact = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: EditContactPayload) => updateContact(payload),
+    onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["create-contact"] });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["contact"] });
+      queryClient.invalidateQueries({ queryKey: ["contact-detail"] });
+    },
+  });
+}
 
 export const useDeleteContact = () => {
   const queryClient = useQueryClient();

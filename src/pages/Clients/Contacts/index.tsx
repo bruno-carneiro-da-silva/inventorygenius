@@ -11,7 +11,7 @@ import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
 import { useGetContacts } from "@/queries/contact";
-import { ContactDetails, GetContact } from "@/queries/contact/types";
+import { ContactDetailResponse, ContactDetails, GetContact } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
@@ -22,30 +22,40 @@ import React, { useEffect, useState } from "react";
 // import { FormProvider } from "react-hook-form";
 
 export default function Contacts() {
+  const { setSelectedContact } = useMyContactStore((state) => ({
+    setSelectedContact: state.setSelectedContact,
+  }));
+
   const [openModalNotes, setOpenModalNotes] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalDetails, setOpenModalDetails] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
+  const [editContact, setEditContact] = useState<ContactDetailResponse | null>(null)
 
   const handleOpenModalNotes = () => {
     setOpenModalNotes(!openModalNotes);
   };
+
   const handleOpenModalDelete = (contact: Contact) => {
     setSelectedContact(contact);
     setOpenModalDelete(!openModalDelete);
   };
-  const { setSelectedContact } = useMyContactStore((state) => ({
-    setSelectedContact: state.setSelectedContact,
-  }));
 
   const handleOpenModalDetails = (contact: Contact) => {
     setSelectedContact(contact);
     setOpenModalDetails(!openModalDetails);
   };
 
+  const handleEdit = (contact: ContactDetailResponse) => {
+    setEditContact(contact)
+    setOpenModalCreate(!openModalCreate);
+  }
+
   const handleOpenModalCreate = () => {
+    setEditContact(null)
     setOpenModalCreate(!openModalCreate);
   };
+
   const [_page, setPage] = useState<number>(1);
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
@@ -167,12 +177,14 @@ export default function Contacts() {
       {openModalDetails && (
         <ModalDetails
           isOpen={openModalDetails}
+          handleEdit={handleEdit}
           onClose={() => setOpenModalDetails(!openModalDetails)}
         />
       )}
       {openModalCreate && (
         <ModalCreateContact
           isOpen={openModalCreate}
+          editContact={editContact}
           onClose={handleOpenModalCreate}
         />
       )}

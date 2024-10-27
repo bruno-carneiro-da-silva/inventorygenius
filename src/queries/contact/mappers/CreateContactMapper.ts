@@ -4,7 +4,7 @@ class CreateContactMapper {
   toPersistence(domainCreateContact: Contact) {
     return {
       companyId: domainCreateContact.companyUid,
-      name: `${domainCreateContact.firstName} ${domainCreateContact.lastName}`,
+      name: domainCreateContact.name,
       dateOfBirth: domainCreateContact.dateOfBirth,
       email: domainCreateContact.email,
       phone: domainCreateContact.phoneNumber,

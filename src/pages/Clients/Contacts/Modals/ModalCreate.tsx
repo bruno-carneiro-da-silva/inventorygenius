@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
 // import MaskedTextInput from "@/pages/Register/components/PhoneInput";
-import { ContactDetails } from "@/queries/contact/types";
+import { ContactDetailResponse, ContactDetails } from "@/queries/contact/types";
 import { Autocomplete } from "@react-google-maps/api";
 import React from "react";
 import { FormProvider } from "react-hook-form";
@@ -14,17 +14,20 @@ import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 
 interface ModalCreateContactProps {
   isOpen: boolean;
+  editContact: ContactDetailResponse | null;
   onClose: () => void;
   onSaved?: (customer: ContactDetails) => void;
 }
 
 const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
   isOpen,
+  editContact,
   onClose,
   onSaved,
 }) => {
   const { methods, onSubmit, isLoading, onLoad, onPlaceChanged } =
     useCreateContacts({
+      editContact,
       onClose,
       onSaved,
     });
@@ -40,13 +43,13 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className=" bg-white p-4 rounded-sm flex flex-col space-y-4">
             <div className="flex flex-row space-x-2">
-              <TextInput name="firstName" label="Nome" placeholder="Jonh" />
-              <TextInput
+              <TextInput name="name" label="Nome" placeholder="Jonh" />
+              {/* <TextInput
                 name="lastName"
                 label="Sobrenome"
                 placeholder="Doe"
                 classNameIcon="text-gray-400"
-              />
+              /> */}
             </div>
 
             <TextInput
@@ -93,7 +96,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? <LoadingIcon className="" /> : "Criar"}
+                {isLoading ? <LoadingIcon className="" /> : editContact ? "Editar" : "Criar"}
               </Button>
               <Button
                 className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-24"

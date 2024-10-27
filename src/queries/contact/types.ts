@@ -1,8 +1,7 @@
 export type Contact = {
   companyUid?: string;
-  firstName: string;
+  name: string
   dateOfBirth: string;
-  lastName: string;
   email: string;
   phoneNumber: string;
   address: string;
@@ -10,6 +9,8 @@ export type Contact = {
   longitude?: number;
   zipCode: string;
 };
+
+export type EditContactPayload = Contact & { id: string }
 
 export type CreateContactResponse = {
   succeeded: boolean;
@@ -25,16 +26,11 @@ export type GetContact = {
   name: string;
   email: string;
   phone: string;
+  address: string;
   categoryId: string;
   companyId: string | null;
   createdAt: string;
   updatedAt: string;
-  category: {
-    id: string;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-  };
 };
 
 export interface ContactResponse {

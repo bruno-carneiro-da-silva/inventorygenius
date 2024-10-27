@@ -19,13 +19,15 @@ import {
 } from "lucide-react";
 import React from "react";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
+import { ContactDetailResponse } from "@/queries/contact/types";
 
 interface ModalDetailsProps {
   isOpen: boolean;
+  handleEdit: (contact: ContactDetailResponse) => void;
   onClose: () => void;
 }
 
-const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
+const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose }) => {
   const { selectedContact } = useMyContactStore();
 
   const { data: contact, isLoading } = useGetContactDetail(selectedContact?.id)
@@ -110,7 +112,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
           <div className="col-span-3  text-right">
-            <Button className="font-medium text-xs w-36">
+            <Button className="font-medium text-xs w-36" type="button" onClick={() => handleEdit(contact)}>
               Atualizar informações
             </Button>
           </div>

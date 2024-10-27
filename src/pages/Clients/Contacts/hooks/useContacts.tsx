@@ -1,21 +1,24 @@
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
-import { useCreateContact } from "@/queries/contact";
-import { Contact, ContactDetails } from "@/queries/contact/types";
+import { useCreateContact, useUpdateContact } from "@/queries/contact";
+import { Contact, ContactDetailResponse, ContactDetails } from "@/queries/contact/types";
 import { useUserStore } from "@/stores/user";
+import { maskPhone } from "@/utils/functions";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRef, useState } from "react";
+import { AxiosError } from "axios";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 type useContactProps = {
+  editContact: ContactDetailResponse | null
   onClose: () => void;
   onSaved?: (customer: ContactDetails) => void;
 };
+
 const schema: yup.ObjectSchema<Contact> = yup.object({
   companyUid: yup.string(),
-  firstName: yup.string().required("Nome é obrigatório"),
+  name: yup.string().required("Nome é obrigatório"),
   dateOfBirth: yup.string().required("Data de nascimento é obrigatório"),
-  lastName: yup.string().required("Sobrenome é obrigatório"),
   email: yup.string().email().required("Email é obrigatório"),
   phoneNumber: yup.string().required("Telefone é obrigatório"),
   address: yup.string().required("Endereço é obrigatório"),
@@ -25,6 +28,7 @@ const schema: yup.ObjectSchema<Contact> = yup.object({
 });
 
 export default function useCreateContacts({
+  editContact,
   onClose,
   onSaved,
 }: useContactProps) {
@@ -36,7 +40,8 @@ export default function useCreateContacts({
   const [isLoading, setIsLoading] = useState(false);
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
-  const contactForm = useCreateContact();
+  const updateContact = useUpdateContact();
+  const createContact = useCreateContact();
   const companyID = useUserStore((state) => state.login?.user?.id)
 
   const onLoad = (autocomplete: google.maps.places.Autocomplete) => {
@@ -59,34 +64,48 @@ export default function useCreateContacts({
     }
   };
 
-  const onSubmit = (payload: Contact) => {
+  const onSubmit = async (payload: Contact) => {
     setIsLoading(true);
     const finalPayload = {
       ...payload,
       companyUid: companyID,
-      address: address,
+      address: address || (editContact?.address || ""),
       latitude: location.lat,
       longitude: location.lng,
     };
 
-    contactForm
-      .mutateAsync(finalPayload)
-      .then((data) => {
+    try {
+      let data
+      if (editContact) {
+        data = await updateContact.mutateAsync({ id: editContact.id, ...finalPayload })
+        showSuccessToast("Contact updated successfully");
+      } else {
+        data = await createContact.mutateAsync(finalPayload)
         showSuccessToast("Contact created successfully");
-        onClose();
-        if (onSaved) {
-          onSaved(data.data);
-        }
-      })
-      .catch((errors) => {
-        const errorMessage =
-          errors?.response?.data?.error || "An error occurred";
-        showErrorToast(errorMessage);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      }
+      onClose();
+      if (onSaved && data) {
+        onSaved(data.data);
+      }
+    } catch (errors) {
+      const errorMessage =
+        (errors as AxiosError<{ error: string }>)?.response?.data?.error || "An error occurred";
+      showErrorToast(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (editContact) {
+      methods.reset({
+        name: editContact.name,
+        email: editContact.email,
+        phoneNumber: maskPhone(editContact.phone),
+        address: editContact.address,
+      })
+    }
+  }, [editContact])
 
   return {
     methods,
