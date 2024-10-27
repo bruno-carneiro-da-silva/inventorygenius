@@ -22,8 +22,8 @@ const schema: yup.ObjectSchema<Contact> = yup.object({
   email: yup.string().email().required("Email é obrigatório"),
   phoneNumber: yup.string().required("Telefone é obrigatório"),
   address: yup.string().required("Endereço é obrigatório"),
-  latitude: yup.number(),
-  longitude: yup.number(),
+  latitude: yup.string(),
+  longitude: yup.string(),
   zipCode: yup.string().required("CEP é obrigatório"),
 });
 
@@ -70,8 +70,8 @@ export default function useCreateContacts({
       ...payload,
       companyUid: companyID,
       address: address || (editContact?.address || ""),
-      latitude: location.lat,
-      longitude: location.lng,
+      latitude: String(location.lat),
+      longitude: String(location.lng),
     };
 
     try {

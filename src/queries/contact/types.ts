@@ -5,8 +5,8 @@ export type Contact = {
   email: string;
   phoneNumber: string;
   address: string;
-  latitude?: number;
-  longitude?: number;
+  latitude?: string;
+  longitude?: string;
   zipCode: string;
 };
 
