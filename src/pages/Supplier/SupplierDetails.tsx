@@ -3,12 +3,15 @@ import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import { LoadingIcon } from "@/icons";
 import { useSupplierStore } from "@/stores/supplier";
 import { maskDateISO } from "@/utils/functions";
-import { Locate, Mail, Phone } from "lucide-react";
+import { ChevronLeftIcon, Locate, Mail, Phone } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SupplierDetails() {
-  // const { id } = useParams();
+  const navigate = useNavigate()
   const { selectedSupplier } = useSupplierStore();
+
+  const handleGoBack = () => navigate(-1)
 
   if (!selectedSupplier) {
     return (
@@ -26,9 +29,12 @@ export default function SupplierDetails() {
           className="absolute top-0 -left-[48px] w-[1374px] rounded-t-lg  h-32 bg-cover bg-center z-0"
           style={{ backgroundImage: `url(${coverImage})` }}
         ></div>
+        <button className="absolute z-50 text-black top-0 left-0 p-2" type="button" onClick={handleGoBack}>
+          <ChevronLeftIcon className="text-white w-8 h-8" />
+        </button>
         <div className="relative flex flex-col items-start mt-24">
           <img
-            src={selectedSupplier.url}
+            src={selectedSupplier.photo}
             alt={selectedSupplier.name}
             className="w-40 h-40 rounded-full mb-5 object-cover border-2 border-white -mt-20"
           />
@@ -36,7 +42,7 @@ export default function SupplierDetails() {
             <h1 className="text-2xl mb-3 font-bold text-primary-darker">
               {selectedSupplier.name}
             </h1>
-            <p className="text-sm text-gray-500">{selectedSupplier.category}</p>
+            <p className="text-sm text-gray-500">{selectedSupplier.niche}</p>
           </div>
         </div>
 
@@ -70,9 +76,16 @@ export default function SupplierDetails() {
         </div>
 
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">Sobre:</h2>
+          <h2 className="text-xl font-semibold text-primary-darker">Nacionalidade:</h2>
           <p className="text-primary-darker mt-2">
-            {selectedSupplier.description}
+            {selectedSupplier.nationality}
+          </p>
+        </div>
+
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold text-primary-darker">Contrato:</h2>
+          <p className="text-primary-darker mt-2">
+            {maskDateISO(selectedSupplier.startContractDate)} - {maskDateISO(selectedSupplier.endContractDate)}
           </p>
         </div>
 
@@ -82,7 +95,7 @@ export default function SupplierDetails() {
           </h2>
           <ul className="list-disc ml-7 mt-5">
             <li className="text-primary-darker">
-              {selectedSupplier.companyName}
+              {selectedSupplier.corporateReason}
             </li>
           </ul>
           <p className="text-gray-500 mt-2 ml-7">
@@ -92,7 +105,7 @@ export default function SupplierDetails() {
           </p>
         </div>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">
             Categorias:
           </h2>
@@ -100,7 +113,7 @@ export default function SupplierDetails() {
             {selectedSupplier.productCategory &&
               selectedSupplier.productCategory.split(", ").join(", ")}{" "}
           </p>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );
