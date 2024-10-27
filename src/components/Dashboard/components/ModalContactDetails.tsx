@@ -9,7 +9,7 @@ import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 import { LoginResponse } from "@/queries/account/types";
 import { useUpdateCompany } from "@/queries/company";
 import { Company, UpdateCompany } from "@/queries/company/types";
-import { fileToBase64, maskPhone } from "@/utils/functions";
+import { fileToBase64, maskPhone, unmaskPhone } from "@/utils/functions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Autocomplete } from "@react-google-maps/api";
 import { AxiosError } from "axios";
@@ -108,7 +108,7 @@ const ModalContactDetails = ({
       photo: photoBase64,
       name: data.name,
       email: data.email,
-      phoneNumber: data.phoneNumber,
+      phoneNumber: unmaskPhone(data.phoneNumber),
       address: data.address,
     };
 
