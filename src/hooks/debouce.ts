@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
 export const useDebouce = <T>(value: T, delay = 500) => {
@@ -15,3 +16,16 @@ export const useDebouce = <T>(value: T, delay = 500) => {
 
   return debouncedValue;
 };
+
+export const functionDebounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+) => {
+  let timeoutId: number
+  return React.useCallback((...args: Parameters<T>) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    timeoutId = setTimeout(() => func(...args), delay)
+  }, [])
+}

@@ -21,8 +21,8 @@ export default function Supplier() {
 
   const [filter, setFilter] = useState('')
   const [page, setPage] = useState(1)
-
-  const { data: suppliersResponse, isLoading } = useGetSuppliers(page, filter)
+  
+  const { data: suppliersResponse, isLoading } = useGetSuppliers(page, filter || '')
 
   const handleOpenSupplierDetails = (supplier: SupplierResponse) => {
     setSelectedSupplier(supplier);
@@ -66,7 +66,10 @@ export default function Supplier() {
             { label: "Ativos", value: "active" },
             { label: "Inativos", value: "inactive" },
           ]}
-          onChange={(value) => setFilter(value)}
+          onChange={() => {}}
+          onSearch={(input) => {
+            setFilter(input)
+          }}
           onClick={handleCreateSupplier}
         />
         {isLoading ? (

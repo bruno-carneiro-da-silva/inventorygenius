@@ -1,9 +1,10 @@
-import React from "react";
-import TextInput from "../Input";
-import { Plus, Search } from "lucide-react";
+import { functionDebounce } from "@/hooks/debouce";
 import cx from "classnames";
-import CustomSelect from "../CustomSelect";
+import { Plus, Search } from "lucide-react";
+import React from "react";
 import Button from "../Button";
+import CustomSelect from "../CustomSelect";
+import TextInput from "../Input";
 
 type SubHeaderProps = {
   children?: React.ReactNode;
@@ -11,6 +12,7 @@ type SubHeaderProps = {
   name: string;
   placeholder?: string;
   text?: string;
+  onSearch?: (input: string) => void;
   onChange: (value: string) => void;
   options: { label: string; value: string }[];
   onClick?: () => void;
@@ -21,17 +23,24 @@ function SubHeader({
   placeholder,
   className,
   text,
+  onSearch,
   onChange,
   options,
   onClick,
 }: SubHeaderProps) {
+  const handleSearch = onSearch ? functionDebounce(onSearch, 500) : () => { };
+
   return (
     <div className="flex justify-between items-center">
       <div className="flex-0">
         <TextInput
-          className={cx("w-[350px] h-[30px] rounded-full", className)}
           name={name}
+          className={cx("w-[350px] h-[30px] rounded-full", className)}
           icon={<Search className="text-primary-dark" />}
+          onChange={(e) => {
+            const v = e.target.value || ''
+            handleSearch(v)
+          }}
           placeholder={placeholder}
         />
       </div>
