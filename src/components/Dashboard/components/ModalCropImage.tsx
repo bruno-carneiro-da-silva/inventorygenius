@@ -10,18 +10,16 @@ import ReactCrop, {
 } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { PencilIcon } from "lucide-react";
-// import { Company } from "@/queries/company/types";
-import { LoginResponse } from "@/queries/account/types";
 
 const ASPECT_RATIO = 1;
 const MIN_DIMENSION = 150;
 
 type ModalProps = {
   updateFile: (file: File) => void;
-  company?: LoginResponse | null;
+  photo?: string | null;
 };
 
-const ModalCropImage = ({ updateFile, company }: ModalProps) => {
+const ModalCropImage = ({ updateFile, photo }: ModalProps) => {
   const imgRef = useRef<HTMLImageElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -30,12 +28,10 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
   const [error, setError] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
 
-  const avatarUrl = useRef(
-    `${company?.user?.photoUrl ?? ""}?t=${new Date().getTime()}`
-  );
+  const photoRef = useRef(photo);
 
   const updateAvatar = (imgSrc: string) => {
-    avatarUrl.current = imgSrc;
+    photoRef.current = imgSrc;
   };
 
   const onSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +87,7 @@ const ModalCropImage = ({ updateFile, company }: ModalProps) => {
             e.currentTarget.src = User;
           }}
           onClick={() => fileInputRef?.current?.click()}
-          src={avatarUrl.current ?? ""}
+          src={photoRef.current ?? ""}
           className="w-32 h-32 border-gray-200 border cursor-pointer rounded-full group-hover:opacity-50 transition-opacity duration-300"
         />
         <button

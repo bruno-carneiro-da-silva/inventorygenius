@@ -47,6 +47,7 @@ export type Company = {
   createdAt: string;
   updatedAt: string;
   planId: null;
+  photo_base64: string;
   _count: {
     contacts: number;
     suppliers: number;
@@ -114,12 +115,8 @@ export type UpdateCompany = {
   name: string;
   email: string;
   phoneNumber: string;
-  photoUrl: string;
+  photo?: string;
   address: string;
-};
-export type UpdateCompanyLogo = {
-  id?: number;
-  companyUid: string;
 };
 
 export type CreateCompanyAdmin = {

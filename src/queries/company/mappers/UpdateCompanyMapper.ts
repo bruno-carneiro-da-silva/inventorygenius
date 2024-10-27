@@ -7,7 +7,7 @@ class UpdateCompanyMapper {
       name: domainUpdateCompany.name,
       email: domainUpdateCompany.email,
       phoneNumber: domainUpdateCompany.phoneNumber,
-      photoUrl: domainUpdateCompany.photoUrl,
+      photo: domainUpdateCompany.photo,
       address: domainUpdateCompany.address,
     };
   }
@@ -17,7 +17,7 @@ class UpdateCompanyMapper {
       name: persistenceUpdateCompany.name,
       email: persistenceUpdateCompany.email,
       phoneNumber: persistenceUpdateCompany.phoneNumber,
-      photoUrl: persistenceUpdateCompany.photoUrl,
+      photo: persistenceUpdateCompany.photo,
       address: persistenceUpdateCompany.address,
     };
   }

@@ -1,17 +1,18 @@
-import Button from "@/components/Button";
 import Logo from "@/assets/logo_transparent.png";
+import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import Tooltip from "@/components/Tooltip";
 import { LoadingIcon } from "@/icons";
 import { sidebarItens } from "@/mocks/dashboard.mock";
+import { useGetCompanyByUid } from "@/queries/company";
 import cx from "classnames";
 import { Bell, LogOut, Search, Settings } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { Outlet } from "react-router-dom";
-import { useDashboard } from "./hooks/useDashboard";
-import TextInput from "../Input";
 import DropdownProfile from "../DropdownMenu";
+import TextInput from "../Input";
 import ModalContactDetails from "./components/ModalContactDetails";
+import { useDashboard } from "./hooks/useDashboard";
 
 export const DashboardLayout: React.FC = () => {
   const {
@@ -31,12 +32,12 @@ export const DashboardLayout: React.FC = () => {
     login,
   } = useDashboard();
 
-  const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
-  const imageProfile = `${
-    login?.user?.photoUrl ?? Logo
-  }?t=${new Date().getTime()}`;
+  const { data: company } = useGetCompanyByUid(login?.user?.id)
 
-  const PerfilImg = login?.user?.photoUrl ?? Logo;
+  const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
+
+  const PerfilImg = company?.photo_base64 ?? Logo;
+  
   return (
     <div className="flex flex-row">
       <div className="bg-primary-dark h-screen fixed z-30 py-5 justify-between flex flex-col place-items-center place-content-center space-y-2 w-20">
@@ -183,12 +184,13 @@ export const DashboardLayout: React.FC = () => {
           }}
           onLogoutClick={handleOpen}
           company={login}
-          imageProfile={imageProfile}
+          imageProfile={PerfilImg}
         />
       )}
       {openModal && (
         <ModalContactDetails
-          company={login}
+          login={login}
+          company={company}
           isLoading={isCompanyLoading}
           isOpen={openModal}
           onClose={handleProfileClick}

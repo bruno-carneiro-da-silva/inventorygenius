@@ -1,7 +1,6 @@
 import CreateCompanyMapper from "@/queries/company/mappers/CompanyMapper";
 import CreateCompanyAdminMapper from "@/queries/company/mappers/CreateCompanyAdminMapper";
 import CreateCompanyInitMapper from "@/queries/company/mappers/CreateCompanyInitMapper";
-import UpdateCompanyLogoMapper from "@/queries/company/mappers/UpdateCompanyLogoMapper";
 import UpdateCompanyMapper from "@/queries/company/mappers/UpdateCompanyMapper";
 import {
   Company,
@@ -10,7 +9,6 @@ import {
   CreateCompanyInitResponse,
   CreateCompanyResponse,
   UpdateCompany,
-  UpdateCompanyLogo,
 } from "@/queries/company/types";
 import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -20,8 +18,9 @@ const listCompany = async () => {
   return CreateCompanyMapper.toDomain(data);
 };
 
-const getCompanyByUid = async (uid: string) => {
-  const { data } = await api.get<Company>(`/company/${uid}`);
+const getCompanyByUid = async (uid?: string) => {
+  if (!uid) return undefined
+  const { data } = await api.get<Company>(`/companies/${uid}`);
   return data;
 };
 
@@ -47,12 +46,6 @@ const updateCompany = async (payload: UpdateCompany) => {
   return data;
 };
 
-const updateCompanyLogo = async (payload: UpdateCompanyLogo) => {
-  const body = UpdateCompanyLogoMapper.toDomain(payload);
-  const { data } = await api.put("/company/update/logo", body);
-  return data;
-};
-
 const createCompanyAdmin = async (payload: CreateCompanyAdmin) => {
   const body = CreateCompanyAdminMapper.toDomain(payload);
   const { data } = await api.post("/company/create/admin", body);
@@ -66,7 +59,7 @@ export const useListCompany = () => {
   });
 };
 
-export const useGetCompanyByUid = (uid: string) => {
+export const useGetCompanyByUid = (uid?: string) => {
   return useQuery({
     queryKey: ["company", uid],
     queryFn: () => getCompanyByUid(uid),
@@ -100,16 +93,9 @@ export const useUpdateCompany = () => {
     onMutate: () => {
       queryClient.invalidateQueries({ queryKey: ["update-company"] });
     },
-  });
-};
-
-export const useUpdateCompanyLogo = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (payload: UpdateCompanyLogo) => updateCompanyLogo(payload),
-    onMutate: () => {
-      queryClient.invalidateQueries({ queryKey: ["update-company-logo"] });
-    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["company"] })
+    }
   });
 };
 

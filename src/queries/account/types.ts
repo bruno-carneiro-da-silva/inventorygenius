@@ -20,7 +20,6 @@ export type LoginResponse = {
     id: string;
     firstName: string;
     lastName: string;
-    photoUrl?: string;
     emailAdmin: string;
     phoneNumberAdmin: string;
     nameCompany: string;

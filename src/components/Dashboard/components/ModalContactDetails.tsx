@@ -2,42 +2,44 @@ import Button from "@/components/Button";
 import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
+import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { LoadingIcon } from "@/icons";
 import LoadingPlaceholder from "@/pages/Clients/Contacts/components/LoadingPlaceholder";
 import MaskedTextInput from "@/pages/Register/components/PhoneInput";
-// import { Company, UpdateCompany } from "@/queries/company/types";
+import { LoginResponse } from "@/queries/account/types";
+import { useUpdateCompany } from "@/queries/company";
+import { Company, UpdateCompany } from "@/queries/company/types";
+import { fileToBase64, maskPhone } from "@/utils/functions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Autocomplete } from "@react-google-maps/api";
+import { AxiosError } from "axios";
 import { Mail, MapPinned, PencilIcon, Phone } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import ModalCropImage from "./ModalCropImage";
-import { LoginResponse } from "@/queries/account/types";
-// import { showErrorToast, showSuccessToast } from "@/components/Toast";
-// import { ApiError } from "@/types/ApiError";
-// import { useUpdateCompany } from "@/queries/company";
 
 type FormValues = {
   name: string;
   email: string;
   phoneNumber: string;
   address: string;
-  photoUrl?: string | null;
+  photo?: string | null;
 };
 
 const schema: yup.ObjectSchema<FormValues> = yup.object({
-  name: yup.string().required("Name is required"),
-  email: yup.string().email().required("Email is required"),
-  phoneNumber: yup.string().required("Phone number is required"),
-  address: yup.string().required("Address is required"),
-  photoUrl: yup.string(),
+  name: yup.string().required("Nome é obrigatório"),
+  email: yup.string().email().required("Email é obrigatório"),
+  phoneNumber: yup.string().required("Telefone é obrigatório"),
+  address: yup.string().required("Endereço é obrigatório"),
+  photo: yup.string().nullable(),
 });
 
 type ModalContactDetailsProps = {
   isOpen: boolean;
   onClose: () => void;
-  company?: LoginResponse | null;
+  company?: Company | null;
+  login?: LoginResponse | null,
   isLoading: boolean;
 };
 
@@ -45,18 +47,19 @@ const ModalContactDetails = ({
   isOpen,
   onClose,
   company,
+  login,
   isLoading,
 }: ModalContactDetailsProps) => {
-  const [isCompanyLoading, _setIsCompanyLoading] = useState(false);
+  const [isCompanyLoading, setIsCompanyLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [_file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const methods = useForm({
     defaultValues: {
-      name: company?.user?.nameCompany || "",
-      email: company?.user?.emailCompany || "",
-      phoneNumber: company?.user?.phoneNumberCompany || "",
-      address: company?.user?.addressCompany || "",
-      photoUrl: company?.user?.photoUrl || null,
+      name: company?.nameCompany || "",
+      email: company?.emailCompany || "",
+      phoneNumber: company?.phoneNumberCompany ? maskPhone(company.phoneNumberCompany) : "",
+      address: company?.addressCompany || "",
+      photo: company?.photo_base64 || null,
     },
     resolver: yupResolver(schema),
   });
@@ -65,88 +68,52 @@ const ModalContactDetails = ({
     setFile(file);
   };
 
-  // const updateCompany = useUpdateCompany();
-  // const updateCompanyLogo = useUpdateCompanyLogo();
+  const updateCompany = useUpdateCompany();
 
-  // const uploadFileToBlob = (
-  //   file: File,
-  //   sasUrl: string
-  // ): Promise<BlockBlobUploadResponse> => {
-  //   const blobClient = new BlockBlobClient(sasUrl);
-  //   return blobClient.upload(file, file.size, {
-  //     blobHTTPHeaders: { blobContentType: file.type },
-  //   });
-  // };
+  const updateCompanySubmit = (companyPayload: UpdateCompany) => {
+    if (!company) return;
+    updateCompany
+      .mutateAsync(companyPayload)
+      .then(() => {
+        showSuccessToast("Company updated successfully");
+        onClose();
+      })
+      .catch((err: AxiosError<any>) => {
+        if (err?.status === 413) {
+          showErrorToast("Imagem muito pesada!")
+          return
+        }
+        const errors = err?.response?.data?.errors;
+        if (errors && Array.isArray(errors)) {
+          errors.forEach((error) => {
+            showErrorToast(error.message || "An unexpected error occurred.");
+          });
+        } else {
+          showErrorToast("An unexpected error occurred.");
+        }
+      })
+      .finally(() => {
+        setIsCompanyLoading(false);
+      });
+  };
 
-  // const updateCompanySubmit = (companyPayload: UpdateCompany) => {
-  //   if (!company) return;
-  //   updateCompany
-  //     .mutateAsync(companyPayload)
-  //     .then(() => {
-  //       showSuccessToast("Company updated successfully");
-  //       onClose();
-  //     })
-  //     .catch((err: ApiError) => {
-  //       const errors = err?.response?.data?.errors;
-  //       if (errors && Array.isArray(errors)) {
-  //         errors.forEach((error) => {
-  //           showErrorToast(error.message || "An unexpected error occurred.");
-  //         });
-  //       } else {
-  //         showErrorToast("An unexpected error occurred.");
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setIsCompanyLoading(false);
-  //     });
-  // };
+  const onSubmit = async (data: FormValues) => {
+    setIsCompanyLoading(true);
 
-  // const onSubmit = (data: FormValues) => {
-  //   setIsCompanyLoading(true);
-  //   if (!company) return;
-  //   const companyPayload: UpdateCompany = {
-  //     id: company?.user?.id,
-  //     photoUrl: data.photoUrl || "",
-  //     name: data.name,
-  //     email: data.email,
-  //     phoneNumber: data.phoneNumber,
-  //     address: data.address,
-  //   };
+    const photoBase64 = file ? (await fileToBase64(file)) : (data.photo || undefined)
 
-  //   if (file) {
-  //     updateCompanyLogo
-  //       .mutateAsync({
-  //         user: company?.user?.id,
-  //       })
-  //       .then((res) => {
-  //         const photoUrl: string = res.data.photoUrl;
+    if (!company) return;
+    const companyPayload: UpdateCompany = {
+      id: login?.user?.id,
+      photo: photoBase64,
+      name: data.name,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
+      address: data.address,
+    };
 
-  //         const teste = photoUrl.split("?")[0];
-  //         uploadFileToBlob(file, photoUrl)
-  //           .then(() => {
-  //             companyPayload.photoUrl = teste;
-  //             updateCompanySubmit(companyPayload);
-  //           })
-  //           .catch(() => {
-  //             showErrorToast("An error occurred while uploading the image");
-  //             setIsCompanyLoading(false);
-  //           });
-  //       })
-  //       .catch((err: ApiError) => {
-  //         const errors = err?.response?.data?.errors;
-  //         if (errors && Array.isArray(errors)) {
-  //           errors.forEach((error) => {
-  //             showErrorToast(error.message);
-  //           });
-  //         } else {
-  //           showErrorToast("An unexpected error occurred.");
-  //         }
-  //         setIsCompanyLoading(false);
-  //       });
-  //   } else {
-  //     updateCompanySubmit(companyPayload);
-  //   }
-  // };
+    updateCompanySubmit(companyPayload);
+  };
 
   const handleClose = () => {
     setShowAlert(true);
@@ -171,11 +138,11 @@ const ModalContactDetails = ({
           <FormProvider {...methods}>
             <form
               className="overflow-auto"
-              // onSubmit={methods.handleSubmit(onSubmit)}
+              onSubmit={methods.handleSubmit(onSubmit)}
             >
               <div className="bg-white grid grid-cols-12 p-4 rounded-sm space-y-1 space-x-2">
                 <div className="flex flex-col col-span-12 space-y-5 overflow-auto">
-                  <ModalCropImage updateFile={updateFile} company={company} />
+                  <ModalCropImage updateFile={updateFile} photo={company?.photo_base64} />
                   <div className="text-sm font-light flex flex-row space-x-2 w-full text-gray-500">
                     <TextInput
                       name="name"
