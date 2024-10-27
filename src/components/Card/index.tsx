@@ -10,19 +10,6 @@ interface CardPropsWithMenu {
   secondIcon: React.ReactNode;
 }
 
-const filterData = (
-  data: SupplierResponse
-): Record<string, string | number> => {
-  const filteredData: Record<string, string | number> = {};
-  Object.keys(data).forEach((key) => {
-    const value = data[key as keyof SupplierResponse];
-    if (typeof value === "string" || typeof value === "number") {
-      filteredData[key] = value;
-    }
-  });
-  return filteredData;
-};
-
 export const Card = ({
   icon,
   secondIcon,
@@ -32,7 +19,7 @@ export const Card = ({
   return (
     <div className="bg-white rounded-xl mt-10 border-gray-300 border p-4 flex w-[330px] h-[352px] flex-col items-center relative">
       <div className="absolute top-2 right-2">
-        <KebabMenu items={kebabMenuItems} data={filterData(item)} />
+        <KebabMenu items={kebabMenuItems} data={item} />
       </div>
       <div className="mt-4 flex flex-col items-center justify-center">
         <img src={item.photo} alt="Foto do fornecedor" className="rounded-full mb-4" />

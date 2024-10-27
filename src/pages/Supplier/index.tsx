@@ -1,6 +1,9 @@
 import Card from "@/components/Card";
+import NotFound from "@/components/NotFound/NotFound";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
+import { useGetSuppliers } from "@/queries/supplier";
+import { SupplierResponse } from "@/queries/supplier/types";
 import { useSupplierStore } from "@/stores/supplier";
 import { KebabMenuItem } from "@/types/table";
 import { Eye, Mail, Phone, Trash2 } from "lucide-react";
@@ -8,9 +11,6 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteSupplier from "./Modals/DeleteSupplier";
-import { useGetSuppliers } from "@/queries/supplier";
-import { SupplierResponse } from "@/queries/supplier/types";
-import NotFound from "@/components/NotFound/NotFound";
 
 export default function Supplier() {
   const methods = useForm();
@@ -30,10 +30,12 @@ export default function Supplier() {
   };
 
   const handleCreateSupplier = () => {
+    setSelectedSupplier(null)
     navigate("/fornecedores/criar");
   };
 
-  const handleOpenModalDelete = () => {
+  const handleOpenModalDelete = (supplier: SupplierResponse) => {
+    setSelectedSupplier(supplier)
     setOpenDeleteModal(!openDeleteModal);
   };
 
@@ -47,7 +49,7 @@ export default function Supplier() {
     {
       id: "delete",
       label: "Deletar",
-      onClick: handleOpenModalDelete,
+      onClick: (data) => handleOpenModalDelete(data),
       icon: <Trash2 />,
     },
   ];
@@ -106,7 +108,7 @@ export default function Supplier() {
       {openDeleteModal && (
         <ModalDeleteSupplier
           isOpen={openDeleteModal}
-          onClose={handleOpenModalDelete}
+          onClose={() => setOpenDeleteModal(!openDeleteModal)}
         />
       )}
     </div>

@@ -1,12 +1,12 @@
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import DateTextInput from "@/components/DateInput/DateInput";
 import TextInput from "@/components/Input";
+import { maskCNPJ } from "@/utils/functions";
 import { Autocomplete } from "@react-google-maps/api";
 import {
   Flag,
   Mail,
   Map,
-  Phone,
   Shirt,
   StickyNote,
   User
@@ -14,9 +14,8 @@ import {
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import useCreateSuppliers from "./hooks/useSuppliers";
-import { maskCNPJ } from "@/utils/functions";
 import MaskedTextInput from "../Register/components/PhoneInput";
+import useCreateSuppliers from "./hooks/useSuppliers";
 
 
 export default function CreateSupplier() {

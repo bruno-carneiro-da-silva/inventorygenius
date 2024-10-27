@@ -1,6 +1,9 @@
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
+import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { LoadingIcon } from "@/icons";
+import { useDeleteSupplier } from "@/queries/supplier";
+import { useSupplierStore } from "@/stores/supplier";
 import React from "react";
 
 interface ModalDeleteProps {
@@ -12,30 +15,30 @@ const ModalDeleteSupplier: React.FC<ModalDeleteProps> = ({
   isOpen,
   onClose,
 }) => {
-  // const deleteCampaign = useDeleteCampaign();
-  // const { selectedSupplier } = useSupplierStore((state) => ({
-  //   selectedSupplier: state.selectedSupplier,
-  // }));
+  const deleteSupplier = useDeleteSupplier();
+  const { selectedSupplier } = useSupplierStore((state) => ({
+    selectedSupplier: state.selectedSupplier,
+  }));
 
-  const [isLoading, _setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  // const handleDeleteCampaign = () => {
-  //   setIsLoading(true);
-  //   deleteCampaign
-  //     .mutateAsync(selectedCampaign?.uid || "")
-  //     .then(() => {
-  //       showSuccessToast("Campaign deleted successfully");
-  //       onClose();
-  //     })
-  //     .catch((errors) => {
-  //       const errorMessage =
-  //         errors?.response?.data?.errors?.[0]?.message || "An error occurred";
-  //       showErrorToast(errorMessage);
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     });
-  // };
+  const handleDeleteSupplier = () => {
+    setIsLoading(true);
+    deleteSupplier
+      .mutateAsync(selectedSupplier?.id || "")
+      .then(() => {
+        showSuccessToast("Campaign deleted successfully");
+        onClose();
+      })
+      .catch((errors) => {
+        const errorMessage =
+          errors?.response?.data?.errors?.[0]?.message || "An error occurred";
+        showErrorToast(errorMessage);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const deleteButtonText = isLoading ? <LoadingIcon /> : "Deletar";
 
@@ -56,8 +59,8 @@ const ModalDeleteSupplier: React.FC<ModalDeleteProps> = ({
             Cancelar
           </Button>
           <Button
-            type="submit"
-            onClick={() => console.log("Delete Campaign")}
+            type="button"
+            onClick={handleDeleteSupplier}
             disabled={isLoading}
             className="bg-primary-dark text-white w-28 font-medium"
           >
