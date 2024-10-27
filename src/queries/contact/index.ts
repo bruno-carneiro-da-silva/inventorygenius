@@ -12,12 +12,19 @@ import {
   GetContact,
   DeleteContact,
   DeleteContactResponse,
+  ContactDetailResponse,
 } from "@/queries/contact/types";
 
-const getContact = async () => {
+const getContacts = async () => {
   const { data } = await api.get<GetContact[]>(`/contacts`);
   return CreateContactMapper.toDomain(data);
 };
+
+const getContactDetail = async (id?: string) => {
+  if (!id) return undefined
+  const { data } = await api.get<ContactDetailResponse>(`/contacts/${id}`)
+  return data
+}
 
 const getFilteredContact = async (ctx: QueryFunctionContext) => {
   const [, companyUid, page, pageSize, name] = ctx.queryKey;
@@ -47,12 +54,19 @@ const deleteContact = async (payload: DeleteContact) => {
   return data;
 };
 
-export const useGetContact = () => {
+export const useGetContacts = () => {
   return useQuery({
     queryKey: ["contact"],
-    queryFn: getContact,
+    queryFn: getContacts,
   });
 };
+
+export const useGetContactDetail = (id?: string) => {
+  return useQuery({
+    queryKey: ["contact-detail"],
+    queryFn: () => getContactDetail(id)
+  })
+}
 
 export const useGetFilteredContact = (
   companyUid: string,

@@ -14,8 +14,6 @@ export default function useDeleteContactHook({ onClose }: useDeleteContactProps)
   const deleteContact = useDeleteContact();
 
   const handleSubmit = () => {
-    console.log('here', selectedContact)
-
     setIsLoading(true);
     const finalDeletePayload = {
       id: selectedContact?.id || "",

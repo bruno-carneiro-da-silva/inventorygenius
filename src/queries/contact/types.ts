@@ -47,6 +47,16 @@ export interface ContactResponse {
   updatedAt: string;
 }
 
+export interface ContactDetailResponse {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  categoryId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type ContactDetails = {
   id: number;
   uId: string;

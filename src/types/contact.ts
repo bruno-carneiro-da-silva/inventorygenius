@@ -5,7 +5,7 @@ export type Contact = {
   email?: string;
   phone?: string;
   uId: string;
-  created: string;
+  createdAt: string;
   lastName: string;
   city: string;
   contact: {

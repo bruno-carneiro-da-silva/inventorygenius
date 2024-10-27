@@ -10,7 +10,7 @@ import ModalCreateContact from "@/pages/Clients/Contacts/Modals/ModalCreate";
 import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
-import { useGetContact } from "@/queries/contact";
+import { useGetContacts } from "@/queries/contact";
 import { ContactDetails, GetContact } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
@@ -50,14 +50,13 @@ export default function Contacts() {
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  const { data: contact, isError } = useGetContact();
+  const { data: contact, isError } = useGetContacts();
 
   const handlePage = (page: number) => {
     setPage(page);
   };
 
   useEffect(() => {
-    console.log('here', isError, contact)
     if (isError) {
       showErrorToast("Ocorreu um erro ao buscar os contatos");
     }
