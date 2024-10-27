@@ -42,6 +42,7 @@ export interface ContactResponse {
   name: string;
   email: string;
   phone: string;
+  address: string;
   categoryId: string;
   createdAt: string;
   updatedAt: string;
@@ -52,6 +53,7 @@ export interface ContactDetailResponse {
   name: string;
   email: string;
   phone: string;
+  address: string;
   categoryId: string;
   createdAt: string;
   updatedAt: string;

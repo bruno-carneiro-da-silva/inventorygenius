@@ -14,6 +14,7 @@ import {
   // AtSign,
   CalendarDays,
   Mail,
+  MapPinned,
   Phone
 } from "lucide-react";
 import React from "react";
@@ -81,12 +82,12 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
             </div>
-            {/* <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
+            <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
               <div className="flex flex-row items-center space-x-2">
                 <MapPinned className="w-5 h-5" />
-                <div className="font-bold text-xs">{selectedContact?.city}</div>
+                <div className="font-bold text-xs">{contact.address}</div>
               </div>
-            </div> */}
+            </div>
             <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
               {/* <div className="flex flex-row items-center space-x-2">
                 <MapPinned className="w-5 h-5" />
