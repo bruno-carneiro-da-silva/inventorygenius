@@ -10,6 +10,7 @@ import React from "react";
 import { FormProvider } from "react-hook-form";
 import DateTextInput from "../components/DateInput";
 import useCreateContacts from "@/pages/Clients/Contacts/hooks/useContacts";
+import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 
 interface ModalCreateContactProps {
   isOpen: boolean;
@@ -68,12 +69,12 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
             </Autocomplete>
 
             <div className="flex flex-row space-x-2">
-              {/* <MaskedTextInput
+              <MaskedTextInput
                 name="phoneNumber"
                 label="Phone"
                 placeholder="+1 123 456 7890"
                 classNameIcon="text-gray-400"
-              /> */}
+              />
               <DateTextInput
                 name="dateOfBirth"
                 label="Data de nascimento"

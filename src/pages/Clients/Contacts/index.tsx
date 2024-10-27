@@ -56,6 +56,7 @@ export default function Contacts() {
   };
 
   useEffect(() => {
+    console.log('here', isError, contact)
     if (isError) {
       showErrorToast("Ocorreu um erro ao buscar os contatos");
     }
@@ -79,11 +80,6 @@ export default function Contacts() {
       ),
     },
     {
-      id: "lastaName",
-      label: "Sobrenome",
-      render: (data: GetContact) => data.lastName,
-    },
-    {
       id: "email",
       label: "Email",
       render: (data: GetContact) => data.email,
@@ -92,11 +88,6 @@ export default function Contacts() {
       id: "data",
       label: "Data",
       render: (data: GetContact) => maskDateISO(data.createdAt),
-    },
-    {
-      id: "city",
-      label: "Cidade",
-      render: (data: GetContact) => data.city,
     },
     // {
     //   id: "contact",

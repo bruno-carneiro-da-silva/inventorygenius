@@ -1,11 +1,11 @@
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { useCreateContact } from "@/queries/contact";
 import { Contact, ContactDetails } from "@/queries/contact/types";
+import { useUserStore } from "@/stores/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-// import { useMyContactStore } from "@/stores/contacts";
 
 type useContactProps = {
   onClose: () => void;
@@ -37,7 +37,7 @@ export default function useCreateContacts({
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const contactForm = useCreateContact();
-  // const companyUid = useCompanyStore((state) => state.company?.data.uId || "");
+  const companyID = useUserStore((state) => state.login?.user?.id)
 
   const onLoad = (autocomplete: google.maps.places.Autocomplete) => {
     autocompleteRef.current = autocomplete;
@@ -63,7 +63,7 @@ export default function useCreateContacts({
     setIsLoading(true);
     const finalPayload = {
       ...payload,
-      // companyUid: companyUid,
+      companyUid: companyID,
       address: address,
       latitude: location.lat,
       longitude: location.lng,

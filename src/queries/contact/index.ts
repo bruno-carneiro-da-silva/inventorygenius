@@ -37,7 +37,7 @@ const getFilteredContact = async (ctx: QueryFunctionContext) => {
 const createContact = async (payload: Contact) => {
   const body = CreateContactMapper.toPersistence(payload);
   const { data } = await api.post<CreateContactResponse>(
-    "/customer/create",
+    "/contacts",
     body
   );
   return data;
