@@ -17,8 +17,8 @@ import {
   GetContactsResponse,
 } from "@/queries/contact/types";
 
-const getContacts = async (page: number) => {
-  const { data } = await api.get<GetContactsResponse>(`/contacts?page=${page}`);
+const getContacts = async (page: number, filter: string) => {
+  const { data } = await api.get<GetContactsResponse>(`/contacts?page=${page}&filter=${filter}`);
   return { ...data, contacts: CreateContactMapper.toDomain(data.contacts) };
 };
 
@@ -65,10 +65,10 @@ const deleteContact = async (payload: DeleteContact) => {
   return data;
 };
 
-export const useGetContacts = (page: number) => {
+export const useGetContacts = (page: number, filter: string) => {
   return useQuery({
-    queryKey: ["contact", page],
-    queryFn: () => getContacts(page),
+    queryKey: ["contact", page, filter],
+    queryFn: () => getContacts(page, filter),
   });
 };
 

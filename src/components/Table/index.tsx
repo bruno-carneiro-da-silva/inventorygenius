@@ -14,7 +14,9 @@ interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   kebabMenu?: KebabMenuItem[];
   totalPages: number;
   isLoading?: boolean;
+  onSearch?: (input: string) => void
   handlePage: (page: number) => void;
+  filter?: string
   currentPage: number;
 }
 
@@ -25,16 +27,22 @@ const Table: React.FC<TableProps> = ({
   searchComponent,
   totalPages,
   isLoading,
+  onSearch,
   handlePage,
+  filter,
   currentPage,
 }) => {
   const isDataEmpty = data.length === 0 && !isLoading;
 
   return (
     <div className={cx("flex-col flex space-y-8")}>
-      <SearchBar onSearch={() => {}}>{searchComponent}</SearchBar>
+      <SearchBar onSearch={(input) => {
+        onSearch && onSearch(input)
+      }}>
+        {searchComponent}
+      </SearchBar>
       {isDataEmpty ? (
-        <NotFound />
+        <NotFound no_create_text={!!filter} />
       ) : (
         <>
           <div className="flex flex-row ">

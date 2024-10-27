@@ -31,7 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, children }) => {
         <div className="w-4/12">
           <TextInput
             name="search"
-            placeholder="Procurar pelo nome, telefone ou platforma"
+            placeholder="Procurar pelo nome, telefone ou plataforma"
             classNameContainer="!p-1"
             icon={<Search className="text-primary-dark" />}
             classNameIcon="text-gray-400"

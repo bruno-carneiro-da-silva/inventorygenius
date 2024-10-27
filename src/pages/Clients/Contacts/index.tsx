@@ -1,11 +1,7 @@
 import ProfileImg from "@/assets/logo_transparent.png";
 import Button from "@/components/Button";
-// import Filter from "@/components/Filter";
-import Filter from "@/components/Filter";
 import Table from "@/components/Table";
 import { showErrorToast } from "@/components/Toast";
-// import Table from "@/components/Table";
-// import { contacts } from "@/mocks/contacts.mock";
 import ModalCreateContact from "@/pages/Clients/Contacts/Modals/ModalCreate";
 import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
@@ -15,11 +11,9 @@ import { ContactDetailResponse, ContactDetails, GetContact } from "@/queries/con
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
-// import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { maskDateISO } from "@/utils/functions";
 import { Eye, Plus, Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-// import { FormProvider } from "react-hook-form";
 
 export default function Contacts() {
   const { setSelectedContact } = useMyContactStore((state) => ({
@@ -56,11 +50,17 @@ export default function Contacts() {
     setOpenModalCreate(!openModalCreate);
   };
 
+  const [filter, setFilter] = useState('');
   const [page, setPage] = useState<number>(1);
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  const { data: contactsResponse, isLoading, isError } = useGetContacts(page);
+  const { data: contactsResponse, isLoading, isError } = useGetContacts(page, filter);
+
+  const handleSearch = (input: string) => {
+    setFilter(input)
+    setPage(1)
+  }
 
   const handlePage = (page: number) => {
     setPage(page);
@@ -156,7 +156,7 @@ export default function Contacts() {
           kebabMenu={KebabMenuItems}
           searchComponent={
             <div className="flex items-center space-x-6">
-              <Filter itens={columns} />
+              {/* <Filter itens={columns} /> */}
               <Button
                 onClick={handleOpenModalCreate}
                 className="!bg-primary-dark !text-white hover:!text-primary pr-5 pl-5 font-medium flex h-[50px] flex-row items-center space-x-2"
@@ -169,8 +169,10 @@ export default function Contacts() {
             </div>
           }
           totalPages={contactsResponse ? Math.ceil(contactsResponse.total / contactsResponse.per_page) : 0}
+          filter={filter}
           currentPage={page}
           isLoading={isLoading}
+          onSearch={handleSearch}
           handlePage={handlePage}
         />
       </div>
