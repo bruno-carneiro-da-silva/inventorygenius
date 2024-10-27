@@ -5,13 +5,13 @@ class CreateContactMapper {
     return {
       companyId: domainCreateContact.companyUid,
       name: domainCreateContact.name,
-      dateOfBirth: domainCreateContact.dateOfBirth,
+      birthday: domainCreateContact.dateOfBirth,
       email: domainCreateContact.email,
       phone: domainCreateContact.phoneNumber,
       address: domainCreateContact.address,
       latitude: domainCreateContact.latitude,
       longitude: domainCreateContact.longitude,
-      zipCode: domainCreateContact.zipCode,
+      zip: domainCreateContact.zipCode,
     };
   }
 

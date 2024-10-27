@@ -50,6 +50,8 @@ export interface ContactDetailResponse {
   email: string;
   phone: string;
   address: string;
+  zip: string;
+  birthday: string;
   categoryId: string;
   createdAt: string;
   updatedAt: string;

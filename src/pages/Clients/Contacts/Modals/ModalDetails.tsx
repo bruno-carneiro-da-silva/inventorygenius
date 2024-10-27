@@ -4,9 +4,9 @@ import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { TagsConstants } from "@/constants/constants";
 import { useGetContactDetail } from "@/queries/contact";
+import { ContactDetailResponse } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import {
-  maskDateISO,
   maskPhone
 } from "@/utils/functions";
 import cx from "classnames";
@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
-import { ContactDetailResponse } from "@/queries/contact/types";
 
 interface ModalDetailsProps {
   isOpen: boolean;
@@ -91,25 +90,21 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose
               </div>
             </div>
             <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
-              {/* <div className="flex flex-row items-center space-x-2">
-                <MapPinned className="w-5 h-5" />
-                <div className="font-bold text-xs">{country}</div>
-              </div> */}
-              {/* <div className="flex flex-row items-center space-x-2">
-                <MapPinned className="w-5 h-5" />
-                <div className="font-bold text-xs">{city}</div>
-              </div> */}
-              {/* <div className="flex flex-row items-center space-x-2">
-                <AtSign className="w-5 h-5" />
-                <div className="font-bold text-xs">Facebook</div>
-              </div> */}
-              <div className="flex flex-row items-center space-x-2">
+              {contact.zip && (
+                <div className="flex flex-row items-center space-x-2">
+                  <MapPinned className="w-5 h-5" />
+                  <div className="font-bold text-xs">CEP {contact.zip}</div>
+                </div>
+              )}
+            </div>
+            {contact.birthday && (
+              <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
                 <CalendarDays className="w-5 h-5" />
                 <div className="font-bold text-xs">
-                  {selectedContact?.createdAt ? maskDateISO(selectedContact.createdAt) : "No info"}
+                  {contact.birthday}
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="col-span-3  text-right">
             <Button className="font-medium text-xs w-36" type="button" onClick={() => handleEdit(contact)}>

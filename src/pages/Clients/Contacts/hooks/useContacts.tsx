@@ -103,6 +103,8 @@ export default function useCreateContacts({
         email: editContact.email,
         phoneNumber: maskPhone(editContact.phone),
         address: editContact.address,
+        dateOfBirth: editContact.birthday,
+        zipCode: editContact.zip,
       })
     }
   }, [editContact])

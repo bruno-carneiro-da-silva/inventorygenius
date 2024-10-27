@@ -96,7 +96,7 @@ export default function Contacts() {
     },
     {
       id: "data",
-      label: "Data",
+      label: "Criado em",
       render: (data: GetContact) => maskDateISO(data.createdAt),
     },
     // {
