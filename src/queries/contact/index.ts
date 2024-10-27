@@ -14,11 +14,12 @@ import {
   DeleteContactResponse,
   ContactDetailResponse,
   EditContactPayload,
+  GetContactsResponse,
 } from "@/queries/contact/types";
 
-const getContacts = async () => {
-  const { data } = await api.get<GetContact[]>(`/contacts`);
-  return CreateContactMapper.toDomain(data);
+const getContacts = async (page: number) => {
+  const { data } = await api.get<GetContactsResponse>(`/contacts?page=${page}`);
+  return { ...data, contacts: CreateContactMapper.toDomain(data.contacts) };
 };
 
 const getContactDetail = async (id?: string) => {
@@ -64,10 +65,10 @@ const deleteContact = async (payload: DeleteContact) => {
   return data;
 };
 
-export const useGetContacts = () => {
+export const useGetContacts = (page: number) => {
   return useQuery({
-    queryKey: ["contact"],
-    queryFn: getContacts,
+    queryKey: ["contact", page],
+    queryFn: () => getContacts(page),
   });
 };
 

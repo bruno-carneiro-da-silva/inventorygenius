@@ -56,11 +56,11 @@ export default function Contacts() {
     setOpenModalCreate(!openModalCreate);
   };
 
-  const [_page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  const { data: contact, isError } = useGetContacts();
+  const { data: contactsResponse, isLoading, isError } = useGetContacts(page);
 
   const handlePage = (page: number) => {
     setPage(page);
@@ -152,7 +152,7 @@ export default function Contacts() {
       <div className="flex flex-col space-y-3">
         <Table
           columns={columns}
-          data={contact || []}
+          data={contactsResponse?.contacts || []}
           kebabMenu={KebabMenuItems}
           searchComponent={
             <div className="flex items-center space-x-6">
@@ -168,9 +168,9 @@ export default function Contacts() {
               </Button>
             </div>
           }
-          totalPages={2}
-          currentPage={1}
-          isLoading={false}
+          totalPages={contactsResponse ? Math.ceil(contactsResponse.total / contactsResponse.per_page) : 0}
+          currentPage={page}
+          isLoading={isLoading}
           handlePage={handlePage}
         />
       </div>

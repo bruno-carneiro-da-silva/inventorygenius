@@ -33,6 +33,12 @@ export type GetContact = {
   updatedAt: string;
 };
 
+export interface GetContactsResponse {
+  contacts: GetContact[]
+  total: number
+  per_page: number
+}
+
 export interface ContactResponse {
   id: string;
   name: string;
