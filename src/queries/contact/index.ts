@@ -13,7 +13,6 @@ import {
   DeleteContact,
   DeleteContactResponse,
 } from "@/queries/contact/types";
-import DeleteContactMapper from "@/queries/contact/mappers/DeleteContactMapper";
 
 const getContact = async () => {
   const { data } = await api.get<GetContact[]>(`/contacts`);
@@ -44,10 +43,7 @@ const createContact = async (payload: Contact) => {
 };
 
 const deleteContact = async (payload: DeleteContact) => {
-  const body = DeleteContactMapper.toPersistence(payload);
-  const { data } = await api.delete<DeleteContactResponse>("/customer/delete", {
-    data: body,
-  });
+  const { data } = await api.delete<DeleteContactResponse>(`/contacts/${payload.id}`);
   return data;
 };
 

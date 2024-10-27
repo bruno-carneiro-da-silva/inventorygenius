@@ -100,8 +100,7 @@ export type GetFilteredContact = {
 };
 
 export interface DeleteContact {
-  companyUid: string;
-  customerUid: string;
+  id: string
 }
 
 export type DeleteContactResponse = {

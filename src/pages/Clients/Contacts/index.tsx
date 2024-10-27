@@ -30,7 +30,8 @@ export default function Contacts() {
   const handleOpenModalNotes = () => {
     setOpenModalNotes(!openModalNotes);
   };
-  const handleOpenModalDelete = () => {
+  const handleOpenModalDelete = (contact: Contact) => {
+    setSelectedContact(contact);
     setOpenModalDelete(!openModalDelete);
   };
   const { setSelectedContact } = useMyContactStore((state) => ({
@@ -180,7 +181,7 @@ export default function Contacts() {
         <ModalNote isOpen={openModalNotes} onClose={handleOpenModalNotes} />
       )}
       {openModalDelete && (
-        <ModalDelete isOpen={openModalDelete} onClose={handleOpenModalDelete} />
+        <ModalDelete isOpen={openModalDelete} onClose={() => setOpenModalDelete(!openModalDelete)} />
       )}
     </React.Fragment>
   );
