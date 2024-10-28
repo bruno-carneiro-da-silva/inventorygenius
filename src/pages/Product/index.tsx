@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import ModalDeleteProduct from "./Modals/DeleteProduct";
 import { useProductStore } from "@/stores/product";
 import { ProductResponse } from "@/queries/product/types";
-import { useGetProduct } from "@/queries/product";
+import { useGetProducts } from "@/queries/product";
 import { showErrorToast } from "@/components/Toast";
 
 export default function Product() {
@@ -20,7 +20,19 @@ export default function Product() {
 
   const { selectedProduct } = useProductStore();
 
-  const { data } = useGetProduct();
+  const [page, setPage] = useState<number>(1);
+  const [filter, setFilter] = useState("");
+
+  const handlePage = (page: number) => {
+    setPage(page);
+  };
+
+  const handleSearch = (input: string) => {
+    setFilter(input);
+    setPage(1);
+  };
+
+  const { data } = useGetProducts(page, filter);
 
   useEffect(() => {
     if (!data) {
@@ -68,7 +80,7 @@ export default function Product() {
             { label: "Ativos", value: "active" },
             { label: "Inativos", value: "inactive" },
           ]}
-          onChange={(value) => console.log(value)}
+          onChange={handleSearch}
           onClick={handleCreateProduct}
         />
         <div className="flex flex-row flex-wrap gap-2">
@@ -87,9 +99,9 @@ export default function Product() {
 
         <div className="mt-16 flex flex-row items-center justify-center">
           <Pagination
-            currentPage={1}
+            currentPage={page}
             totalPages={3}
-            onPageChange={(page) => console.log(page)}
+            onPageChange={handlePage}
           />
         </div>
       </FormProvider>

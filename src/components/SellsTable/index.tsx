@@ -7,6 +7,7 @@ import Column from "./Column";
 import Pagination from "./Pagination";
 import Row from "./Row";
 import FilterButtons from "./FilterButtons";
+import Button from "../Button";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
@@ -17,6 +18,7 @@ interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   isLoading?: boolean;
   handlePage: (page: number) => void;
   currentPage: number;
+  handleCreate: () => void;
 }
 
 const SellsTable: React.FC<TableProps> = ({
@@ -28,6 +30,7 @@ const SellsTable: React.FC<TableProps> = ({
   isLoading,
   handlePage,
   currentPage,
+  handleCreate,
 }) => {
   const [_filteredData, setFilteredData] = useState(data);
 
@@ -51,8 +54,11 @@ const SellsTable: React.FC<TableProps> = ({
 
   return (
     <div className={cx("flex-col flex space-y-8")}>
-      <div className="flex justify-between items-center mr-5">
+      <div className="flex justify-between items-center space-x-10 mr-5">
         <SearchBar onSearch={() => {}}>{searchComponent}</SearchBar>
+        <Button onClick={handleCreate} className="w-1/6">
+          + Criar venda
+        </Button>
         <FilterButtons
           filters={["Todas", "Feminino", "Masculinos"]}
           onFilterChange={handleFilterChange}

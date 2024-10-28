@@ -8,11 +8,17 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteSell from "./Modals/DeleteSell";
+import ModalCreateSell from "./Modals/CreateSell";
 
 export default function Sales() {
   const methods = useForm();
   const navigate = useNavigate();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+
+  const handleCreateSell = () => {
+    setOpenCreateModal(!openCreateModal);
+  };
 
   const columns: ColumnTable[] = [
     {
@@ -144,6 +150,7 @@ export default function Sales() {
     <div>
       <FormProvider {...methods}>
         <SellsTable
+          handleCreate={handleCreateSell}
           columns={columns}
           data={productMock}
           kebabMenu={KebabMenuItems}
@@ -157,6 +164,13 @@ export default function Sales() {
         <ModalDeleteSell
           isOpen={openDeleteModal}
           onClose={handleOpenModalDelete}
+        />
+      )}
+      {openCreateModal && (
+        <ModalCreateSell
+          editSell={null}
+          isOpen={openCreateModal}
+          onClose={handleCreateSell}
         />
       )}
     </div>

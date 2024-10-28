@@ -1,6 +1,8 @@
 export interface ProductResponse {
   id: string;
   name: string;
+  description: string;
+  size: string;
   qtd: number;
   price: number;
   categoryId: string;
@@ -21,8 +23,25 @@ export interface ProductResponse {
     createdAt: string;
     updatedAt: string;
   };
-  soldItems: [];
-  transactions: [];
+  soldItems: {
+    id: string;
+    saleId: string;
+    productId: string;
+    qtd: number;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  transactions: never[];
+  photos: [
+    {
+      id: string;
+      url: string;
+      productId: string;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
 }
 
 export interface ProductInit {
@@ -31,7 +50,7 @@ export interface ProductInit {
   qtd: number;
   price: number;
   description: string;
-  photos: string;
+  photos: string[];
   size: string;
   categoryId: string;
   minStock: number;
@@ -39,14 +58,22 @@ export interface ProductInit {
 }
 
 export interface ProductCreateResponse {
-  id?: string;
+  id: string;
   name: string;
+  description: string;
+  size: string;
   qtd: number;
   price: number;
-  description: string;
-  photos: string;
-  size: string;
   categoryId: string;
-  minStock: number;
-  capacity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: [
+    {
+      id: string;
+      url: string;
+      productId: string;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
 }

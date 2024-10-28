@@ -34,19 +34,17 @@ export const maskDateISO = (value: string) => {
 };
 
 export const maskCNPJ = (value: string) => {
-  const cleaned = value.replace(/\D/g, '');
+  const cleaned = value.replace(/\D/g, "");
   if (cleaned.length > 14) {
     return cleaned.slice(0, 14);
   }
   return cleaned
-    .replace(/^(\d{2})(\d)/, '$1.$2')
-    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-    .replace(/\.(\d{3})(\d)/, '.$1/$2')
-    .replace(/\/(\d{4})(\d)/, '/$1-$2')
-    .replace(/-/, '');
+    .replace(/^(\d{2})(\d)/, "$1.$2")
+    .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1/$2")
+    .replace(/\/(\d{4})(\d)/, "/$1-$2")
+    .replace(/-/, "");
 };
-
-
 
 export const extractCityAndCountry = (address: string) => {
   const parts = address.split(", ");
@@ -185,9 +183,18 @@ export function fileToBase64(file: File): Promise<string> {
     };
 
     reader.onerror = () => {
-      reject(new Error('Failed to convert file to base64'));
+      reject(new Error("Failed to convert file to base64"));
     };
 
     reader.readAsDataURL(file);
   });
 }
+
+export const maskCurrency = (value: string): string => {
+  const numericValue = value.replace(/\D/g, "");
+  const numberValue = parseFloat(numericValue) / 100;
+  return numberValue.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+};

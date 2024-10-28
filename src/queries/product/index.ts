@@ -3,9 +3,11 @@ import api from "@/services/api";
 import { ProductCreateResponse, ProductInit, ProductResponse } from "./types";
 import CreateProductMapper from "./mappers/CreateProductMapper";
 
-export const getProducts = async () => {
-  const { data } = await api.get<ProductResponse>(`/products`);
-  return data;
+export const getProducts = async (page: number, filter: string) => {
+  const { data } = await api.get<ProductResponse[]>(
+    `/products? page=${page}&filter=${filter}`
+  );
+  return CreateProductMapper.toDomain(data);
 };
 
 export const createProduct = async (payload: ProductInit) => {
@@ -28,10 +30,10 @@ export const deleteProduct = async (id: string) => {
   await api.delete(`/products/${id}`);
 };
 
-export const useGetProduct = () => {
+export const useGetProducts = (page: number, filter: string) => {
   return useQuery({
-    queryKey: ["product"],
-    queryFn: getProducts,
+    queryKey: ["product", page, filter],
+    queryFn: () => getProducts(page, filter),
   });
 };
 
