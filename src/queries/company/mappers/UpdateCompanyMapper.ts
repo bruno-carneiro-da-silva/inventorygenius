@@ -6,7 +6,7 @@ class UpdateCompanyMapper {
       id: domainUpdateCompany.id,
       name: domainUpdateCompany.name,
       email: domainUpdateCompany.email,
-      phoneNumber: domainUpdateCompany.phoneNumber,
+      phoneNumber: domainUpdateCompany.phoneNumber.replace(/\D/g, ""),
       photo: domainUpdateCompany.photo,
       address: domainUpdateCompany.address,
     };
@@ -16,7 +16,7 @@ class UpdateCompanyMapper {
       id: persistenceUpdateCompany.id,
       name: persistenceUpdateCompany.name,
       email: persistenceUpdateCompany.email,
-      phoneNumber: persistenceUpdateCompany.phoneNumber,
+      phoneNumber: persistenceUpdateCompany.phoneNumber.replace(/\D/g, ""),
       photo: persistenceUpdateCompany.photo,
       address: persistenceUpdateCompany.address,
     };

@@ -39,7 +39,7 @@ type ModalContactDetailsProps = {
   isOpen: boolean;
   onClose: () => void;
   company?: Company | null;
-  login?: LoginResponse | null,
+  login?: LoginResponse | null;
   isLoading: boolean;
 };
 
@@ -57,7 +57,9 @@ const ModalContactDetails = ({
     defaultValues: {
       name: company?.nameCompany || "",
       email: company?.emailCompany || "",
-      phoneNumber: company?.phoneNumberCompany ? maskPhone(company.phoneNumberCompany) : "",
+      phoneNumber: company?.phoneNumberCompany
+        ? maskPhone(company.phoneNumberCompany)
+        : "",
       address: company?.addressCompany || "",
       photo: company?.photo_base64 || null,
     },
@@ -80,8 +82,8 @@ const ModalContactDetails = ({
       })
       .catch((err: AxiosError<any>) => {
         if (err?.status === 413) {
-          showErrorToast("Imagem muito pesada!")
-          return
+          showErrorToast("Imagem muito pesada!");
+          return;
         }
         const errors = err?.response?.data?.errors;
         if (errors && Array.isArray(errors)) {
@@ -100,7 +102,9 @@ const ModalContactDetails = ({
   const onSubmit = async (data: FormValues) => {
     setIsCompanyLoading(true);
 
-    const photoBase64 = file ? (await fileToBase64(file)) : (data.photo || undefined)
+    const photoBase64 = file
+      ? await fileToBase64(file)
+      : data.photo || undefined;
 
     if (!company) return;
     const companyPayload: UpdateCompany = {
@@ -108,7 +112,7 @@ const ModalContactDetails = ({
       photo: photoBase64,
       name: data.name,
       email: data.email,
-      phoneNumber: unmaskPhone(data.phoneNumber),
+      phoneNumber: data.phoneNumber,
       address: data.address,
     };
 
@@ -142,7 +146,10 @@ const ModalContactDetails = ({
             >
               <div className="bg-white grid grid-cols-12 p-4 rounded-sm space-y-1 space-x-2">
                 <div className="flex flex-col col-span-12 space-y-5 overflow-auto">
-                  <ModalCropImage updateFile={updateFile} photo={company?.photo_base64} />
+                  <ModalCropImage
+                    updateFile={updateFile}
+                    photo={company?.photo_base64}
+                  />
                   <div className="text-sm font-light flex flex-row space-x-2 w-full text-gray-500">
                     <TextInput
                       name="name"
