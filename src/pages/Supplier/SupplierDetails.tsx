@@ -34,7 +34,7 @@ export default function SupplierDetails() {
         </button>
         <div className="relative flex flex-col items-start mt-24">
           <img
-            src={selectedSupplier.photo}
+            src={selectedSupplier.photo_base64}
             alt={selectedSupplier.name}
             className="w-40 h-40 rounded-full mb-5 object-cover border-2 border-white -mt-20"
           />

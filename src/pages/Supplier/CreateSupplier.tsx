@@ -16,6 +16,7 @@ import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import MaskedTextInput from "../Register/components/PhoneInput";
 import useCreateSuppliers from "./hooks/useSuppliers";
+import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 
 
 export default function CreateSupplier() {
@@ -25,7 +26,7 @@ export default function CreateSupplier() {
     navigate(-1)
   }
 
-  const { methods, onLoad, onPlaceChanged, onSubmit } = useCreateSuppliers({ onClose })
+  const { methods, onLoad, onPlaceChanged, updateFile, onSubmit } = useCreateSuppliers({ onClose })
 
   return (
     <React.Fragment>
@@ -89,7 +90,12 @@ export default function CreateSupplier() {
                 />
               </div>
               <div className="space-y-5">
-                <div className="flex flex-col">
+                <div className="flex flex-col col-span-12 space-y-5 overflow-hidden">
+                  <ModalCropImage
+                    updateFile={updateFile}
+                  />
+                </div>
+                {/* <div className="flex flex-col">
                   <label className="text-gray-500 font-bold mb-2">Foto *</label>
                   <input {...methods.register('photo')} type="file" />
                   <button
@@ -102,7 +108,7 @@ export default function CreateSupplier() {
                   >
                     Arraste e solte ou clique para adicionar
                   </button>
-                </div>
+                </div> */}
               </div>
 
               <TextInput

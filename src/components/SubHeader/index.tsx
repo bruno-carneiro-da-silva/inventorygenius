@@ -14,7 +14,7 @@ type SubHeaderProps = {
   text?: string;
   onSearch?: (input: string) => void;
   onChange: (value: string) => void;
-  options: { label: string; value: string }[];
+  options?: { label: string; value: string }[];
   onClick?: () => void;
 };
 
@@ -45,7 +45,7 @@ function SubHeader({
         />
       </div>
       <div className="flex items-center space-x-2 mr-4">
-        <CustomSelect name="filter" options={options} onChange={onChange} />
+        {options && <CustomSelect name="filter" options={options} onChange={onChange} />}
         <Button
           className="bg-primary-dark flex items-center justify-center text-center space-x-1 w-[270px] h-[50px]"
           onClick={onClick}

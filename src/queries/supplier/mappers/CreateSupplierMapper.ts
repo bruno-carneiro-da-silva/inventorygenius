@@ -14,7 +14,7 @@ class CreateSupplierMapper {
         nationality: domainCreateSupplier.nationality,
         niche: domainCreateSupplier.niche,
         city: domainCreateSupplier.city,
-        photo: domainCreateSupplier.phone,
+        photo: domainCreateSupplier.photo,
         startContractDate: domainCreateSupplier.contract_start,
         endContractDate: domainCreateSupplier.contract_end,
     };
@@ -45,7 +45,7 @@ class CreateSupplierMapper {
         nationality: supplier.nationality,
         niche: supplier.niche,
         phone: supplier.phone,
-        photo: supplier.photo,
+        photo_base64: supplier.photo_base64,
         startContractDate: supplier.startContractDate,
         transactions: supplier.transactions,
         updatedAt: supplier.updatedAt,
