@@ -53,8 +53,29 @@ export type CreateSellResponse = {
 
 export type SaveSellResponse = CreateSellResponse;
 
-export type GetSalesResponse = {
-  sales: CreateSellResponse[];
-  total: number;
-  per_page: number;
-};
+export interface SoldItem {
+  id: string;
+  saleId: string;
+  productId: string;
+  qtd: number;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Employee {
+  id: string;
+  name: string;
+  phone: string;
+  userName: string;
+  email: string;
+}
+
+export interface SellPayload {
+  soldItems: SoldItem[];
+  employee: Employee;
+  totalPrice: number;
+  discount: number;
+  companyId: string;
+  id: string;
+}

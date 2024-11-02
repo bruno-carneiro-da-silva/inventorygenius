@@ -9,6 +9,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteSell from "./Modals/DeleteSell";
 import ModalCreateSell from "./Modals/CreateSell";
+import { useGetSells } from "@/queries/sales";
+import { useGetProducts } from "@/queries/product";
 
 export default function Sales() {
   const methods = useForm();
@@ -16,13 +18,19 @@ export default function Sales() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
 
+  const [page, setPage] = useState<number>(1);
+  const [filter, setFilter] = useState("");
+
   const handleCreateSell = () => {
     setOpenCreateModal(!openCreateModal);
   };
 
+  const { data: sales } = useGetSells(page, filter);
+  const { data: product } = useGetProducts(page, filter);
+
   const columns: ColumnTable[] = [
     {
-      id: "productName",
+      id: "productName",  
       width: "w-4/12",
       render: (data: Product) => (
         <div className="flex flex-row space-x-6 items-center">
@@ -153,11 +161,14 @@ export default function Sales() {
           handleCreate={handleCreateSell}
           columns={columns}
           data={productMock}
+          onSearch={(input) => {
+            setFilter(input);
+          }}
           kebabMenu={KebabMenuItems}
           totalPages={5}
           isLoading={false}
-          handlePage={() => {}}
-          currentPage={1}
+          handlePage={(page) => setPage(page)}
+          currentPage={page}
         />
       </FormProvider>
       {openDeleteModal && (

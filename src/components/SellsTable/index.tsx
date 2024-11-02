@@ -8,6 +8,8 @@ import Pagination from "./Pagination";
 import Row from "./Row";
 import FilterButtons from "./FilterButtons";
 import Button from "../Button";
+import { functionDebounce } from "@/hooks/debouce";
+import { SellPayload } from "@/queries/sales/types";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
@@ -19,6 +21,7 @@ interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   handlePage: (page: number) => void;
   currentPage: number;
   handleCreate: () => void;
+  onSearch?: (input: string) => void;
 }
 
 const SellsTable: React.FC<TableProps> = ({
@@ -31,6 +34,7 @@ const SellsTable: React.FC<TableProps> = ({
   handlePage,
   currentPage,
   handleCreate,
+  onSearch,
 }) => {
   const [_filteredData, setFilteredData] = useState(data);
 
@@ -40,7 +44,7 @@ const SellsTable: React.FC<TableProps> = ({
     } else {
       setFilteredData(
         data.filter((item) => {
-          return item.gender === filter;
+          return item.gender === filter
         })
       );
     }
@@ -50,12 +54,14 @@ const SellsTable: React.FC<TableProps> = ({
     setFilteredData(data);
   }, [data]);
 
+  const handleSearch = onSearch ? functionDebounce(onSearch, 500) : () => {};
+
   const isDataEmpty = data.length === 0 && !isLoading;
 
   return (
     <div className={cx("flex-col flex space-y-8")}>
       <div className="flex justify-between items-center space-x-10 mr-5">
-        <SearchBar onSearch={() => {}}>{searchComponent}</SearchBar>
+        <SearchBar onSearch={handleSearch}>{searchComponent}</SearchBar>
         <Button onClick={handleCreate} className="w-1/6">
           + Criar venda
         </Button>

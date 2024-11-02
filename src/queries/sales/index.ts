@@ -3,16 +3,16 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CreateSellPayload,
   CreateSellResponse,
-  GetSalesResponse,
   SaveSellResponse,
+  SellPayload,
 } from "./types";
 import CreateSellMapper from "./mappers/CreateSellMapper";
 
 const getSales = async (page: number, filter: string) => {
-  const { data } = await api.get<GetSalesResponse>(
+  const { data } = await api.get<SellPayload[]>(
     `/sales?page=${page}&filter=${filter}`
   );
-  return { ...data, sales: CreateSellMapper.toDomain(data.sales) };
+  return CreateSellMapper.toDomain(data);
 };
 
 const createSell = async (payload: CreateSellPayload) => {
