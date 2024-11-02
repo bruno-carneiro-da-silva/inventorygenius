@@ -38,7 +38,7 @@ export interface SupplierResponse {
     nationality: string
     niche: string
     phone: string
-    photo: string
+    photo_base64: string
     startContractDate: string
     transactions: []
     updatedAt: string

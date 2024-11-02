@@ -22,7 +22,7 @@ export const Card = ({
         <KebabMenu items={kebabMenuItems} data={item} />
       </div>
       <div className="mt-4 flex flex-col items-center justify-center">
-        <img src={item.photo} alt="Foto do fornecedor" className="rounded-full mb-4" />
+        <img src={item.photo_base64} alt="Foto do fornecedor" className="rounded-full mb-4" />
         <h1 className="text-center text-2xl text-primary-dark font-bold mb-2">
           {item.name}
         </h1>

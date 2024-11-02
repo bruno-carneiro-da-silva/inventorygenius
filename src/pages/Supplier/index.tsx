@@ -61,11 +61,6 @@ export default function Supplier() {
           name="search"
           placeholder="Procurar fornecedor"
           text="Fornecedor"
-          options={[
-            { label: "Todos", value: "all" },
-            { label: "Ativos", value: "active" },
-            { label: "Inativos", value: "inactive" },
-          ]}
           onChange={() => {}}
           onSearch={(input) => {
             setFilter(input)
