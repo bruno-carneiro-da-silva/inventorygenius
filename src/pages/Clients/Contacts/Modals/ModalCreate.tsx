@@ -35,8 +35,8 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
-        title="Nova cliente"
-        subtitle="Crie um novo cliente para fazer parte da sua lista"
+        title={editContact ? "Editar cliente" : "Nova cliente"}
+        subtitle={editContact ? undefined : "Crie um novo cliente para fazer parte da sua lista"}
         onClose={onClose}
       />
       <FormProvider {...methods}>
