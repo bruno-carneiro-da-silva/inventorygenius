@@ -11,7 +11,7 @@ interface ModalDeleteProps {
   onClose: () => void;
 }
 
-const ModalDeleteSupplier: React.FC<ModalDeleteProps> = ({
+const ModalDeleteProduct: React.FC<ModalDeleteProps> = ({
   isOpen,
   onClose,
 }) => {
@@ -72,4 +72,4 @@ const ModalDeleteSupplier: React.FC<ModalDeleteProps> = ({
   );
 };
 
-export default ModalDeleteSupplier;
+export default ModalDeleteProduct;
