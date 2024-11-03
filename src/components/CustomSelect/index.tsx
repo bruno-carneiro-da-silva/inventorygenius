@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import cx from "classnames";
 import { LoadingIcon } from "@/icons";
 
@@ -16,6 +16,7 @@ interface CustomSelectProps {
   onChange: (value: string) => void;
   placeholder?: string;
   value?: Option;
+  defaultValue?: string;
   isLoading?: boolean;
 }
 
@@ -27,6 +28,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   name,
   placeholder = "Selecione uma opção",
   isLoading = false,
+  defaultValue,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
@@ -37,6 +39,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     onChange(option.value);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (defaultValue) {
+      const opt = options?.find(option => option.value === defaultValue)
+      opt && handleSelectOption(opt)
+    } 
+  }, [defaultValue])
 
   return (
     <div className="flex flex-col space-y-2 w-full">

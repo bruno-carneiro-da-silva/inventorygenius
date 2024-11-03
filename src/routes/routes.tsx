@@ -1,6 +1,7 @@
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import { sidebarItens } from "@/mocks/dashboard.mock";
 import Contacts from "@/pages/Clients/Contacts";
+import ConfirmAccountCreated from "@/pages/ConfirmAccount";
 import Employee from "@/pages/Employee";
 import Finance from "@/pages/Finance";
 import FinanceInspector from "@/pages/FinanceInspector";
@@ -9,17 +10,16 @@ import ConfirmNewPassword from "@/pages/ForgotPassword/ConfirmNewPassword";
 import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
 import ValidateCode from "@/pages/ForgotPassword/ValidateCode";
 import Login from "@/pages/Login";
+import ProductDetails from "@/pages/Product/ProductDetails";
 import Register from "@/pages/Register";
+import Sales from "@/pages/Sales";
+import SalesDetails from "@/pages/Sales/SalesDetails";
 import CreateSupplier from "@/pages/Supplier/CreateSupplier";
 import SupplierDetails from "@/pages/Supplier/SupplierDetails";
 import PublicRoutes from "@/utils/PublicRoutes";
 import { ReactElement } from "react";
 import ProtectedRoutes from "../utils/ProtectedRoutes";
-import SalesDetails from "@/pages/Sales/SalesDetails";
-import Sales from "@/pages/Sales";
-import ConfirmAccountCreated from "@/pages/ConfirmAccount";
-import CreateProduct from "@/pages/Product/CreateProduct";
-import ProductDetails from "@/pages/Product/ProductDetails";
+import { CreateProductPage } from "@/pages/Product/CreateProductPage";
 
 type Route = {
   path: string;
@@ -131,7 +131,7 @@ export const routes: Route[] = [
     path: "/produtos/criar",
     element: (
       <ProtectedRoutes>
-        <CreateProduct />
+        <CreateProductPage />
       </ProtectedRoutes>
     ),
   },

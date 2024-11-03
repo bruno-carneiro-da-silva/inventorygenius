@@ -5,12 +5,13 @@ import { useGetProducts } from "@/queries/product";
 import { ProductResponse } from "@/queries/product/types";
 import { useProductStore } from "@/stores/product";
 import { KebabMenuItem } from "@/types/table";
-import { Eye, Mail, Phone, Trash2 } from "lucide-react";
+import { Eye, Mail, Pencil, Phone, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteProduct from "./Modals/DeleteProduct";
 import NotFound from "@/components/NotFound/NotFound";
+import { ModalEditProduct } from "./Modals/EditProduct";
 
 export default function Product() {
   const methods = useForm();
@@ -18,6 +19,8 @@ export default function Product() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const { selectedProduct } = useProductStore();
+
+  const [editOpen, setEditOpen] = useState(false)
 
   const [page, setPage] = useState<number>(1);
   const [filter, setFilter] = useState("");
@@ -33,9 +36,20 @@ export default function Product() {
     navigate("/produtos/criar");
   };
 
+  const handleOpenEditProduct = (product: ProductResponse) => {
+    selectedProduct(product);
+    setEditOpen(true)
+  }
+
+  const handleCloseEditProduct = () => {
+    setEditOpen(false)
+    selectedProduct(undefined)
+  }
+
   const handleOpenModalDelete = () => {
     setOpenDeleteModal(!openDeleteModal);
   };
+
 
   const KebabMenuItems: KebabMenuItem[] = [
     {
@@ -43,6 +57,12 @@ export default function Product() {
       label: "Ver detalhes",
       onClick: (data) => handleOpenProductDetails(data),
       icon: <Eye />,
+    },
+    {
+      id: 'update',
+      label: 'Editar',
+      onClick: (data) => handleOpenEditProduct(data),
+      icon: <Pencil />,
     },
     {
       id: "delete",
@@ -98,6 +118,10 @@ export default function Product() {
           onClose={handleOpenModalDelete}
         />
       )}
+      <ModalEditProduct
+        isOpen={editOpen}
+        onClose={handleCloseEditProduct}
+      />
     </div>
   );
 }

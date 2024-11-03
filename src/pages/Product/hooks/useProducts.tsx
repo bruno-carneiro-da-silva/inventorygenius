@@ -52,10 +52,10 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     const [file, setFile] = React.useState<File | null>(null);
 
     const onSubmit = async (formData: FormValues) => {
-        if (!file) return showErrorToast('Foto obrigatória!')
+        if (!file && !editProduct) return showErrorToast('Foto obrigatória!')
         setIsLoading(true);
 
-        const photoBase64 = await fileToBase64(file)
+        const photoBase64 = file ? await fileToBase64(file) : editProduct?.photos?.[0]?.base64!
 
         const finalPayload = {
             name: formData.name,
@@ -117,6 +117,21 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     const updateFile = (file: File) => {
         setFile(file);
     };
+
+    React.useEffect(() => {
+        if (editProduct) {
+            methods.reset({
+                categoryId: editProduct.category?.id,
+                name: editProduct.name,
+                description: editProduct.description,
+                price: String(editProduct.price),
+                minStock: editProduct.stock?.minStock ? String(editProduct.stock.minStock) : '',
+                capacity: editProduct.stock?.capacity ? String(editProduct.stock.capacity) : '',
+                qtd: editProduct.stock?.qtd ? String(editProduct.stock.qtd) : '',
+            })
+            handleCategoryChange(editProduct.category?.id)
+        }
+    }, [editProduct])
 
     return {
         methods,

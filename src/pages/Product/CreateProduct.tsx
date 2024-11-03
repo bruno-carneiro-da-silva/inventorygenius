@@ -1,40 +1,35 @@
 import Button from "@/components/Button";
 import CustomSelect from "@/components/CustomSelect";
-import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
+import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 import TextInput from "@/components/Input/index";
+import { LoadingIcon } from "@/icons";
+import { ProductResponse } from "@/queries/product/types";
 import { Coins, PackageOpen, Plus, ReceiptText, User } from "lucide-react";
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import ModalCreateCategory from "./Modals/ModalCreate";
 import { useProducts } from "./hooks/useProducts";
-import { ProductResponse } from "@/queries/product/types";
-import { LoadingIcon } from "@/icons";
-import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
-import { useNavigate } from "react-router-dom";
+import cx from 'classnames'
 
 interface CreateProductProps {
   editProduct?: ProductResponse
+  onClose: () => void
 }
 
-export default function CreateProduct({ editProduct }: CreateProductProps) {
-  const navigate = useNavigate()
-
-  const onClose = () => {
-    navigate(-1)
-  }
-
+export default function CreateProduct({ editProduct, onClose }: CreateProductProps) {
   const { methods, onSubmit, isLoading, updateFile, categoryOptions, isCategoryModalOpen, handleCategoryChange, handleCreateCategory } = useProducts({ editProduct, onClose })
 
   return (
     <React.Fragment>
-      <DashboardLayout />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="relative max-w-7xl mx-auto border p-6 bg-white shadow-lg mb-5 rounded-lg mt-0">
-            <div className="absolute top-0 bg-primary-dark flex items-center text-white font-bold text-2xl -left-[1px] w-[1280px] rounded-t-lg h-16 bg-cover bg-center z-0">
-              <span className="ml-5">Detalhes do produto</span>
-            </div>
-            <div className="relative grid grid-cols-2 gap-8 w-full items-start mt-24">
+            {!editProduct && (
+              <div className="absolute top-0 bg-primary-dark flex items-center text-white font-bold text-2xl -left-[1px] w-[1280px] rounded-t-lg h-16 bg-cover bg-center z-0">
+                <span className="ml-5">Detalhes do produto</span>
+              </div>
+            )}
+            <div className={cx("relative grid grid-cols-2 gap-8 w-full items-start", editProduct ? '' : 'mt-24')}>
               <div className="space-y-5">
                 <TextInput
                   label="Nome do Produto *"
@@ -93,6 +88,7 @@ export default function CreateProduct({ editProduct }: CreateProductProps) {
                   <CustomSelect
                     label="Categoria *"
                     name="categoryId"
+                    defaultValue={editProduct?.categoryId}
                     onChange={handleCategoryChange}
                     options={categoryOptions}
                   />
@@ -112,13 +108,14 @@ export default function CreateProduct({ editProduct }: CreateProductProps) {
                   <div className="flex flex-col col-span-12 space-y-5 overflow-hidden">
                     <ModalCropImage
                       updateFile={updateFile}
+                      photo={editProduct?.photos?.[0]?.base64}
                     />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex container ml-11 justify-end gap-3 mb-10">
+          <div className={cx("flex container justify-end gap-3 mb-10", editProduct ? '' : 'ml-11')}>
             <button
               type="submit"
               disabled={isLoading}
