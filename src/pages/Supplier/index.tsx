@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import CardSupplier from "@/components/Card/supplier";
 import NotFound from "@/components/NotFound/NotFound";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
@@ -78,7 +78,7 @@ export default function Supplier() {
           <div className="flex flex-row flex-wrap gap-2">
             {suppliersResponse?.suppliers?.map((supplier) => (
               <div className="m-2" key={supplier.id}>
-                <Card
+                <CardSupplier
                   key={supplier.id}
                   item={supplier}
                   icon={<Mail />}

@@ -1,17 +1,16 @@
-import Card from "@/components/Card";
+import CardProduct from "@/components/Card/product";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
-import { supplier } from "@/mocks/supplier";
+import { useGetProducts } from "@/queries/product";
+import { ProductResponse } from "@/queries/product/types";
+import { useProductStore } from "@/stores/product";
 import { KebabMenuItem } from "@/types/table";
 import { Eye, Mail, Phone, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteProduct from "./Modals/DeleteProduct";
-import { useProductStore } from "@/stores/product";
-import { ProductResponse } from "@/queries/product/types";
-import { useGetProducts } from "@/queries/product";
-import { showErrorToast } from "@/components/Toast";
+import NotFound from "@/components/NotFound/NotFound";
 
 export default function Product() {
   const methods = useForm();
@@ -23,26 +22,11 @@ export default function Product() {
   const [page, setPage] = useState<number>(1);
   const [filter, setFilter] = useState("");
 
-  const handlePage = (page: number) => {
-    setPage(page);
-  };
-
-  const handleSearch = (input: string) => {
-    setFilter(input);
-    setPage(1);
-  };
-
-  const { data } = useGetProducts(page, filter);
-
-  useEffect(() => {
-    if (!data) {
-      showErrorToast("Erro ao buscar produtos");
-    }
-  }, []);
+  const { data: productsResponse } = useGetProducts(page, filter);
 
   const handleOpenProductDetails = (product: ProductResponse) => {
     selectedProduct(product);
-    navigate(`/produto/detalhes/${product.id}`);
+    navigate(`/produtos/detalhes/${product.id}`);
   };
 
   const handleCreateProduct = () => {
@@ -75,34 +59,37 @@ export default function Product() {
           name="search"
           placeholder="Procurar produto"
           text="Produto"
-          options={[
-            { label: "Todos", value: "all" },
-            { label: "Ativos", value: "active" },
-            { label: "Inativos", value: "inactive" },
-          ]}
-          onChange={handleSearch}
+          onChange={() => { }}
+          onSearch={(input) => {
+            setFilter(input)
+          }}
           onClick={handleCreateProduct}
         />
         <div className="flex flex-row flex-wrap gap-2">
-          {supplier.map((supplier) => (
-            <div className="m-2" key={supplier.id}>
-              <Card
-                key={supplier.id}
-                item={supplier}
+          {productsResponse?.products?.map((product) => (
+            <div className="m-2" key={product.id}>
+              <CardProduct
+                key={product.id}
+                item={product}
                 icon={<Mail />}
                 secondIcon={<Phone />}
                 kebabMenuItems={KebabMenuItems}
               />
             </div>
           ))}
+          {productsResponse?.products?.length === 0 && (
+            <div className="w-full flex items-center justify-center">
+              <NotFound no_create_text={!!filter} />
+            </div>
+          )}
         </div>
 
         <div className="mt-16 flex flex-row items-center justify-center">
-          <Pagination
+          {productsResponse && productsResponse.total > 0 && <Pagination
             currentPage={page}
-            totalPages={3}
-            onPageChange={handlePage}
-          />
+            totalPages={productsResponse ? Math.ceil(productsResponse.total / productsResponse.per_page) : 0}
+            onPageChange={(page) => setPage(page)}
+          />}
         </div>
       </FormProvider>
       {openDeleteModal && (

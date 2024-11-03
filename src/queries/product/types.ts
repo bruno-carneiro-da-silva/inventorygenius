@@ -36,7 +36,7 @@ export interface ProductResponse {
   photos: [
     {
       id: string;
-      url: string;
+      base64: string;
       productId: string;
       createdAt: string;
       updatedAt: string;
@@ -44,14 +44,20 @@ export interface ProductResponse {
   ];
 }
 
+export interface GetProductsResponse {
+  products: ProductResponse[]
+  total: number
+  per_page: number
+}
+
 export interface ProductInit {
   id?: string | null;
   name: string;
-  qtd: number;
+  // qtd: number;
+  // size: string;
   price: number;
   description: string;
   photos: string[];
-  size: string;
   categoryId: string;
   minStock: number;
   capacity: number;

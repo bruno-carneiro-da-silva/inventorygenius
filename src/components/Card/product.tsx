@@ -1,16 +1,16 @@
 import Button from "@/components/Button";
 import KebabMenu from "@/components/KebabMenu";
-import { SupplierResponse } from "@/queries/supplier/types";
+import { ProductResponse } from "@/queries/product/types";
 import { KebabMenuItem } from "@/types/table";
 
 interface CardPropsWithMenu {
   kebabMenuItems: KebabMenuItem[];
-  item: SupplierResponse;
+  item: ProductResponse;
   icon: React.ReactNode;
   secondIcon: React.ReactNode;
 }
 
-export const Card = ({
+export const CardProduct = ({
   icon,
   secondIcon,
   kebabMenuItems,
@@ -22,11 +22,11 @@ export const Card = ({
         <KebabMenu items={kebabMenuItems} data={item} />
       </div>
       <div className="mt-4 flex flex-col items-center justify-center">
-        <img src={item.photo_base64} alt="Foto do fornecedor" className="rounded-full mb-4" />
+        <img src={item.photos?.[0]?.base64} alt="Foto do fornecedor" className="rounded-full mb-4 h-[150px] w-[150px]" />
         <h1 className="text-center text-2xl text-primary-dark font-bold mb-2">
           {item.name}
         </h1>
-        <span className="text-center mb-4 text-gray-400">{item.niche}</span>
+        <span className="text-center mb-4 text-gray-400">R$ {item.price}</span>
       </div>
       <div className="flex space-x-2">
         <Button
@@ -46,6 +46,6 @@ export const Card = ({
   );
 };
 
-Card.displayName = "Card";
+CardProduct.displayName = "Card";
 export type CardType = CardPropsWithMenu;
-export default Card;
+export default CardProduct;

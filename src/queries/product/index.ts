@@ -1,14 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/services/api";
-import { ProductCreateResponse, ProductInit, ProductResponse } from "./types";
+import { GetProductsResponse, ProductCreateResponse, ProductInit, ProductResponse } from "./types";
 import CreateProductMapper from "./mappers/CreateProductMapper";
 
 export const getProducts = async (page: number, filter: string) => {
-  const { data } = await api.get<ProductResponse[]>(
-    `/products? page=${page}&filter=${filter}`
+  const { data } = await api.get<GetProductsResponse>(
+    `/products?page=${page}&filter=${filter}`
   );
-  return CreateProductMapper.toDomain(data);
+  return { ...data, products: CreateProductMapper.toDomain(data.products) }
 };
+
+export const getProduct = async (id?: string) => {
+  if (!id) return undefined
+  const { data } = await api.get<ProductResponse>(`/products/${id}`)
+  return data
+}
 
 export const createProduct = async (payload: ProductInit) => {
   const body = CreateProductMapper.toPersistence(payload);
@@ -36,6 +42,13 @@ export const useGetProducts = (page: number, filter: string) => {
     queryFn: () => getProducts(page, filter),
   });
 };
+
+export const useGetProduct = (id?: string) => {
+  return useQuery({
+    queryKey: ["product-detail", id],
+    queryFn: () => getProduct(id),
+  })
+}
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
