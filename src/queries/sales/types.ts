@@ -1,8 +1,8 @@
 export type CreateSellPayload = {
   employeeId: string;
   companyId: string;
-  totalPrice: number;
-  discount: number;
+  totalPrice: string;
+  discount?: number | null;
   soldItems: {
     productId: string;
     qtd: number;
@@ -51,7 +51,7 @@ export type CreateSellResponse = {
   ];
 };
 
-export type SaveSellResponse = CreateSellResponse;
+export type UpdateSellResponse = CreateSellResponse;
 
 export interface SoldItem {
   id: string;
@@ -71,7 +71,7 @@ export interface Employee {
   email: string;
 }
 
-export interface SellPayload {
+export interface GetSales {
   soldItems: SoldItem[];
   employee: Employee;
   totalPrice: number;

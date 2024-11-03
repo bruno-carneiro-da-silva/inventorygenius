@@ -1,6 +1,7 @@
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { useCreateEmployee } from "@/queries/employee";
 import { Employee } from "@/queries/employee/types";
+import { useUserStore } from "@/stores/user";
 import { getValueByKey } from "@/utils/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRef, useState } from "react";
@@ -12,6 +13,7 @@ type FormValues = {
   email: string;
   phone: string;
   address: string;
+  roleId: string | undefined;
   userName: string;
   password: string;
 };
@@ -21,6 +23,7 @@ const schema: yup.ObjectSchema<FormValues> = yup.object({
   email: yup.string().email().required("Email é obrigatório"),
   phone: yup.string().required("Telefone é obrigatório"),
   address: yup.string().required("Endereço é obrigatório"),
+  roleId: yup.string().optional(),
   userName: yup.string().required("Nome de usuário é obrigatório"),
   password: yup.string().required("Senha é obrigatória"),
 });
@@ -42,6 +45,8 @@ export default function useCreateEmployees({
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+
+  const roleId = useUserStore((state) => state.login?.user?.role?.uId);
 
   const [addEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
 
@@ -92,7 +97,7 @@ export default function useCreateEmployees({
   const onSubmit = (employee: FormValues) => {
     const finalEmployee = {
       ...employee,
-      roleId: "af53fd67-7bf8-4a5f-b7b4-1ffb7223d060",
+      roleId: roleId || "",
     };
     setIsLoading(true);
     createEmployee

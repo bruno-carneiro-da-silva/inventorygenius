@@ -3,13 +3,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CreateSellPayload,
   CreateSellResponse,
-  SaveSellResponse,
-  SellPayload,
+  UpdateSellResponse,
+  GetSales,
 } from "./types";
 import CreateSellMapper from "./mappers/CreateSellMapper";
 
 const getSales = async (page: number, filter: string) => {
-  const { data } = await api.get<SellPayload[]>(
+  const { data } = await api.get<GetSales[]>(
     `/sales?page=${page}&filter=${filter}`
   );
   return CreateSellMapper.toDomain(data);
@@ -22,7 +22,7 @@ const createSell = async (payload: CreateSellPayload) => {
 };
 
 const updateSell = async (id: string) => {
-  const { data } = await api.put<SaveSellResponse>(`/sales/${id}`);
+  const { data } = await api.put<UpdateSellResponse>(`/sales/${id}`);
   return data;
 };
 

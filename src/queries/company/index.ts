@@ -14,12 +14,12 @@ import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const listCompany = async () => {
-  const { data } = await api.get<Company[]>("/companies");
+  const { data } = await api.get<Company>("/companies");
   return CreateCompanyMapper.toDomain(data);
 };
 
 const getCompanyByUid = async (uid?: string) => {
-  if (!uid) return undefined
+  if (!uid) return undefined;
   const { data } = await api.get<Company>(`/companies/${uid}`);
   return data;
 };
@@ -94,8 +94,8 @@ export const useUpdateCompany = () => {
       queryClient.invalidateQueries({ queryKey: ["update-company"] });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["company"] })
-    }
+      queryClient.invalidateQueries({ queryKey: ["company"] });
+    },
   });
 };
 

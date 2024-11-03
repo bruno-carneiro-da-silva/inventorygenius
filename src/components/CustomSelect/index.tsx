@@ -5,7 +5,7 @@ import { LoadingIcon } from "@/icons";
 
 interface Option {
   value: string;
-  label: string;
+  label?: string;
 }
 
 interface CustomSelectProps {
@@ -62,7 +62,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           ) : (
             <>
               <span
-                className={cx("block truncate self-center font-semibold text-primary-dark")}
+                className={cx(
+                  "block truncate self-center font-semibold text-primary-dark"
+                )}
               >
                 {selectedOption ? selectedOption.label : placeholder}
               </span>

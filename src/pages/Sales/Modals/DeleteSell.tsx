@@ -4,7 +4,6 @@ import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { LoadingIcon } from "@/icons";
 import { useDeleteSell } from "@/queries/sales";
 import { useSalesStore } from "@/stores/sales";
-import { AxiosError } from "axios";
 import React from "react";
 
 interface ModalDeleteProps {

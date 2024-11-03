@@ -31,7 +31,7 @@ export interface CompanyDetails {
 }
 
 export type Company = {
-  id?: string;
+  id: string;
   firstName: string;
   lastName: string;
   emailAdmin: string;

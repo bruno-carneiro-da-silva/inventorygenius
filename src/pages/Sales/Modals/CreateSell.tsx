@@ -6,8 +6,7 @@ import { LoadingIcon } from "@/icons";
 import Checkbox from "@/components/Checkbox";
 import CustomSelect from "@/components/CustomSelect";
 import MaskedPriceInput from "@/pages/Register/components/PriceInput";
-import { ProductResponse } from "@/queries/product/types";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { FormProvider } from "react-hook-form";
 import useCreateSell from "../hooks/useSales";
 import ModalCreateEmployee from "./CreateEmployee";
@@ -29,47 +28,42 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
   const {
     methods,
     onSubmit,
-    products,
+    productsResponse,
     setAddEmployeeModalOpen,
     addEmployeeModalOpen,
     isLoading,
     employees,
+    handleSelectProduct,
+    handleAddProduct,
+    removeProduct,
+    discount,
+    setQuantity,
+    setDiscount,
+    selectedProducts,
   } = useCreateSell({
     editSell,
     onClose,
     onSave,
   });
 
-  const [discount, setDiscount] = useState(false);
-  const [selectedProduct, setSelectedProduct] =
-    useState<ProductResponse | null>(null);
-  const [quantity, setQuantity] = useState<number>(0);
-  const [selectedProducts, setSelectedProducts] = useState<ProductResponse[]>(
-    []
+  useEffect(() => {
+    if (editSell) {
+      methods.reset({
+        employeeId: editSell.employeeId,
+        totalPrice: editSell.totalPrice,
+        discount: editSell.discount,
+        soldItems: editSell.soldItems,
+      });
+    }
+  }, [editSell]);
+
+  const buttonText = isLoading ? (
+    <LoadingIcon className="" />
+  ) : editSell ? (
+    "Editar"
+  ) : (
+    "Criar"
   );
-
-  const handleSelectProduct = (value: string) => {
-    const product = products?.find((item) => item.id === value);
-    if (product) {
-      setSelectedProduct(product);
-    }
-  };
-
-  const handleAddProduct = () => {
-    if (selectedProduct && quantity > 0) {
-      setSelectedProducts((prev) => [
-        ...prev,
-        { product: selectedProduct!, quantity },
-      ]);
-      setSelectedProduct(null);
-      setQuantity(0);
-    }
-  };
-
-  const removeProduct = (index: number) => {
-    const newProducts = selectedProducts.filter((_, i) => i !== index);
-    setSelectedProducts(newProducts);
-  };
 
   return (
     <>
@@ -97,10 +91,12 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                 </div>
                 <CustomSelect
                   name="employeeId"
-                  onChange={(value) => methods.setValue("employeeId", value)}
+                  onChange={(value) =>
+                    methods.setValue("employeeId", value as never)
+                  }
                   options={employees?.map((item) => ({
                     value: item.id,
-                    label: `${item.name}`,
+                    label: item.name || "Sem nome",
                   }))}
                 />
               </div>
@@ -109,6 +105,11 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                 name="totalPrice"
                 label="Preço total"
                 placeholder="R$ 100,00"
+                onChange={(e) => {
+                  const numericValue =
+                    Number(e.target.value.replace(/\D/g, "")) / 100;
+                  methods.setValue("totalPrice", numericValue.toFixed(2));
+                }}
               />
 
               <div className="flex flex-row items-center space-x-2 w-full">
@@ -143,7 +144,7 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
               <div className="flex flex-row space-x-3 items-center">
                 <CustomSelect
                   name="soldItems"
-                  options={products?.map((item) => ({
+                  options={productsResponse?.products.map((item) => ({
                     value: item.id,
                     label: `${item.name}`,
                   }))}
@@ -172,7 +173,9 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                     >
                       <X className="h-4" />
                     </button>
-                    <div className="text-center w-full">{product.name}</div>
+                    <div className="text-center w-full">
+                      {product.product.name}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -182,13 +185,7 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                   type="submit"
                   disabled={isLoading}
                 >
-                  {isLoading ? (
-                    <LoadingIcon className="" />
-                  ) : editSell ? (
-                    "Editar"
-                  ) : (
-                    "Criar"
-                  )}
+                  {buttonText}
                 </Button>
                 <Button
                   className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-24"

@@ -48,7 +48,7 @@ export default function Employee() {
         ></div>
         <div className="relative flex flex-col items-start mt-24">
           <img
-            src={selectedSupplier.url}
+            src={selectedSupplier.photo_base64}
             alt={selectedSupplier.name}
             className="w-40 h-40 rounded-full mb-5 object-cover border-2 border-white -mt-20"
           />
@@ -56,7 +56,7 @@ export default function Employee() {
             <h1 className="text-2xl mb-3 font-bold text-primary-darker">
               {selectedSupplier.name}
             </h1>
-            <p className="text-sm text-gray-500">{selectedSupplier.category}</p>
+            <p className="text-sm text-gray-500">{selectedSupplier.niche}</p>
           </div>
         </div>
 

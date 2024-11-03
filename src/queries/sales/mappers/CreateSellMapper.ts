@@ -1,11 +1,11 @@
-import { CreateSellPayload, CreateSellResponse, SellPayload } from "../types";
+import { CreateSellPayload, GetSales } from "../types";
 
 class CreateSellMapper {
   toPersistence(domainCreateSell: CreateSellPayload) {
     return {
       employeeId: domainCreateSell.employeeId,
       companyId: domainCreateSell.companyId,
-      totalPrice: domainCreateSell.totalPrice,
+      totalPrice: Number(domainCreateSell.totalPrice),
       discount: domainCreateSell.discount,
       soldItems: domainCreateSell.soldItems.map((item) => ({
         productId: item.productId,
@@ -14,7 +14,7 @@ class CreateSellMapper {
       })),
     };
   }
-  toDomain(persistenceCreateSell: SellPayload[]) {
+  toDomain(persistenceCreateSell: GetSales[]) {
     return persistenceCreateSell.map((sell) => ({
       id: sell.id,
       totalPrice: sell.totalPrice,

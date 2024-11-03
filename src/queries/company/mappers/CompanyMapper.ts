@@ -17,23 +17,31 @@ class CreateCompanyMapper {
     };
   }
 
-  toDomain(persistenceCreateCompany: Company[]) {
-    return persistenceCreateCompany.map(company => ({
-      firstName: company.firstName,
-      lastName: company.lastName,
-      emailAdmin: company.emailAdmin,
-      phoneNumberAdmin: company.phoneNumberAdmin.replace(/\D/g, ""),
-      nameCompany: company.nameCompany,
-      emailCompany: company.emailCompany,
-      phoneNumberCompany: company.phoneNumberCompany.replace(/\D/g, ""),
-      addressCompany: company.addressCompany,
-      terms: company.terms,
-      role: company.role,
-      createdAt: company.createdAt,
-      updatedAt: company.updatedAt,
-      planId: company.planId,
-      _count: company._count,
-    }));
+  toDomain(persistenceCreateCompany: Company) {
+    return {
+      id: persistenceCreateCompany.id,
+      firstName: persistenceCreateCompany.firstName,
+      lastName: persistenceCreateCompany.lastName,
+      emailAdmin: persistenceCreateCompany.emailAdmin,
+      phoneNumberAdmin: persistenceCreateCompany.phoneNumberAdmin.replace(
+        /\D/g,
+        ""
+      ),
+      nameCompany: persistenceCreateCompany.nameCompany,
+      emailCompany: persistenceCreateCompany.emailCompany,
+      phoneNumberCompany: persistenceCreateCompany.phoneNumberCompany.replace(
+        /\D/g,
+        ""
+      ),
+      addressCompany: persistenceCreateCompany.addressCompany,
+      terms: persistenceCreateCompany.terms,
+      role: persistenceCreateCompany.role,
+      createdAt: persistenceCreateCompany.createdAt,
+      updatedAt: persistenceCreateCompany.updatedAt,
+      planId: persistenceCreateCompany.planId,
+      photo_base64: persistenceCreateCompany.photo_base64,
+      _count: persistenceCreateCompany._count,
+    };
   }
 }
 

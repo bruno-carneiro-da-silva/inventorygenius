@@ -3,7 +3,6 @@ import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
-// import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 import { Employee } from "@/queries/employee/types";
 import cx from "classnames";

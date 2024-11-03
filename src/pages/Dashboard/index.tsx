@@ -112,17 +112,17 @@ export default function Dashboard() {
         <HeaderLayout
           overviewItems={[
             {
-              number: company?.[0]?._count.contacts,
+              number: company?._count.contacts,
               text: "Clientes",
               percentage: 30,
             },
             {
-              number: company?.[0]?._count.suppliers,
+              number: company?._count.suppliers,
               text: "Total de Fornecedores",
               percentage: 20,
             },
             {
-              number: company?.[0]?._count.sales,
+              number: company?._count.sales,
               text: "Balanço",
               percentage: 50,
             },

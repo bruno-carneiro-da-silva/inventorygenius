@@ -4,7 +4,7 @@ export type Employee = {
   email: string;
   phone: string;
   address: string;
-  roleId: string;
+  roleId?: string;
   userName: string;
   createdAt: string;
   updatedAt: string;
