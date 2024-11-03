@@ -14,7 +14,7 @@ type FormValues = {
     name: string;
     description: string;
     price: string;
-    // qtd: string;
+    qtd: string;
     // size: string;
     minStock: string;
     capacity: string;
@@ -26,7 +26,7 @@ const schema: yup.ObjectSchema<FormValues> = yup.object({
     name: yup.string().required("Nome é obrigatório"),
     description: yup.string().required("Descrição é obrigatória"),
     price: yup.string().required("Preço é obrigatório"),
-    // qtd: yup.string().required("Quantidade é obrigatória"),
+    qtd: yup.string().required("Estoque é obrigatório"),
     // size: yup.string().required("Tamanho é obrigatório"),
     minStock: yup.string().required("Estoque mínimo é obrigatório"),
     capacity: yup.string().required("Estoque máximo é obrigatório"),
@@ -42,7 +42,6 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     const methods = useForm({
         resolver: yupResolver(schema),
     });
-    console.log(methods.formState.errors)
 
     const { data: categories } = useListCategories();
     const { setCategories, selectCategory } = useCategoryStore();
@@ -65,7 +64,7 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
             description: formData.description,
             minStock: Number(formData.minStock),
             price: Number(formData.price),
-            // qtd: Number(formData.qtd),
+            qtd: Number(formData.qtd),
             // size: formData.size,
             photos: [photoBase64]
         }

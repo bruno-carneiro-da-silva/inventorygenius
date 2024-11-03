@@ -3,7 +3,6 @@ export interface ProductResponse {
   name: string;
   description: string;
   size: string;
-  qtd: number;
   price: number;
   categoryId: string;
   createdAt: string;
@@ -53,7 +52,7 @@ export interface GetProductsResponse {
 export interface ProductInit {
   id?: string | null;
   name: string;
-  // qtd: number;
+  qtd: number;
   // size: string;
   price: number;
   description: string;

@@ -43,14 +43,24 @@ export default function CreateProduct({ editProduct }: CreateProductProps) {
                   placeholder="Nome"
                   className="w-full"
                 />
-                <TextInput
-                  label="Estoque máximo *"
-                  type="number"
-                  name="capacity"
-                  icon={<PackageOpen />}
-                  placeholder="1000"
-                  className="w-full"
-                />
+                <div className="flex items-center gap-1">
+                  <TextInput
+                    label="Estoque Minimo *"
+                    type="number"
+                    name="minStock"
+                    icon={<PackageOpen />}
+                    placeholder="30"
+                    className="w-full"
+                  />
+                  <TextInput
+                    label="Estoque máximo *"
+                    type="number"
+                    name="capacity"
+                    icon={<PackageOpen />}
+                    placeholder="1000"
+                    className="w-full"
+                  />
+                </div>
               </div>
               <div className="space-y-5">
                 <TextInput
@@ -62,11 +72,11 @@ export default function CreateProduct({ editProduct }: CreateProductProps) {
                   className="w-full"
                 />
                 <TextInput
-                  label="Estoque Minimo *"
+                  label="Estoque *"
                   type="number"
-                  name="minStock"
+                  name="qtd"
                   icon={<PackageOpen />}
-                  placeholder="30"
+                  placeholder="1000"
                   className="w-full"
                 />
               </div>

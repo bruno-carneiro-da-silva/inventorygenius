@@ -70,10 +70,10 @@ export default function ProductDetails() {
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">Estoque:</h2>
           <div className="flex flex-col gap-1">
-            {/* <div className="flex gap-1">
+            <div className="flex gap-1">
               <span className="text-gray-600 font-medium">Disponível:</span>
-              <span className="font-medium">{data.qtd}</span>
-            </div> */}
+              <span className="font-medium">{data.stock?.qtd}</span>
+            </div>
             <div className="flex gap-1">
               <span className="text-gray-600 font-medium">Mínimo:</span>
               <span className="font-medium">{data.stock?.minStock || 'Não definido'}</span>

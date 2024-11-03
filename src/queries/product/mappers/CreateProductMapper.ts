@@ -12,6 +12,7 @@ class CreateProductMapper {
       photos: persistenceCreateProduct.photos.map((photo) => photo),
       capacity: persistenceCreateProduct.capacity,
       minStock: persistenceCreateProduct.minStock,
+      qtd: persistenceCreateProduct.qtd,
     };
   }
 
