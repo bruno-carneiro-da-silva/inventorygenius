@@ -13,7 +13,7 @@ type FormValues = {
   email: string;
   phone: string;
   address: string;
-  roleId: string | undefined;
+  roleId?: string;
   userName: string;
   password: string;
 };
@@ -37,7 +37,7 @@ export default function useCreateEmployees({
   onClose,
 }: UseCreateEmployeeProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const methods = useForm({
+  const methods = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
   const [page, setPage] = useState<number>(1);
@@ -103,7 +103,7 @@ export default function useCreateEmployees({
     createEmployee
       .mutateAsync(finalEmployee)
       .then(() => {
-        showSuccessToast("Venda criada com sucesso");
+        showSuccessToast("Funcionário criado com sucesso");
         onClose();
       })
       .catch((err) => {
