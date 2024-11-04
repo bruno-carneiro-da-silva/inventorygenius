@@ -17,6 +17,7 @@ class CreateSellMapper {
       totalPrice: sell.totalPrice,
       total: sell.total,
       per_page: sell.per_page,
+      totalSales: sell.totalSales,
       discount: sell.discount,
       companyId: sell.companyId,
       employee: {

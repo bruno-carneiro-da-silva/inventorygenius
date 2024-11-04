@@ -3,11 +3,10 @@ import { functionDebounce } from "@/hooks/debouce";
 import { GetSales } from "@/queries/sales/types";
 import { ColumnTable as ColumnTableProps, KebabMenuItem } from "@/types/table";
 import cx from "classnames";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "../Button";
 import NotFound from "../NotFound/NotFound";
 import Column from "./Column";
-import FilterButtons from "./FilterButtons";
 import Pagination from "./Pagination";
 import Row from "./Row";
 

@@ -8,7 +8,7 @@ import Row from "./Row";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
-  data: Record<number, string | number>[];
+  data: any[];
   title: string;
   searchComponent?: React.ReactNode;
   kebabMenu?: KebabMenuItem[];
@@ -16,6 +16,8 @@ interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   isLoading?: boolean;
   handlePage: (page: number) => void;
   currentPage: number;
+  filter?: string;
+  onSearch?: (input: string) => void;
 }
 
 const DashboardTable: React.FC<TableProps> = ({
@@ -25,6 +27,7 @@ const DashboardTable: React.FC<TableProps> = ({
   kebabMenu,
   totalPages,
   isLoading,
+  filter,
   handlePage,
   currentPage,
 }) => {
@@ -45,7 +48,6 @@ const DashboardTable: React.FC<TableProps> = ({
   // useEffect(() => {
   //   setFilteredData(data);
   // }, [data]);
-
   const isDataEmpty = data.length === 0 && !isLoading;
 
   return (
@@ -54,7 +56,7 @@ const DashboardTable: React.FC<TableProps> = ({
         {title}
       </div>
       {isDataEmpty ? (
-        <NotFound />
+        <NotFound no_create_text={!!filter} />
       ) : (
         <>
           <div className="flex flex-row ">

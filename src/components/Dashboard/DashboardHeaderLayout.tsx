@@ -61,10 +61,7 @@ export const DashboardHeaderLayout: React.FC<DashboardHeaderLayoutPayload> = ({
                 {sales.text}
               </div>
               <div className="text-3xl font-bold text-primary-dark mt-2">
-                {sales.number?.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
+                {sales.number}
               </div>
               <div
                 className={`mt-1 text-sm ${

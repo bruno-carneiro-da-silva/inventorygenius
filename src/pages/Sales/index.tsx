@@ -58,7 +58,7 @@ export default function Sales() {
 
   const columns: ColumnTable[] = [
     {
-      id: "productName",
+      id: "image",
       label: "Imagem",
       width: "w-4/12",
       render: (data: GetSales) => (

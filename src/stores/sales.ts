@@ -27,7 +27,7 @@ export const useSalesStore = create(
         },
         totalPrice: 0,
         discount: 0,
-        paymentStatus: "",
+        paymentStatus: "PENDING",
         companyId: "",
         id: "",
         total: 0,
