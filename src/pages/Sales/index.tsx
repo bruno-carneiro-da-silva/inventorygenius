@@ -1,45 +1,65 @@
 import SellsTable from "@/components/SellsTable";
-import productMock from "@/mocks/sells";
+import { LoadingIcon } from "@/icons";
+import { useGetSells } from "@/queries/sales";
+import { GetSales } from "@/queries/sales/types";
 import { useSalesStore } from "@/stores/sales";
-import { Product } from "@/types/sales";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
-import { BarChart2Icon, Eye, MoveUpRight, Star, Trash2 } from "lucide-react";
+import { getStatusClassAndText, maskDateISO } from "@/utils/functions";
+import {
+  BarChart2Icon,
+  CircleDollarSign,
+  Eye,
+  Pencil,
+  Percent,
+  Trash2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import ModalDeleteSell from "./Modals/DeleteSell";
 import ModalCreateSell from "./Modals/CreateSell";
-import { useGetSells } from "@/queries/sales";
-import { useGetProducts } from "@/queries/product";
-import { ProductResponse } from "@/queries/product/types";
-import { showErrorToast } from "@/components/Toast";
-import { GetSales } from "@/queries/sales/types";
+import ModalDeleteSell from "./Modals/DeleteSell";
+import ModalEditSell from "./Modals/EditSell";
 
 export default function Sales() {
   const methods = useForm();
   const navigate = useNavigate();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const [page, setPage] = useState<number>(1);
   const [filter, setFilter] = useState("");
+  const { data: sales } = useGetSells(page, filter || "");
+
+  const { selectedSell } = useSalesStore((state) => ({
+    selectedSell: state.selectedSell,
+    setSelectedSell: state.setSelectedSell,
+  }));
+
+  const handleSearch = (input: string) => {
+    setFilter(input);
+    setPage(1);
+  };
 
   const handleCreateSell = () => {
     setOpenCreateModal(!openCreateModal);
   };
 
-  // const { data: productData } = useGetProducts(page, filter);
-  const { data: sellsData } = useGetSells(page, filter || "");
+  const handleOpenEditSell = (sell: GetSales) => {
+    setSelectedSell(sell);
+    setOpenEditModal(!openEditModal);
+  };
 
   useEffect(() => {
-    if (!sellsData) {
-      showErrorToast("Erro ao buscar produtos");
+    if (!sales) {
+      <LoadingIcon />;
     }
-  }, [sellsData]);
+  }, [sales]);
 
   const columns: ColumnTable[] = [
     {
       id: "productName",
+      label: "Imagem",
       width: "w-4/12",
       render: (data: GetSales) => (
         <div className="flex flex-row space-x-6 items-center">
@@ -71,23 +91,9 @@ export default function Sales() {
         </div>
       ),
     },
-    // {
-    //   id: "productRating",
-    //   render: (data: ProductResponse) => (
-    //     <div className="flex flex-row space-x-2 items-center">
-    //       <div className="flex flex-row">
-    //         <Star className="w-6 h-6 text-yellow-400 font-bold" />
-    //       </div>
-    //       <div className="flex flex-col">
-    //         <span className="text-primary-dark font-bold text-lg">
-    //           {data.rating}
-    //         </span>
-    //       </div>
-    //     </div>
-    //   ),
-    // },
     {
       id: "total",
+      label: "Total de vendas",
       render: (data: GetSales) => (
         <div className="flex flex-row">
           <div className="flex flex-row">
@@ -119,68 +125,83 @@ export default function Sales() {
       ),
     },
     {
-      id: "interesting",
-      render: (data: Product) => (
-        <div className="flex flex-row space-x-2">
+      id: "price",
+      label: "Preço",
+      render: (data: GetSales) => (
+        <div className="flex flex-row space-x-2 items-center">
           <div className="flex flex-row">
-            <MoveUpRight className="w-[48px] h-[48px] text-primary-dark font-bold" />
+            <CircleDollarSign className="w-[48px] h-[48px] text-primary-dark font-bold" />
           </div>
           <div className="flex flex-col">
             <span className="text-primary-dark font-bold size-7 text-lg">
-              {data.interesting}%
+              <span className="text-primary-dark font-bold text-md">
+                {data.totalPrice.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
             </span>
-            <span>de interesse</span>
           </div>
         </div>
       ),
     },
     {
-      id: "statistic",
-      width: "w-[200px]",
-      render: (data: any) => {
-        return (
+      id: "discount",
+      label: "Desconto",
+      render: (data: GetSales) => (
+        <div className="flex flex-row space-x-2 items-center">
           <div className="flex flex-row">
-            <div className="relative">
-              <svg className="w-15 h-16 text-primary-dark" viewBox="0 0 36 36">
-                <circle
-                  className="text-gray-300"
-                  strokeWidth="4"
-                  stroke="currentColor"
-                  fill="transparent"
-                  r="16"
-                  cx="18"
-                  cy="18"
-                />
-                <circle
-                  className="text-primary-dark"
-                  strokeWidth="4"
-                  strokeDasharray="50, 100"
-                  strokeLinecap="round"
-                  stroke="currentColor"
-                  fill="transparent"
-                  r="16"
-                  cx="18"
-                  cy="18"
-                />
-              </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-lg p-4">
-                {data.circlePercentage}%
-              </span>
-            </div>
+            <Percent className="w-6 h-6 text-yellow-400 font-bold" />
           </div>
+          <div className="flex flex-col">
+            <span className="text-primary-dark font-bold text-lg">
+              {data.discount || 0}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "status",
+      label: "Status",
+      render: (data: GetSales) => {
+        const { statusClass, statusText } = getStatusClassAndText(
+          data.paymentStatus
+        );
+
+        return (
+          <span className={`px-3 py-2 rounded-full ${statusClass}`}>
+            {statusText}
+          </span>
         );
       },
+    },
+    {
+      id: "createdAt",
+      label: "Data de criação",
+      width: "w-[200px]",
+      render: (data: GetSales) => (
+        <div>
+          {data.soldItems &&
+            data.soldItems.map((item) => (
+              <p key={item.id} className="text-gray-500 mt-2 ml-7">
+                Criada em - {item.createdAt && maskDateISO(item.createdAt)}
+              </p>
+            ))}
+        </div>
+      ),
     },
   ];
 
   const { setSelectedSell } = useSalesStore();
 
-  const handleOpenSalesDetails = (sell: Product) => {
+  const handleOpenSalesDetails = (sell: GetSales) => {
     setSelectedSell(sell);
-    navigate(`/vendas/${sell.uId}`);
+    navigate(`/vendas/${sell.id}`);
   };
 
-  const handleOpenModalDelete = () => {
+  const handleOpenModalDelete = (sell: GetSales) => {
+    setSelectedSell(sell);
     setOpenDeleteModal(!openDeleteModal);
   };
 
@@ -190,6 +211,12 @@ export default function Sales() {
       label: "Detalhes",
       onClick: (data) => handleOpenSalesDetails(data),
       icon: <Eye />,
+    },
+    {
+      id: "update",
+      label: "Editar",
+      onClick: (data) => handleOpenEditSell(data),
+      icon: <Pencil />,
     },
     {
       id: "delete",
@@ -205,21 +232,19 @@ export default function Sales() {
         <SellsTable
           handleCreate={handleCreateSell}
           columns={columns}
-          data={sellsData || []}
-          onSearch={(input) => {
-            setFilter(input);
-          }}
+          data={sales?.sales || []}
+          onSearch={handleSearch}
           kebabMenu={KebabMenuItems}
-          totalPages={5}
-          isLoading={false}
+          totalPages={sales ? Math.ceil(sales.total / sales.per_page) : 0}
           handlePage={(page) => setPage(page)}
           currentPage={page}
+          filter={filter}
         />
       </FormProvider>
       {openDeleteModal && (
         <ModalDeleteSell
           isOpen={openDeleteModal}
-          onClose={handleOpenModalDelete}
+          onClose={() => setOpenDeleteModal(!openDeleteModal)}
         />
       )}
       {openCreateModal && (
@@ -227,6 +252,13 @@ export default function Sales() {
           editSell={null}
           isOpen={openCreateModal}
           onClose={handleCreateSell}
+        />
+      )}
+      {openEditModal && (
+        <ModalEditSell
+          editSell={selectedSell}
+          isOpen={openEditModal}
+          onClose={() => setOpenEditModal(!openEditModal)}
         />
       )}
     </div>

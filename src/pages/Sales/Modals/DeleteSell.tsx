@@ -22,7 +22,7 @@ const ModalDeleteSell: React.FC<ModalDeleteProps> = ({ isOpen, onClose }) => {
   const handleDeleteSell = () => {
     setIsLoading(true);
     deleteCampaign
-      .mutateAsync(selectedSell?.uId || "")
+      .mutateAsync(selectedSell?.id || "")
       .then(() => {
         showSuccessToast("Venda deletada com successo");
         onClose();

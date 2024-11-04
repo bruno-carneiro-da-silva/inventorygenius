@@ -1,18 +1,19 @@
+import { CreateSellPayload, UpdateSellPayload } from "@/queries/sales/types";
 import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  CreateSellPayload,
   CreateSellResponse,
   UpdateSellResponse,
-  GetSales,
+  GetSalesResponse,
 } from "./types";
 import CreateSellMapper from "./mappers/CreateSellMapper";
+import EditSellMapper from "./mappers/EditSellMapper";
 
 const getSales = async (page: number, filter: string) => {
-  const { data } = await api.get<GetSales[]>(
+  const { data } = await api.get<GetSalesResponse>(
     `/sales?page=${page}&filter=${filter}`
   );
-  return CreateSellMapper.toDomain(data);
+  return { ...data, sales: CreateSellMapper.toDomain(data.sales) };
 };
 
 const createSell = async (payload: CreateSellPayload) => {
@@ -21,8 +22,10 @@ const createSell = async (payload: CreateSellPayload) => {
   return data;
 };
 
-const updateSell = async (id: string) => {
-  const { data } = await api.put<UpdateSellResponse>(`/sales/${id}`);
+const updateSell = async (payload: UpdateSellPayload) => {
+  const body = EditSellMapper.toPersistence(payload);
+  const { id } = payload;
+  const { data } = await api.put<UpdateSellResponse>(`/sales/${id}`, body);
   return data;
 };
 
@@ -42,6 +45,9 @@ export const useCreateSell = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (payload: CreateSellPayload) => createSell(payload),
+    onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["create-sell"] });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
     },
@@ -51,7 +57,10 @@ export const useCreateSell = () => {
 export const useUpdateSell = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => updateSell(id),
+    mutationFn: (payload: UpdateSellPayload) => updateSell(payload),
+    onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["update-sell"] });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
     },
@@ -61,6 +70,9 @@ export const useDeleteSell = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => deleteSell(id),
+    onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["delete-sell"] });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sales"] });
     },

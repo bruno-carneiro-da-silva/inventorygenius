@@ -59,8 +59,6 @@ export default function Contacts() {
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState<number>(1);
 
-  // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
-
   const {
     data: contactsResponse,
     isLoading,

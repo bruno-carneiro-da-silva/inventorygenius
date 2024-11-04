@@ -2,12 +2,11 @@ import cx from "classnames";
 import React from "react";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 import KebabMenu from "@/components/KebabMenu";
-import { ProductResponse } from "@/queries/product/types";
 import { GetSales } from "@/queries/sales/types";
 
 interface RowProps {
   columns: ColumnTable[];
-  item: GetSales | Record<string, number | string>;
+  item: GetSales | any;
   kebabMenu?: KebabMenuItem[];
 }
 

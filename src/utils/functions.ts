@@ -198,3 +198,33 @@ export const maskCurrency = (value: string): string => {
     currency: "BRL",
   });
 };
+
+export const getStatusClassAndText = (paymentStatus: string) => {
+  let statusClass = "";
+  let statusText = "";
+
+  switch (paymentStatus) {
+    case "PAID":
+      statusClass = "bg-green-500/20 text-green-700";
+      statusText = "Pago";
+      break;
+    case "PENDING":
+      statusClass = "bg-orange-500/20 text-orange-700";
+      statusText = "Pendente";
+      break;
+    case "CANCELED":
+      statusClass = "bg-red-500/20 text-red-700";
+      statusText = "Cancelada";
+      break;
+    case "REFUSED":
+      statusClass = "bg-gray-500/20 text-gray-700";
+      statusText = "Reembolsada";
+      break;
+    default:
+      statusClass = "bg-gray-500/20 text-gray-700";
+      statusText = "Desconhecido";
+      break;
+  }
+
+  return { statusClass, statusText };
+};

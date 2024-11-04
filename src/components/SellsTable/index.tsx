@@ -1,16 +1,15 @@
 import SearchBar from "@/components/SearchBar";
+import { functionDebounce } from "@/hooks/debouce";
+import { GetSales } from "@/queries/sales/types";
 import { ColumnTable as ColumnTableProps, KebabMenuItem } from "@/types/table";
 import cx from "classnames";
 import React, { useEffect, useState } from "react";
+import Button from "../Button";
 import NotFound from "../NotFound/NotFound";
 import Column from "./Column";
+import FilterButtons from "./FilterButtons";
 import Pagination from "./Pagination";
 import Row from "./Row";
-import FilterButtons from "./FilterButtons";
-import Button from "../Button";
-import { functionDebounce } from "@/hooks/debouce";
-import { GetSales, SellPayload } from "@/queries/sales/types";
-import { ProductResponse } from "@/queries/product/types";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
@@ -23,6 +22,7 @@ interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   currentPage: number;
   handleCreate: () => void;
   onSearch?: (input: string) => void;
+  filter?: string;
 }
 
 const SellsTable: React.FC<TableProps> = ({
@@ -34,27 +34,10 @@ const SellsTable: React.FC<TableProps> = ({
   isLoading,
   handlePage,
   currentPage,
+  filter,
   handleCreate,
   onSearch,
 }) => {
-  const [_filteredData, setFilteredData] = useState(data);
-
-  const handleFilterChange = (filter: string) => {
-    if (filter === "Todas") {
-      setFilteredData(data);
-    } else {
-      setFilteredData(
-        data.filter((item) => {
-          return item.gender === filter;
-        })
-      );
-    }
-  };
-
-  useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
-
   const handleSearch = onSearch ? functionDebounce(onSearch, 500) : () => {};
 
   const isDataEmpty = data.length === 0 && !isLoading;
@@ -66,13 +49,9 @@ const SellsTable: React.FC<TableProps> = ({
         <Button onClick={handleCreate} className="w-1/6">
           + Criar venda
         </Button>
-        <FilterButtons
-          filters={["Todas", "Feminino", "Masculinos"]}
-          onFilterChange={handleFilterChange}
-        />
       </div>
       {isDataEmpty ? (
-        <NotFound />
+        <NotFound no_create_text={!!filter} />
       ) : (
         <>
           <div className="flex flex-row ">
@@ -90,10 +69,10 @@ const SellsTable: React.FC<TableProps> = ({
                 <div className="animate-pulse bg-gray-200 h-16 w-full rounded-md"></div>
               </div>
             ) : (
-              data.map((data, index) => (
+              data.map((data) => (
                 <Row
                   item={data}
-                  key={`row-${index}`}
+                  key={data.id}
                   columns={columns}
                   kebabMenu={kebabMenu}
                 />

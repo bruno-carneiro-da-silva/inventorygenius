@@ -6,14 +6,17 @@ class CreateSellMapper {
       employeeId: domainCreateSell.employeeId,
       companyId: domainCreateSell.companyId,
       totalPrice: Number(domainCreateSell.totalPrice),
+      paymentStatus: domainCreateSell.paymentStatus,
       discount: domainCreateSell.discount,
       soldItems: domainCreateSell.soldItems.map((item) => item),
     };
   }
-  toDomain(persistenceCreateSell: GetSales[]) {
+  toDomain(persistenceCreateSell: GetSales[]): GetSales[] {
     return persistenceCreateSell.map((sell) => ({
       id: sell.id,
       totalPrice: sell.totalPrice,
+      total: sell.total,
+      per_page: sell.per_page,
       discount: sell.discount,
       companyId: sell.companyId,
       employee: {
@@ -27,11 +30,27 @@ class CreateSellMapper {
         id: soldItem.id,
         saleId: soldItem.saleId,
         productId: soldItem.productId,
+        product: {
+          name: soldItem.product.name,
+          description: soldItem.product.description,
+          photos: soldItem.product.photos.map((photo) => ({
+            id: photo.id,
+            base64: photo.base64,
+            productId: photo.productId,
+          })),
+          createdAt: soldItem.product.createdAt,
+          updatedAt: soldItem.product.updatedAt,
+          category: {
+            id: soldItem.product.category.id,
+            name: soldItem.product.category.name,
+          },
+        },
         qtd: soldItem.qtd,
         price: soldItem.price,
         createdAt: soldItem.createdAt,
         updatedAt: soldItem.updatedAt,
       })),
+      paymentStatus: sell.paymentStatus,
     }));
   }
 }

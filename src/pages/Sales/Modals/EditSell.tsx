@@ -7,19 +7,18 @@ import Checkbox from "@/components/Checkbox";
 import CustomSelect from "@/components/CustomSelect";
 import React, { useEffect, useMemo, useState } from "react";
 import { FormProvider } from "react-hook-form";
-import useCreateSell from "../hooks/useSales";
-import ModalCreateEmployee from "./CreateEmployee";
+import useCreateSales from "../hooks/useSales";
 import { X } from "lucide-react";
 import { PaymentStatus } from "@/utils/enum";
 
-interface ModalCreateSellProps {
+interface ModalEditSellProps {
   isOpen: boolean;
   editSell: any | null;
   onClose: () => void;
   onSave?: (sell: any) => void;
 }
 
-const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
+const ModalEditSell: React.FC<ModalEditSellProps> = ({
   isOpen,
   editSell,
   onClose,
@@ -29,32 +28,36 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
     methods,
     onSubmit,
     productsResponse,
-    setAddEmployeeModalOpen,
-    addEmployeeModalOpen,
     isLoading,
     employees,
     handleSelectProduct,
     handleAddProduct,
     removeProduct,
     setQuantity,
-    setDiscount,
-    discount,
     selectedProducts,
-  } = useCreateSell({
+  } = useCreateSales({
     editSell,
     onClose,
     onSave,
   });
 
   const [isDiscountApplied, setIsDiscountApplied] = useState(false);
+  const [discount, setDiscount] = useState<number | null>(null);
 
   useEffect(() => {
     if (editSell) {
       methods.reset({
-        employeeId: editSell.employeeId,
-        totalPrice: editSell.totalPrice,
+        employeeId: editSell.employee.id,
+        companyId: editSell.companyId,
+        totalPrice: String(editSell.totalPrice),
         discount: editSell.discount,
-        soldItems: editSell.soldItems,
+        soldItems: editSell.soldItems.map(
+          (item: { productId: number; qtd: number; price: number }) => ({
+            productId: item.productId,
+            qtd: item.qtd,
+            price: item.price,
+          })
+        ),
         paymentStatus: editSell.paymentStatus,
       });
       setIsDiscountApplied(editSell.discount > 0);
@@ -83,34 +86,18 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
     "Criar"
   );
 
-  useEffect(() => {
-    console.log(methods.watch("paymentStatus"));
-  }, [methods.watch("paymentStatus")]);
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalHeader
-          title="Nova venda"
-          subtitle="Registre a venda realizada com o cliente"
+          title="Editar venda"
+          subtitle="Edite a venda realizada com o cliente"
           onClose={onClose}
         />
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="bg-white p-4 rounded-sm flex flex-col space-y-4">
               <div className="flex flex-col">
-                <div className="flex flex-row mb-4 justify-between">
-                  <label className="text-gray-500 self-center">
-                    Selecione um funcionario ou crie um
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => setAddEmployeeModalOpen(true)}
-                    className="w-48 border border-spacing-1 pl-3 pr-3 pt-1 pb-1 rounded-md border-primary-dark text-primary-dark hover:bg-primary-dark hover:text-white"
-                  >
-                    <span>+ Add funcionário</span>
-                  </button>
-                </div>
                 <CustomSelect
                   name="employeeId"
                   onChange={(value) =>
@@ -120,6 +107,7 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                     value: item.id,
                     label: item.name || "Sem nome",
                   }))}
+                  defaultValue={editSell ? editSell?.employee.id : undefined}
                 />
               </div>
 
@@ -127,17 +115,14 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                 <label className="text-gray-500">Status de pagamento</label>
                 <CustomSelect
                   name="paymentStatus"
-                  onChange={(value) => {
-                    if (value) {
-                      methods.setValue("paymentStatus", value as PaymentStatus);
-                    }
-                  }}
-                  options={[
-                    { value: "PAID", label: "Pago" },
-                    { value: "PENDING", label: "Pendente" },
-                    { value: "CANCELED", label: "Cancelado" },
-                    { value: "REFUSED", label: "Reembolsado" },
-                  ]}
+                  onChange={(value) =>
+                    methods.setValue("paymentStatus", value as never)
+                  }
+                  options={Object.values(PaymentStatus).map((status) => ({
+                    value: status,
+                    label: status,
+                  }))}
+                  defaultValue={editSell ? editSell?.paymentStatus : undefined}
                 />
               </div>
 
@@ -238,14 +223,8 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
           </form>
         </FormProvider>
       </Modal>
-      {addEmployeeModalOpen && (
-        <ModalCreateEmployee
-          isOpen={addEmployeeModalOpen}
-          onClose={() => setAddEmployeeModalOpen(false)}
-        />
-      )}
     </>
   );
 };
 
-export default ModalCreateSell;
+export default ModalEditSell;
