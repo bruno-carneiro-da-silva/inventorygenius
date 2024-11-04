@@ -16,13 +16,15 @@ export const useMyContactStore = create(
   persist<MyContactStore>(
     (set) => ({
       contactStore: {
-        data: {
-          totalRecords: 0,
-          totalPages: 0,
-          currentPage: 0,
-          pageSize: 0,
-          items: [],
-        },
+        id: "",
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        categoryId: "",
+        companyId: "",
+        createdAt: "",
+        updatedAt: "",
       },
       selectedContact: null,
       isLoading: false,

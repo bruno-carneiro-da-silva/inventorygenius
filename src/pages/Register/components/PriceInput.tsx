@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import cx from "classnames";
-import { maskCurrency, maskPhone } from "@/utils/functions"; // Supondo que a função maskPhone esteja neste caminho
+import { maskCurrency } from "@/utils/functions";
 import { getValueByKey } from "@/utils/utils";
 
 export interface InputPayload

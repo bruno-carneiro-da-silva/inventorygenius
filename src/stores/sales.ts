@@ -25,6 +25,7 @@ export const useSalesStore = create(
           total: 0,
           per_page: 0,
         },
+        totalSales: 0,
         totalPrice: 0,
         discount: 0,
         paymentStatus: "PENDING",

@@ -1,21 +1,19 @@
 import { DashboardHeaderLayout } from "@/components/Dashboard/DashboardHeaderLayout";
 import DashboardChart from "@/components/DashboardChart";
 import DashboardTable from "@/components/DashboardTable";
-import customerMock from "@/mocks/customer.mock";
 import { sellsTransactionsMock } from "@/mocks/sells";
-import { Customer } from "@/types/customer";
-import { salesTransactionsProps } from "@/types/sales";
-import { ColumnTable, KebabMenuItem } from "@/types/table";
-import { Eye, Trash2, TrendingUp, User } from "lucide-react";
-import cx from "classnames";
-import { maskDateISO } from "@/utils/functions";
-import React, { useState } from "react";
-import { useGetSuppliers } from "@/queries/supplier";
 import { useGetSells } from "@/queries/sales";
 import { GetSales } from "@/queries/sales/types";
+import { useGetSuppliers } from "@/queries/supplier";
+import { salesTransactionsProps } from "@/types/sales";
+import { ColumnTable, KebabMenuItem } from "@/types/table";
+import { maskDateISO } from "@/utils/functions";
+import cx from "classnames";
+import { Eye, Trash2, TrendingUp, User } from "lucide-react";
+import React, { useState } from "react";
 
 export default function FinanceInspector() {
-  const [filter, setFilter] = useState("");
+  const [filter, _setFilter] = useState("");
   const [page, setPage] = useState(1);
 
   const { data: suppliersResponse } = useGetSuppliers(page, filter || "");

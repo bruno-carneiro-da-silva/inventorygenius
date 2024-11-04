@@ -9,7 +9,7 @@ export const contacts: Contact[] = [
     email: "bruno@email.teste",
     phone: "123456789",
 
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -19,6 +19,7 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
   {
     id: "2",
@@ -28,7 +29,7 @@ export const contacts: Contact[] = [
     email: "bruno@email.teste",
     phone: "123456789",
 
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -38,6 +39,7 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
   {
     id: "3",
@@ -46,7 +48,7 @@ export const contacts: Contact[] = [
     uId: "#123456789",
     email: "bruno@email.teste",
     phone: "123456789",
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -56,6 +58,7 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
   {
     id: "4",
@@ -64,7 +67,7 @@ export const contacts: Contact[] = [
     uId: "#123456789",
     email: "bruno@email.teste",
     phone: "123456789",
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -74,6 +77,7 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
   {
     id: "5",
@@ -82,7 +86,7 @@ export const contacts: Contact[] = [
     uId: "#123456789",
     email: "bruno@email.teste",
     phone: "123456789",
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -92,6 +96,7 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
   {
     id: "6",
@@ -100,7 +105,7 @@ export const contacts: Contact[] = [
     uId: "#123456789",
     email: "bruno@email.teste",
     phone: "123456789",
-    created: "2023-01-01T00:00:00Z",
+    createdAt: "2023-01-01T00:00:00Z",
     lastName: "Doe",
     city: "São Paulo",
     contact: {
@@ -110,5 +115,6 @@ export const contacts: Contact[] = [
     status: "ACTIVATED",
     totalPages: 4,
     currentPage: 1,
+    address: ""
   },
 ];
