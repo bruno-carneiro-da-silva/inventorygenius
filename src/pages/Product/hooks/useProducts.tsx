@@ -72,12 +72,11 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     };
 
     try {
-      let data;
       if (editProduct) {
-        data = await updateProduct({ id: editProduct.id, ...finalPayload });
+        await updateProduct({ id: editProduct.id, ...finalPayload });
         showSuccessToast("Product updated successfully");
       } else {
-        data = await createProduct(finalPayload);
+        await createProduct(finalPayload);
         showSuccessToast("Product created successfully");
       }
       onClose();
