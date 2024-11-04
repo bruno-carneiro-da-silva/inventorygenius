@@ -6,11 +6,10 @@ import { LoadingIcon } from "@/icons";
 import { sidebarItens } from "@/mocks/dashboard.mock";
 import { useGetCompanyByUid } from "@/queries/company";
 import cx from "classnames";
-import { Bell, LogOut, Search, Settings } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { Outlet } from "react-router-dom";
 import DropdownProfile from "../DropdownMenu";
-import TextInput from "../Input";
 import ModalContactDetails from "./components/ModalContactDetails";
 import { useDashboard } from "./hooks/useDashboard";
 
