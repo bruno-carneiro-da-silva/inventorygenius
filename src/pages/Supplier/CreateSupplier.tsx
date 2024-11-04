@@ -3,30 +3,27 @@ import DateTextInput from "@/components/DateInput/DateInput";
 import TextInput from "@/components/Input";
 import { maskCNPJ } from "@/utils/functions";
 import { Autocomplete } from "@react-google-maps/api";
-import {
-  Flag,
-  Mail,
-  Map,
-  Shirt,
-  StickyNote,
-  User
-} from "lucide-react";
-import React from "react";
+import { Flag, Mail, Map, Shirt, StickyNote, User } from "lucide-react";
+import React, { useEffect } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import MaskedTextInput from "../Register/components/PhoneInput";
 import useCreateSuppliers from "./hooks/useSuppliers";
 import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 
-
 export default function CreateSupplier() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onClose = () => {
-    navigate(-1)
-  }
+    navigate(-1);
+  };
 
-  const { methods, onLoad, onPlaceChanged, updateFile, onSubmit } = useCreateSuppliers({ onClose })
+  const { methods, onLoad, onPlaceChanged, updateFile, onSubmit } =
+    useCreateSuppliers({ onClose });
+
+  useEffect(() => {
+    console.log("here", methods.formState.errors);
+  }, [methods.watch()]);
 
   return (
     <React.Fragment>
@@ -53,7 +50,6 @@ export default function CreateSupplier() {
                   placeholder="Sobrenome"
                   className="w-full"
                 />
-
               </div>
               <div className="space-y-5">
                 <TextInput
@@ -91,9 +87,7 @@ export default function CreateSupplier() {
               </div>
               <div className="space-y-5">
                 <div className="flex flex-col col-span-12 space-y-5 overflow-hidden">
-                  <ModalCropImage
-                    updateFile={updateFile}
-                  />
+                  <ModalCropImage updateFile={updateFile} />
                 </div>
                 {/* <div className="flex flex-col">
                   <label className="text-gray-500 font-bold mb-2">Foto *</label>
@@ -116,7 +110,7 @@ export default function CreateSupplier() {
                 type="textarea"
                 name="document"
                 onChange={(e) => {
-                  methods.setValue('document', maskCNPJ(e.target.value))
+                  methods.setValue("document", maskCNPJ(e.target.value));
                 }}
                 icon={<StickyNote />}
                 placeholder="00.000.000/0000-00"
@@ -172,7 +166,7 @@ export default function CreateSupplier() {
             <button
               type="button"
               className="bg-white text-primary-dark border border-primary-dark rounded-full px-6 py-3"
-              onClick={() => alert('TODO')}
+              onClick={() => alert("TODO")}
             >
               Salvar rascunho
             </button>

@@ -109,8 +109,11 @@ export default function useCreateSales({ onClose }: UseCreateSalesProps) {
   const onSubmit = (payload: FormValues) => {
     setIsLoading(true);
     const finalPayload = {
-      ...payload,
+      employeeId: payload.employeeId,
       companyId: companyUid,
+      totalPrice: payload.totalPrice,
+      discount: payload.discount,
+      soldItems: payload.soldItems,
     };
     createSell
       .mutateAsync(finalPayload)

@@ -4,13 +4,16 @@ import { useSalesStore } from "@/stores/sales";
 import { Product } from "@/types/sales";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 import { BarChart2Icon, Eye, MoveUpRight, Star, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteSell from "./Modals/DeleteSell";
 import ModalCreateSell from "./Modals/CreateSell";
 import { useGetSells } from "@/queries/sales";
 import { useGetProducts } from "@/queries/product";
+import { ProductResponse } from "@/queries/product/types";
+import { showErrorToast } from "@/components/Toast";
+import { GetSales } from "@/queries/sales/types";
 
 export default function Sales() {
   const methods = useForm();
@@ -25,50 +28,92 @@ export default function Sales() {
     setOpenCreateModal(!openCreateModal);
   };
 
-  const { data: sales } = useGetSells(page, filter);
-  const { data: product } = useGetProducts(page, filter);
+  // const { data: productData } = useGetProducts(page, filter);
+  const { data: sellsData } = useGetSells(page, filter || "");
+
+  useEffect(() => {
+    if (!sellsData) {
+      showErrorToast("Erro ao buscar produtos");
+    }
+  }, [sellsData]);
 
   const columns: ColumnTable[] = [
     {
-      id: "productName",  
+      id: "productName",
       width: "w-4/12",
-      render: (data: Product) => (
+      render: (data: GetSales) => (
         <div className="flex flex-row space-x-6 items-center">
-          <img src={data.photo} className="w-[150px] h-[150px] rounded-md" />
-          <div className="flex flex-col">
-            <div className="border w-[120px] border-primary-dark bg-primary-dark text-white -mt-[62px] rounded-full p-3 text-center mb-6">
-              {data.tag}
-            </div>
-            <div className="text-sm text-primary-dark font-bold">{`${data.name}`}</div>
-          </div>
+          {data?.soldItems?.map((item) => {
+            return (
+              <div
+                key={item.id}
+                className="flex flex-row space-x-6 items-center"
+              >
+                {item && (
+                  <img
+                    src={item?.product?.photos?.[0]?.base64}
+                    className="w-[150px] h-[150px] rounded-md"
+                  />
+                )}
+                <div className="flex flex-col">
+                  {item?.product?.category?.name && (
+                    <div className="border w-[120px] border-primary-dark bg-primary-dark text-white -mt-[62px] rounded-full p-3 text-center mb-6">
+                      {item.product.category.name}
+                    </div>
+                  )}
+                  {item?.product?.name && (
+                    <div className="text-sm text-primary-dark font-bold">{`${item.product.name}`}</div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       ),
     },
-    {
-      id: "productRating",
-      render: (data: Product) => (
-        <div className="flex flex-row space-x-2 items-center">
-          <div className="flex flex-row">
-            <Star className="w-6 h-6 text-yellow-400 font-bold" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-primary-dark font-bold text-lg">
-              {data.rating}
-            </span>
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   id: "productRating",
+    //   render: (data: ProductResponse) => (
+    //     <div className="flex flex-row space-x-2 items-center">
+    //       <div className="flex flex-row">
+    //         <Star className="w-6 h-6 text-yellow-400 font-bold" />
+    //       </div>
+    //       <div className="flex flex-col">
+    //         <span className="text-primary-dark font-bold text-lg">
+    //           {data.rating}
+    //         </span>
+    //       </div>
+    //     </div>
+    //   ),
+    // },
     {
       id: "total",
-      render: (data: Product) => (
+      render: (data: GetSales) => (
         <div className="flex flex-row">
           <div className="flex flex-row">
             <BarChart2Icon className="w-[62px] h-[53px] text-primary-dark font-bold" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-primary-dark font-bold text-lg">{`  ${data.total}`}</span>
-            <span>total</span>
+          <div className="flex flex-col w-[63px]">
+            {data.soldItems ? (
+              data.soldItems.map((item) => {
+                return (
+                  <>
+                    <span
+                      key={item.id}
+                      className="text-primary-dark font-bold text-lg"
+                    >
+                      {item.qtd}
+                    </span>
+                    <span>total</span>
+                  </>
+                );
+              })
+            ) : (
+              <div className="flex flex-col w-[63px]">
+                <span className="text-primary-dark font-bold text-lg">0</span>
+                <span>total</span>
+              </div>
+            )}
           </div>
         </div>
       ),
@@ -160,7 +205,7 @@ export default function Sales() {
         <SellsTable
           handleCreate={handleCreateSell}
           columns={columns}
-          data={productMock}
+          data={sellsData || []}
           onSearch={(input) => {
             setFilter(input);
           }}

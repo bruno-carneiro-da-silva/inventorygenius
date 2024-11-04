@@ -7,7 +7,11 @@ import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
 import { useGetContacts } from "@/queries/contact";
-import { ContactDetailResponse, ContactDetails, GetContact } from "@/queries/contact/types";
+import {
+  ContactDetailResponse,
+  ContactDetails,
+  GetContact,
+} from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
@@ -24,7 +28,9 @@ export default function Contacts() {
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalDetails, setOpenModalDetails] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
-  const [editContact, setEditContact] = useState<ContactDetailResponse | null>(null)
+  const [editContact, setEditContact] = useState<ContactDetailResponse | null>(
+    null
+  );
 
   const handleOpenModalNotes = () => {
     setOpenModalNotes(!openModalNotes);
@@ -41,26 +47,30 @@ export default function Contacts() {
   };
 
   const handleEdit = (contact: ContactDetailResponse) => {
-    setEditContact(contact)
-    setOpenModalCreate(!openModalCreate);
-  }
-
-  const handleOpenModalCreate = () => {
-    setEditContact(null)
+    setEditContact(contact);
     setOpenModalCreate(!openModalCreate);
   };
 
-  const [filter, setFilter] = useState('');
+  const handleOpenModalCreate = () => {
+    setEditContact(null);
+    setOpenModalCreate(!openModalCreate);
+  };
+
+  const [filter, setFilter] = useState("");
   const [page, setPage] = useState<number>(1);
 
   // const companyUid = useCompanyStore((state) => state.company?.data?.uId || "");
 
-  const { data: contactsResponse, isLoading, isError } = useGetContacts(page, filter);
+  const {
+    data: contactsResponse,
+    isLoading,
+    isError,
+  } = useGetContacts(page, filter);
 
   const handleSearch = (input: string) => {
-    setFilter(input)
-    setPage(1)
-  }
+    setFilter(input);
+    setPage(1);
+  };
 
   const handlePage = (page: number) => {
     setPage(page);
@@ -80,7 +90,7 @@ export default function Contacts() {
       render: (data: GetContact) => (
         <div className="flex flex-row space-x-2 items-center">
           <img
-            src={data.name || ProfileImg}
+            src={data.photo || ProfileImg}
             className="w-8 h-8 rounded-full bg-primary-dark"
           />
           <div className="flex flex-col">
@@ -168,7 +178,11 @@ export default function Contacts() {
               </Button>
             </div>
           }
-          totalPages={contactsResponse ? Math.ceil(contactsResponse.total / contactsResponse.per_page) : 0}
+          totalPages={
+            contactsResponse
+              ? Math.ceil(contactsResponse.total / contactsResponse.per_page)
+              : 0
+          }
           filter={filter}
           currentPage={page}
           isLoading={isLoading}
@@ -194,7 +208,10 @@ export default function Contacts() {
         <ModalNote isOpen={openModalNotes} onClose={handleOpenModalNotes} />
       )}
       {openModalDelete && (
-        <ModalDelete isOpen={openModalDelete} onClose={() => setOpenModalDelete(!openModalDelete)} />
+        <ModalDelete
+          isOpen={openModalDelete}
+          onClose={() => setOpenModalDelete(!openModalDelete)}
+        />
       )}
     </React.Fragment>
   );

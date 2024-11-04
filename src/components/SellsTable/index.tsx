@@ -9,11 +9,12 @@ import Row from "./Row";
 import FilterButtons from "./FilterButtons";
 import Button from "../Button";
 import { functionDebounce } from "@/hooks/debouce";
-import { SellPayload } from "@/queries/sales/types";
+import { GetSales, SellPayload } from "@/queries/sales/types";
+import { ProductResponse } from "@/queries/product/types";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
-  data: any[];
+  data: GetSales[];
   searchComponent?: React.ReactNode;
   kebabMenu?: KebabMenuItem[];
   totalPages: number;
@@ -44,7 +45,7 @@ const SellsTable: React.FC<TableProps> = ({
     } else {
       setFilteredData(
         data.filter((item) => {
-          return item.gender === filter
+          return item.gender === filter;
         })
       );
     }

@@ -61,6 +61,19 @@ export interface SoldItem {
   price: number;
   createdAt: string;
   updatedAt: string;
+  product: {
+    name: string;
+    photos: {
+      id: string;
+      base64: string;
+      productId: string;
+      createdAt: string;
+      updatedAt: string;
+    }[];
+    category: {
+      name: string;
+    };
+  };
 }
 
 export interface Employee {

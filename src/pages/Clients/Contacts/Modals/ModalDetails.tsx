@@ -6,16 +6,14 @@ import { TagsConstants } from "@/constants/constants";
 import { useGetContactDetail } from "@/queries/contact";
 import { ContactDetailResponse } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
-import {
-  maskPhone
-} from "@/utils/functions";
+import { maskPhone } from "@/utils/functions";
 import cx from "classnames";
 import {
   // AtSign,
   CalendarDays,
   Mail,
   MapPinned,
-  Phone
+  Phone,
 } from "lucide-react";
 import React from "react";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
@@ -26,10 +24,14 @@ interface ModalDetailsProps {
   onClose: () => void;
 }
 
-const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose }) => {
+const ModalDetails: React.FC<ModalDetailsProps> = ({
+  isOpen,
+  handleEdit,
+  onClose,
+}) => {
   const { selectedContact } = useMyContactStore();
 
-  const { data: contact, isLoading } = useGetContactDetail(selectedContact?.id)
+  const { data: contact, isLoading } = useGetContactDetail(selectedContact?.id);
 
   // const { city, country } = selectedContact?.city
   //   ? extractCityAndCountry(selectedContact?.city)
@@ -51,6 +53,9 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose
               src={Profile}
               // src={contact?.photo || Profile}
               className="w-20 h-20 rounded-md"
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                e.currentTarget.src = Profile;
+              }}
             />
           </div>
           <div className="flex flex-col col-span-7 space-y-5">
@@ -71,10 +76,7 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose
             <div className="text-sm font-light flex flex-row space-x-2 text-gray-500">
               <div className="flex flex-row items-center space-x-2">
                 <Mail className="w-5 h-5" />
-                <div className="font-light text-base">
-                  {" "}
-                  {contact?.email}
-                </div>
+                <div className="font-light text-base"> {contact?.email}</div>
               </div>
               <div className="flex flex-row items-center space-x-2">
                 <Phone className="w-5 h-5" />
@@ -100,14 +102,16 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({ isOpen, handleEdit, onClose
             {contact.birthday && (
               <div className="text-sm font-light flex flex-row w-full space-x-2 text-gray-500">
                 <CalendarDays className="w-5 h-5" />
-                <div className="font-bold text-xs">
-                  {contact.birthday}
-                </div>
+                <div className="font-bold text-xs">{contact.birthday}</div>
               </div>
             )}
           </div>
           <div className="col-span-3  text-right">
-            <Button className="font-medium text-xs w-36" type="button" onClick={() => handleEdit(contact)}>
+            <Button
+              className="font-medium text-xs w-36"
+              type="button"
+              onClick={() => handleEdit(contact)}
+            >
               Atualizar informações
             </Button>
           </div>

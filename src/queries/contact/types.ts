@@ -1,6 +1,6 @@
 export type Contact = {
   companyUid?: string;
-  name: string
+  name: string;
   dateOfBirth: string;
   email: string;
   phoneNumber: string;
@@ -10,7 +10,7 @@ export type Contact = {
   zipCode: string;
 };
 
-export type EditContactPayload = Contact & { id: string }
+export type EditContactPayload = Contact & { id: string };
 
 export type CreateContactResponse = {
   succeeded: boolean;
@@ -24,6 +24,7 @@ export type CreateContactResponse = {
 export type GetContact = {
   id: string;
   name: string;
+  photo?: string;
   email: string;
   phone: string;
   address: string;
@@ -34,9 +35,9 @@ export type GetContact = {
 };
 
 export interface GetContactsResponse {
-  contacts: GetContact[]
-  total: number
-  per_page: number
+  contacts: GetContact[];
+  total: number;
+  per_page: number;
 }
 
 export interface ContactResponse {
@@ -116,7 +117,7 @@ export type GetFilteredContact = {
 };
 
 export interface DeleteContact {
-  id: string
+  id: string;
 }
 
 export type DeleteContactResponse = {
