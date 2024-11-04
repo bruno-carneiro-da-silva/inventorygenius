@@ -1,109 +1,117 @@
-import coverImage from "@/assets/cover_2.png";
-import { CardPlan } from "@/components/CardPlan";
-import TimeLine from "@/components/TimeLine";
-import { timelineData } from "@/mocks/activities";
-import { freePlan } from "@/mocks/plan";
-
-import { useSupplierStore } from "@/stores/supplier";
+import CardEmployee from "@/components/Card/employee";
+import NotFound from "@/components/NotFound/NotFound";
+import SubHeader from "@/components/SubHeader";
+import Pagination from "@/components/Table/Pagination";
+import { useGetEmployees } from "@/queries/employee";
+import { Employee } from "@/queries/employee/types";
+import { useEmployeeStore } from "@/stores/employee";
 import { KebabMenuItem } from "@/types/table";
-import { Eye, Mail, MapPin, Phone, Trash2 } from "lucide-react";
+import { Eye, Mail, Phone, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import ModalDeleteEmployee from "./modals/DeleteEmployee";
+import ModalCreateEmployee from "../Sales/Modals/CreateEmployee";
 
-export default function Employee() {
-  // const { id } = useParams();
-  const { selectedSupplier } = useSupplierStore();
+export default function EmployeeScreen() {
+  const methods = useForm();
+  const navigate = useNavigate();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  if (!selectedSupplier) {
-    return <div>Loading...</div>;
+  const { setSelectedEmployee } = useEmployeeStore();
+
+  const [createOpen, setCreateOpen] = useState(false)
+
+  const [page, setPage] = useState<number>(1);
+  const [filter, setFilter] = useState("");
+
+  const { data: employeesResponse } = useGetEmployees(page, filter);
+
+  const handleOpenEmployeeDetails = (employee: Employee) => {
+    setSelectedEmployee(employee);
+    navigate(`/funcionarios/detalhes/${employee.id}`);
+  };
+
+  const handleCreateEmployee = () => {
+    setCreateOpen(true)
+  };
+
+  const handleCloseCreateEmployee = () => {
+    setCreateOpen(false)
   }
 
-  const handleOpenSupplierDetails = (supplier: any) => {
-    console.log(supplier);
+  const handleDeleteEmployee = (employee: Employee) => {
+    setSelectedEmployee(employee)
+    setOpenDeleteModal(true);
   };
 
-  const handleOpenModalDelete = () => {
-    console.log("Delete");
-  };
+  const handleCloseDeleteEmployee = () => {
+    setSelectedEmployee(undefined)
+    setOpenDeleteModal(false)
+  }
 
   const KebabMenuItems: KebabMenuItem[] = [
     {
       id: "details",
       label: "Ver detalhes",
-      onClick: (plan) => handleOpenSupplierDetails(plan),
+      onClick: (data) => handleOpenEmployeeDetails(data),
       icon: <Eye />,
     },
     {
       id: "delete",
       label: "Deletar",
-      onClick: handleOpenModalDelete,
+      onClick: (data) => handleDeleteEmployee(data),
       icon: <Trash2 />,
     },
   ];
 
   return (
-    <div className="flex flex-row justify-between pr-0">
-      <div className="relative max-w-5xl h-[370px] ml-44 border p-6 bg-white shadow-lg rounded-lg mt-8">
-        <div
-          className="absolute top-0 -left-[50px] w-[1123px] rounded-t-lg h-32 bg-cover bg-center z-0"
-          style={{ backgroundImage: `url(${coverImage})` }}
-        ></div>
-        <div className="relative flex flex-col items-start mt-24">
-          <img
-            src={selectedSupplier.photo_base64}
-            alt={selectedSupplier.name}
-            className="w-40 h-40 rounded-full mb-5 object-cover border-2 border-white -mt-20"
-          />
-          <div className="flex flex-col items-start">
-            <h1 className="text-2xl mb-3 font-bold text-primary-darker">
-              {selectedSupplier.name}
-            </h1>
-            <p className="text-sm text-gray-500">{selectedSupplier.niche}</p>
-          </div>
+    <div>
+      <FormProvider {...methods}>
+        <SubHeader
+          name="search"
+          placeholder="Procurar funcionário"
+          text="Funcionário"
+          onChange={() => { }}
+          onSearch={(input) => {
+            setFilter(input)
+          }}
+          onClick={handleCreateEmployee}
+        />
+        <div className="flex flex-row flex-wrap gap-2">
+          {employeesResponse?.employees?.map((employee) => (
+            <div className="m-2" key={employee.id}>
+              <CardEmployee
+                key={employee.id}
+                item={employee}
+                icon={<Mail />}
+                secondIcon={<Phone />}
+                kebabMenuItems={KebabMenuItems}
+              />
+            </div>
+          ))}
+          {employeesResponse?.employees?.length === 0 && (
+            <div className="w-full flex items-center justify-center">
+              <NotFound no_create_text={!!filter} />
+            </div>
+          )}
         </div>
 
-        <div className="mt-6 w-[1123px]">
-          <div className="flex items-center text-gray-600 space-x-4">
-            <div className="flex items-center">
-              <span>
-                <MapPin className="w-5 h-5 text-orange-500" />
-              </span>
-              <span className="ml-2 text-primary-darker">
-                {selectedSupplier.address}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-white bg-orange-500 rounded-full p-2">
-                <Phone className="w-5 h-5" />
-              </span>
-              <span className="ml-2 text-primary-darker">
-                {selectedSupplier.phone}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-white bg-orange-500 rounded-full p-2">
-                <Mail className="w-5 h-5" />
-              </span>
-              <span className="ml-2 text-primary-darker">
-                {selectedSupplier.email}
-              </span>
-            </div>
-          </div>
+        <div className="mt-16 flex flex-row items-center justify-center">
+          {employeesResponse && employeesResponse.total > 0 && <Pagination
+            currentPage={page}
+            totalPages={employeesResponse ? Math.ceil(employeesResponse.total / employeesResponse.per_page) : 0}
+            onPageChange={(page) => setPage(page)}
+          />}
         </div>
-      </div>
-      <div className="flex flex-col ml-8">
-        {freePlan.map((plan) => (
-          <CardPlan key={plan.id} item={plan} kebabMenuItems={KebabMenuItems} />
-        ))}
-        <div className="pt-5">
-          <h1 className="text-lg text-primary-dark font-bold">
-            Últimas atividades
-          </h1>
-        </div>
-        <div className="bg-white h-[368px] w-[386px] bg-cover bg-center rounded-2xl overflow-auto">
-          {timelineData.map((item) => (
-            <TimeLine key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
+      </FormProvider>
+      {openDeleteModal && (
+        <ModalDeleteEmployee
+          isOpen={openDeleteModal}
+          onClose={handleCloseDeleteEmployee}
+        />
+      )}
+      {createOpen && <ModalCreateEmployee isOpen={createOpen} onClose={handleCloseCreateEmployee} />}
     </div>
   );
 }

@@ -20,6 +20,7 @@ import PublicRoutes from "@/utils/PublicRoutes";
 import { ReactElement } from "react";
 import ProtectedRoutes from "../utils/ProtectedRoutes";
 import { CreateProductPage } from "@/pages/Product/CreateProductPage";
+import EmployeeDetail from "@/pages/Employee/EmployeeDetail";
 
 type Route = {
   path: string;
@@ -47,11 +48,11 @@ const itensAndSubItensSidebar: Route[] = sidebarItens.map((item) => {
   } else {
     route.children = item.element
       ? [
-          {
-            path: item.route,
-            element: <ProtectedRoutes>{item.element}</ProtectedRoutes>,
-          },
-        ]
+        {
+          path: item.route,
+          element: <ProtectedRoutes>{item.element}</ProtectedRoutes>,
+        },
+      ]
       : [];
   }
 
@@ -180,6 +181,14 @@ export const routes: Route[] = [
     element: (
       <ProtectedRoutes>
         <Employee />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/funcionarios/detalhes/:id",
+    element: (
+      <ProtectedRoutes>
+        <EmployeeDetail />
       </ProtectedRoutes>
     ),
   },

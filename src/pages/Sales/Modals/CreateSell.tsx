@@ -94,7 +94,7 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
                   onChange={(value) =>
                     methods.setValue("employeeId", value as never)
                   }
-                  options={employees?.map((item) => ({
+                  options={employees?.employees?.map((item) => ({
                     value: item.id,
                     label: item.name || "Sem nome",
                   }))}

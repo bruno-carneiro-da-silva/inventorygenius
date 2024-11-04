@@ -1,19 +1,26 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/services/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import CreateEmployeeMapper from "./mappers/CreateEmployeeMapper";
 import {
   CreateEmployee,
-  EmployeeResponse,
   Employee,
-  UpdateEmployee,
+  EmployeeResponse,
+  GetEmployeesResponse,
+  UpdateEmployee
 } from "./types";
-import CreateEmployeeMapper from "./mappers/CreateEmployeeMapper";
 
 const getEmployees = async (page: number, filter: string) => {
-  const { data } = await api.get<Employee[]>(
+  const { data } = await api.get<GetEmployeesResponse>(
     `/employees?page=${page}&filter=${filter}`
   );
   return data;
 };
+
+const getEmployee = async (id?: string) => {
+  if (!id) return undefined
+  const { data } = await api.get<Employee>(`/employees/${id}`)
+  return data
+}
 
 const createEmployee = async (payload: CreateEmployee) => {
   const body = CreateEmployeeMapper.toPersistence(payload);
@@ -38,6 +45,13 @@ export const useGetEmployees = (page: number, filter: string) => {
     queryFn: () => getEmployees(page, filter),
   });
 };
+
+export const useGetEmployee = (id?: string) => {
+  return useQuery({
+    queryKey: ["employee", id],
+    queryFn: () => getEmployee(id)
+  })
+}
 
 export const useCreateEmployee = () => {
   const queryClient = useQueryClient();

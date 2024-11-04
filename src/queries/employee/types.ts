@@ -12,6 +12,12 @@ export type Employee = {
   sales: [];
 };
 
+export interface GetEmployeesResponse {
+  employees: Employee[]
+  per_page: number
+  total: number
+}
+
 export type CreateEmployee = Omit<
   EmployeeResponse,
   "id" | "createdAt" | "updatedAt"
