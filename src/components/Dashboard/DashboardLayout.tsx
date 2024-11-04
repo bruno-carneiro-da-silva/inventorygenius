@@ -37,7 +37,7 @@ export const DashboardLayout: React.FC = () => {
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
 
   const PerfilImg = company?.photo_base64 ?? Logo;
-  
+
   return (
     <div className="flex flex-row">
       <div className="bg-primary-dark h-screen fixed z-30 py-5 justify-between flex flex-col place-items-center place-content-center space-y-2 w-20">
@@ -99,7 +99,7 @@ export const DashboardLayout: React.FC = () => {
           </div>
           <FormProvider {...methods}>
             <div className="flex items-center rounded-full flex-row space-x-2 p-2">
-              <div>
+              {/* <div>
                 <TextInput
                   name="search"
                   placeholder="Search here"
@@ -119,7 +119,7 @@ export const DashboardLayout: React.FC = () => {
                 className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
               >
                 <Settings className="h-5 w-5" />
-              </Button>
+              </Button> */}
               <button
                 onClick={handleOpenOptions}
                 className="border-l-2 pl-2 pr-5 flex-row flex space-x-3"
