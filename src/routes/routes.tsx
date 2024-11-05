@@ -48,11 +48,11 @@ const itensAndSubItensSidebar: Route[] = sidebarItens.map((item) => {
   } else {
     route.children = item.element
       ? [
-        {
-          path: item.route,
-          element: <ProtectedRoutes>{item.element}</ProtectedRoutes>,
-        },
-      ]
+          {
+            path: item.route,
+            element: <ProtectedRoutes>{item.element}</ProtectedRoutes>,
+          },
+        ]
       : [];
   }
 
@@ -144,22 +144,22 @@ export const routes: Route[] = [
       </ProtectedRoutes>
     ),
   },
-  {
-    path: "/fiscal",
-    element: (
-      <ProtectedRoutes>
-        <FinanceInspector />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/financas",
-    element: (
-      <ProtectedRoutes>
-        <Finance />
-      </ProtectedRoutes>
-    ),
-  },
+  // {
+  //   path: "/fiscal",
+  //   element: (
+  //     <ProtectedRoutes>
+  //       <FinanceInspector />
+  //     </ProtectedRoutes>
+  //   ),
+  // },
+  // {
+  //   path: "/financas",
+  //   element: (
+  //     <ProtectedRoutes>
+  //       <Finance />
+  //     </ProtectedRoutes>
+  //   ),
+  // },
   {
     path: "/vendas",
     element: (

@@ -20,11 +20,6 @@ export default function CreateSupplier() {
 
   const { methods, onLoad, onPlaceChanged, updateFile, onSubmit } =
     useCreateSuppliers({ onClose });
-
-  useEffect(() => {
-    console.log("here", methods.formState.errors);
-  }, [methods.watch()]);
-
   return (
     <React.Fragment>
       <DashboardLayout />
