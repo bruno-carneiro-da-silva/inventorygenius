@@ -56,7 +56,7 @@ export default function CreateSupplier() {
                 />
                 <MaskedTextInput
                   name="phone"
-                  label="Phone"
+                  label="Phone *"
                   placeholder="+1 123 456 7890"
                   classNameIcon="text-gray-400"
                 />
@@ -69,35 +69,21 @@ export default function CreateSupplier() {
                 >
                   <TextInput
                     name="address"
-                    label="Endereço completo"
+                    label="Endereço completo *"
                     placeholder="Rua fulano de tal, 239"
                     classNameIcon="text-gray-400"
                   />
                 </Autocomplete>
                 <DateTextInput
                   name="dateOfBirth"
-                  label="Data de nascimento"
-                  placeholder="1997/06/03"
+                  label="Data de nascimento *"
+                  placeholder="03/06/1997"
                 />
               </div>
               <div className="space-y-5">
                 <div className="flex flex-col col-span-12 space-y-5 overflow-hidden">
                   <ModalCropImage updateFile={updateFile} />
                 </div>
-                {/* <div className="flex flex-col">
-                  <label className="text-gray-500 font-bold mb-2">Foto *</label>
-                  <input {...methods.register('photo')} type="file" />
-                  <button
-                    type="button"
-                    className="w-40 h-40 p-3 border-2 border-spacing-2 text-gray-500 border-primary-dark/20 border-dashed focus:border-dashed focus:outline-none"
-                    onClick={() => {
-                      // Lógica futura para acionar o crop de imagem
-                      alert('TODO')
-                    }}
-                  >
-                    Arraste e solte ou clique para adicionar
-                  </button>
-                </div> */}
               </div>
 
               <TextInput

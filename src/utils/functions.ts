@@ -22,9 +22,9 @@ export const unmaskPhone = (phone: string) => {
 export const maskDate = (value: string) => {
   return value
     .replace(/\D/g, "")
-    .replace(/(\d{4})(\d)/, "$1/$2")
-    .replace(/(\d{4}\/\d{2})(\d)/, "$1/$2")
-    .replace(/(\d{4}\/\d{2}\/\d{2})(\d)/, "$1");
+    .replace(/(\d{2})(\d)/, "$1/$2")
+    .replace(/(\d{2}\/\d{2})(\d)/, "$1/$2")
+    .replace(/(\d{2}\/\d{2}\/\d{4})(\d)/, "$1");
 };
 
 export const maskDateISO = (value: string) => {
@@ -42,8 +42,7 @@ export const maskCNPJ = (value: string) => {
     .replace(/^(\d{2})(\d)/, "$1.$2")
     .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
     .replace(/\.(\d{3})(\d)/, ".$1/$2")
-    .replace(/\/(\d{4})(\d)/, "/$1-$2")
-    .replace(/-/, "");
+    .replace(/\/(\d{4})(\d)/, "/$1-$2");
 };
 
 export const extractCityAndCountry = (address: string) => {

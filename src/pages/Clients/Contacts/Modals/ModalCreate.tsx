@@ -3,7 +3,6 @@ import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
-// import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 import { ContactDetailResponse, ContactDetails } from "@/queries/contact/types";
 import { Autocomplete } from "@react-google-maps/api";
 import React from "react";
@@ -79,7 +78,7 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
               <DateTextInput
                 name="dateOfBirth"
                 label="Data de nascimento"
-                placeholder="1997/06/03"
+                placeholder="03/06/1997"
               />
             </div>
             <TextInput
