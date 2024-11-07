@@ -3,6 +3,7 @@ export type Contact = {
   name: string;
   dateOfBirth: string;
   email: string;
+  status?: boolean;
   phoneNumber: string;
   address: string;
   latitude?: string;
@@ -27,6 +28,7 @@ export type GetContact = {
   photo?: string;
   email: string;
   phone: string;
+  status?: boolean;
   address: string;
   categoryId: string;
   companyId: string | null;

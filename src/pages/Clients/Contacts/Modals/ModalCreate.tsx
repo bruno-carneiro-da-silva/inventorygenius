@@ -36,7 +36,11 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
         title={editContact ? "Editar cliente" : "Nova cliente"}
-        subtitle={editContact ? undefined : "Crie um novo cliente para fazer parte da sua lista"}
+        subtitle={
+          editContact
+            ? undefined
+            : "Crie um novo cliente para fazer parte da sua lista"
+        }
         onClose={onClose}
       />
       <FormProvider {...methods}>
@@ -44,12 +48,6 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
           <div className=" bg-white p-4 rounded-sm flex flex-col space-y-4">
             <div className="flex flex-row space-x-2">
               <TextInput name="name" label="Nome" placeholder="Jonh" />
-              {/* <TextInput
-                name="lastName"
-                label="Sobrenome"
-                placeholder="Doe"
-                classNameIcon="text-gray-400"
-              /> */}
             </div>
 
             <TextInput
@@ -96,7 +94,13 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? <LoadingIcon className="" /> : editContact ? "Editar" : "Criar"}
+                {isLoading ? (
+                  <LoadingIcon className="" />
+                ) : editContact ? (
+                  "Editar"
+                ) : (
+                  "Criar"
+                )}
               </Button>
               <Button
                 className="bg-white border border-primary-dark !text-primary-dark hover:!text-white font-medium w-24"

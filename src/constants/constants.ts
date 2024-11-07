@@ -1,8 +1,8 @@
 export const TagsConstants = {
-  BE_IN_TOUCH: {
+  CONTATO: {
     textColor: "text-pink-500",
     bgColor: "bg-pink-500/20",
-    label: "Be in Touch",
+    label: "Entre em contato",
   },
   RETURN_QUIZ: {
     textColor: "text-green-500",

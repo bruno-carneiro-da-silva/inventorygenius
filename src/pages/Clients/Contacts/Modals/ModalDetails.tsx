@@ -66,11 +66,11 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
               <div
                 className={cx(
                   "p-1 px-2 rounded-2xl text-center text-sm content-center",
-                  TagsConstants["BE_IN_TOUCH"].bgColor,
-                  TagsConstants["BE_IN_TOUCH"].textColor
+                  TagsConstants["CONTATO"].bgColor,
+                  TagsConstants["CONTATO"].textColor
                 )}
               >
-                {TagsConstants["BE_IN_TOUCH"].label}
+                {TagsConstants["CONTATO"].label}
               </div>
             </div>
             <div className="text-sm font-light flex flex-row space-x-2 text-gray-500">

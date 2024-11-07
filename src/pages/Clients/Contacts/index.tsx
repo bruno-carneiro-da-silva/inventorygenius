@@ -107,25 +107,11 @@ export default function Contacts() {
       label: "Criado em",
       render: (data: GetContact) => maskDateISO(data.createdAt),
     },
-    // {
-    //   id: "contact",
-    //   label: "Contato",
-    //   render: () => (
-    //     <div className="flex space-x-2">
-    //       <button className="flex items-center">
-    //         <Mail className="w-10 h-8 text-primary-dark bg-primary-light border border-primary-dark rounded-full p-1" />
-    //       </button>
-    //       <button className="flex items-center">
-    //         <Phone className="w-10 h-8 text-primary-dark border bg-primary-light border-primary-dark rounded-full p-1" />
-    //       </button>
-    //     </div>
-    //   ),
-    // },
     {
       id: "status",
       label: "Status",
-      render: (data: ContactDetails) => {
-        const isActive = data.groups?.map((group) => group.status);
+      render: (data: GetContact) => {
+        const isActive = data.status === true;
         const statusClass = isActive
           ? "bg-green-500/20 rounded-full"
           : "bg-red-700/20";

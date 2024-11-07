@@ -61,68 +61,65 @@ export default function Sales() {
       id: "image",
       label: "Imagem",
       width: "w-4/12",
-      render: (data: GetSales) => (
-        <div className="flex flex-row space-x-6 items-center">
-          {data?.soldItems?.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="flex flex-row space-x-6 items-center"
-              >
-                {item && (
+      render: (data: GetSales) => {
+        const lastItem = data?.soldItems?.[data.soldItems.length - 1];
+        return (
+          <div className="flex flex-row space-x-6 items-center">
+            {lastItem && (
+              <div className="flex flex-row space-x-6 items-center">
+                {lastItem.product?.photos?.[0]?.base64 && (
                   <img
-                    src={item?.product?.photos?.[0]?.base64}
+                    src={lastItem.product.photos[0].base64}
                     className="w-[150px] h-[150px] rounded-md"
                   />
                 )}
                 <div className="flex flex-col">
-                  {item?.product?.category?.name && (
+                  {lastItem.product?.category?.name && (
                     <div className="border w-[120px] border-primary-dark bg-primary-dark text-white -mt-[62px] rounded-full p-3 text-center mb-6">
-                      {item.product.category.name}
+                      {lastItem.product.category.name}
                     </div>
                   )}
-                  {item?.product?.name && (
-                    <div className="text-sm text-primary-dark font-bold">{`${item.product.name}`}</div>
+                  {lastItem.product?.name && (
+                    <div className="text-sm text-primary-dark font-bold">{`${lastItem.product.name}`}</div>
                   )}
                 </div>
               </div>
-            );
-          })}
-        </div>
-      ),
+            )}
+          </div>
+        );
+      },
     },
     {
       id: "total",
       label: "Total de vendas",
-      render: (data: GetSales) => (
-        <div className="flex flex-row">
+      render: (data: GetSales) => {
+        const filteredData = data.soldItems[data.soldItems.length - 1];
+        return (
           <div className="flex flex-row">
-            <BarChart2Icon className="w-[62px] h-[53px] text-primary-dark font-bold" />
+            <div className="flex flex-row">
+              <BarChart2Icon className="w-[62px] h-[53px] text-primary-dark font-bold" />
+            </div>
+            <div className="flex flex-col w-[63px]">
+              {filteredData ? (
+                <>
+                  <span
+                    key={filteredData.id}
+                    className="text-primary-dark font-bold text-lg"
+                  >
+                    {filteredData.qtd}
+                  </span>
+                  <span>total</span>
+                </>
+              ) : (
+                <div className="flex flex-col w-[63px]">
+                  <span className="text-primary-dark font-bold text-lg">0</span>
+                  <span>total</span>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="flex flex-col w-[63px]">
-            {data.soldItems ? (
-              data.soldItems.map((item) => {
-                return (
-                  <>
-                    <span
-                      key={item.id}
-                      className="text-primary-dark font-bold text-lg"
-                    >
-                      {item.qtd}
-                    </span>
-                    <span>total</span>
-                  </>
-                );
-              })
-            ) : (
-              <div className="flex flex-col w-[63px]">
-                <span className="text-primary-dark font-bold text-lg">0</span>
-                <span>total</span>
-              </div>
-            )}
-          </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       id: "price",
@@ -180,16 +177,19 @@ export default function Sales() {
       id: "createdAt",
       label: "Data de criação",
       width: "w-[200px]",
-      render: (data: GetSales) => (
-        <div>
-          {data.soldItems &&
-            data.soldItems.map((item) => (
-              <p key={item.id} className="text-gray-500 mt-2 ml-7">
-                Criada em - {item.createdAt && maskDateISO(item.createdAt)}
+      render: (data: GetSales) => {
+        const filteredData = data.soldItems[data.soldItems.length - 1];
+        return (
+          <div>
+            {filteredData && (
+              <p className="text-gray-500 mt-2 ml-7">
+                Criada em -{" "}
+                {filteredData.createdAt && maskDateISO(filteredData.createdAt)}
               </p>
-            ))}
-        </div>
-      ),
+            )}
+          </div>
+        );
+      },
     },
   ];
 

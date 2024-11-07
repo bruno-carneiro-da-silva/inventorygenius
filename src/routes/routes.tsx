@@ -3,8 +3,6 @@ import { sidebarItens } from "@/mocks/dashboard.mock";
 import Contacts from "@/pages/Clients/Contacts";
 import ConfirmAccountCreated from "@/pages/ConfirmAccount";
 import Employee from "@/pages/Employee";
-import Finance from "@/pages/Finance";
-import FinanceInspector from "@/pages/FinanceInspector";
 import ChangeNewPassword from "@/pages/ForgotPassword/ChangeNewPassword";
 import ConfirmNewPassword from "@/pages/ForgotPassword/ConfirmNewPassword";
 import RecoveryPassword from "@/pages/ForgotPassword/RecoveryPassword";
@@ -84,9 +82,6 @@ export const routes: Route[] = [
         <DashboardLayout />
       </ProtectedRoutes>
     ),
-    children: [
-      // Adicione aqui as rotas filhas do dashboard, se houver
-    ],
   },
   {
     path: "/recovery-password",
@@ -144,22 +139,6 @@ export const routes: Route[] = [
       </ProtectedRoutes>
     ),
   },
-  // {
-  //   path: "/fiscal",
-  //   element: (
-  //     <ProtectedRoutes>
-  //       <FinanceInspector />
-  //     </ProtectedRoutes>
-  //   ),
-  // },
-  // {
-  //   path: "/financas",
-  //   element: (
-  //     <ProtectedRoutes>
-  //       <Finance />
-  //     </ProtectedRoutes>
-  //   ),
-  // },
   {
     path: "/vendas",
     element: (

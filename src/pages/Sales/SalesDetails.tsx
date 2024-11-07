@@ -12,6 +12,8 @@ import React from "react";
 export default function SalesDetails() {
   const { selectedSell } = useSalesStore();
 
+  console.log(selectedSell?.soldItems);
+
   const handleGoBack = () => {
     window.history.back();
   };
@@ -20,7 +22,7 @@ export default function SalesDetails() {
     return <LoadingIcon />;
   }
 
-  const firstSoldItem = selectedSell.soldItems[0];
+  const totalSoldItem = selectedSell?.soldItems?.[0];
   return (
     <React.Fragment>
       <DashboardLayout />
@@ -32,25 +34,43 @@ export default function SalesDetails() {
         >
           <ChevronLeftIcon className="text-black w-8 h-8" />
         </button>
-        <div className="w-2/3">
-          <div className="relative flex flex-row items-start mt-24">
-            <img
-              src={firstSoldItem?.product?.photos[0].base64}
-              alt={firstSoldItem?.product?.name}
-              className="w-[361px] h-[269px] rounded-2xl mb-5 object-cover border-2 border-white -mt-20"
-            />
-            <div className="flex flex-col w-1/2 -mt-20 items-start ml-6">
-              <h1 className="text-2xl mb-3 font-bold text-primary-darker">
-                {firstSoldItem?.product?.name}
-              </h1>
-              <div className="border w-[120px] border-primary-dark bg-primary-dark text-white rounded-full p-3 text-center mb-6">
-                {firstSoldItem?.product?.category.name}
+        <div className="w-full">
+          {selectedSell?.soldItems?.map((firstSoldItem) => (
+            <React.Fragment key={firstSoldItem.id}>
+              <div className="mb-8 relative w-full flex flex-row items-center mt-24">
+                <img
+                  src={
+                    firstSoldItem?.product?.photos?.map(
+                      (photo) => photo.base64
+                    )[0]
+                  }
+                  alt={firstSoldItem.product.name}
+                  className="w-[50px] h-[50px] rounded-2xl object-cover border-2 border-white -mt-20"
+                />
+                <div className="flex flex-row w-full -mt-20 items-center justify-between ml-6 space-x-4">
+                  <div className="border w-[120px] border-primary-dark bg-primary-dark text-white rounded-full p-3 text-center">
+                    {firstSoldItem?.product?.category.name}
+                  </div>
+                  <h1 className="text-2xl font-bold text-primary-darker">
+                    {firstSoldItem?.product?.name}
+                  </h1>
+                  <p className="text-sm text-gray-500 border-red-400 border-spacing-1">
+                    {firstSoldItem?.product.description}
+                  </p>
+
+                  <p className="text-sm font-bold text-gray-500 border-red-400 border-spacing-1">
+                    {firstSoldItem?.qtd}X
+                  </p>
+                  <span className="text-sm font-bold text-gray-500 border-red-400 border-spacing-1">
+                    {firstSoldItem?.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </span>
+                </div>
               </div>
-              <p className="text-sm text-gray-500 border-red-400 border-spacing-1">
-                {firstSoldItem?.product.description}
-              </p>
-            </div>
-          </div>
+            </React.Fragment>
+          ))}
 
           <div className="flex flex-row mb-20 items-center space-x-20">
             <div className="flex flex-col items-start">
@@ -70,7 +90,7 @@ export default function SalesDetails() {
                 <BarChart2Icon className="w-[62px] h-[53px] text-primary-dark font-bold" />
               </div>
               <div className="flex flex-col">
-                <span className="text-primary-dark font-bold text-lg">{`  ${firstSoldItem.qtd}`}</span>
+                <span className="text-primary-dark font-bold text-lg">{`  ${totalSoldItem.qtd}`}</span>
                 <span>total</span>
               </div>
             </div>
