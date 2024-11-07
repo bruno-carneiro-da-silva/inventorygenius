@@ -4,7 +4,7 @@ import TextInput from "@/components/Input";
 import { maskCNPJ } from "@/utils/functions";
 import { Autocomplete } from "@react-google-maps/api";
 import { Flag, Mail, Map, Shirt, StickyNote, User } from "lucide-react";
-import React, { useEffect } from "react";
+import React from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import MaskedTextInput from "../Register/components/PhoneInput";
