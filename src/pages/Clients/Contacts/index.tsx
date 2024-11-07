@@ -7,11 +7,7 @@ import ModalDelete from "@/pages/Clients/Contacts/Modals/ModalDelete";
 import ModalDetails from "@/pages/Clients/Contacts/Modals/ModalDetails";
 import ModalNote from "@/pages/Clients/Contacts/Modals/ModalNote";
 import { useGetContacts } from "@/queries/contact";
-import {
-  ContactDetailResponse,
-  ContactDetails,
-  GetContact,
-} from "@/queries/contact/types";
+import { ContactDetailResponse, GetContact } from "@/queries/contact/types";
 import { useMyContactStore } from "@/stores/contacts";
 import { Contact } from "@/types/contact";
 import { ColumnTable, KebabMenuItem } from "@/types/table";

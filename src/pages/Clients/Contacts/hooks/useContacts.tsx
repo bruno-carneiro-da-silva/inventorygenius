@@ -1,6 +1,10 @@
 import { showErrorToast, showSuccessToast } from "@/components/Toast";
 import { useCreateContact, useUpdateContact } from "@/queries/contact";
-import { Contact, ContactDetailResponse, ContactDetails } from "@/queries/contact/types";
+import {
+  Contact,
+  ContactDetailResponse,
+  ContactDetails,
+} from "@/queries/contact/types";
 import { useUserStore } from "@/stores/user";
 import { maskPhone } from "@/utils/functions";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +14,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 type useContactProps = {
-  editContact: ContactDetailResponse | null
+  editContact: ContactDetailResponse | null;
   onClose: () => void;
   onSaved?: (customer: ContactDetails) => void;
 };
@@ -22,6 +26,7 @@ const schema: yup.ObjectSchema<Contact> = yup.object({
   email: yup.string().email().required("Email é obrigatório"),
   phoneNumber: yup.string().required("Telefone é obrigatório"),
   address: yup.string().required("Endereço é obrigatório"),
+  status: yup.boolean(),
   latitude: yup.string(),
   longitude: yup.string(),
   zipCode: yup.string().required("CEP é obrigatório"),
@@ -42,7 +47,7 @@ export default function useCreateContacts({
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const updateContact = useUpdateContact();
   const createContact = useCreateContact();
-  const companyID = useUserStore((state) => state.login?.user?.id)
+  const companyID = useUserStore((state) => state.login?.user?.id);
 
   const onLoad = (autocomplete: google.maps.places.Autocomplete) => {
     autocompleteRef.current = autocomplete;
@@ -69,18 +74,21 @@ export default function useCreateContacts({
     const finalPayload = {
       ...payload,
       companyUid: companyID,
-      address: address || (editContact?.address || ""),
+      address: address || editContact?.address || "",
       latitude: String(location.lat),
       longitude: String(location.lng),
     };
 
     try {
-      let data
+      let data;
       if (editContact) {
-        data = await updateContact.mutateAsync({ id: editContact.id, ...finalPayload })
+        data = await updateContact.mutateAsync({
+          id: editContact.id,
+          ...finalPayload,
+        });
         showSuccessToast("Contact updated successfully");
       } else {
-        data = await createContact.mutateAsync(finalPayload)
+        data = await createContact.mutateAsync(finalPayload);
         showSuccessToast("Contact created successfully");
       }
       onClose();
@@ -89,7 +97,8 @@ export default function useCreateContacts({
       }
     } catch (errors) {
       const errorMessage =
-        (errors as AxiosError<{ error: string }>)?.response?.data?.error || "An error occurred";
+        (errors as AxiosError<{ error: string }>)?.response?.data?.error ||
+        "An error occurred";
       showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);
@@ -105,9 +114,9 @@ export default function useCreateContacts({
         address: editContact.address,
         dateOfBirth: editContact.birthday,
         zipCode: editContact.zip,
-      })
+      });
     }
-  }, [editContact])
+  }, [editContact]);
 
   return {
     methods,
