@@ -1,16 +1,16 @@
 import CardProduct from "@/components/Card/product";
+import NotFound from "@/components/NotFound/NotFound";
 import SubHeader from "@/components/SubHeader";
 import Pagination from "@/components/Table/Pagination";
 import { useGetProducts } from "@/queries/product";
 import { ProductResponse } from "@/queries/product/types";
 import { useProductStore } from "@/stores/product";
 import { KebabMenuItem } from "@/types/table";
-import { Eye, Mail, Pencil, Phone, Trash2 } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import ModalDeleteProduct from "./Modals/DeleteProduct";
-import NotFound from "@/components/NotFound/NotFound";
 import { ModalEditProduct } from "./Modals/EditProduct";
 
 export default function Product() {
@@ -91,8 +91,6 @@ export default function Product() {
               <CardProduct
                 key={product.id}
                 item={product}
-                icon={<Mail />}
-                secondIcon={<Phone />}
                 kebabMenuItems={KebabMenuItems}
               />
             </div>

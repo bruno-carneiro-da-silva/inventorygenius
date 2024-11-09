@@ -6,12 +6,12 @@ import { useGetEmployees } from "@/queries/employee";
 import { Employee } from "@/queries/employee/types";
 import { useEmployeeStore } from "@/stores/employee";
 import { KebabMenuItem } from "@/types/table";
-import { Eye, Mail, Phone, Trash2 } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import ModalDeleteEmployee from "./modals/DeleteEmployee";
 import ModalCreateEmployee from "../Sales/Modals/CreateEmployee";
+import ModalDeleteEmployee from "./modals/DeleteEmployee";
 
 export default function EmployeeScreen() {
   const methods = useForm();
@@ -84,8 +84,6 @@ export default function EmployeeScreen() {
               <CardEmployee
                 key={employee.id}
                 item={employee}
-                icon={<Mail />}
-                secondIcon={<Phone />}
                 kebabMenuItems={KebabMenuItems}
               />
             </div>

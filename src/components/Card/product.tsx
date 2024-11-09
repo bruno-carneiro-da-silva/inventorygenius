@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import KebabMenu from "@/components/KebabMenu";
 import { ProductResponse } from "@/queries/product/types";
 import { KebabMenuItem } from "@/types/table";
@@ -6,13 +5,9 @@ import { KebabMenuItem } from "@/types/table";
 interface CardPropsWithMenu {
   kebabMenuItems: KebabMenuItem[];
   item: ProductResponse;
-  icon: React.ReactNode;
-  secondIcon: React.ReactNode;
 }
 
 export const CardProduct = ({
-  icon,
-  secondIcon,
   kebabMenuItems,
   item,
 }: CardPropsWithMenu) => {
@@ -27,20 +22,6 @@ export const CardProduct = ({
           {item.name}
         </h1>
         <span className="text-center mb-4 text-gray-400">R$ {item.price}</span>
-      </div>
-      <div className="flex space-x-2">
-        <Button
-          className="bg-primary-dark"
-          onClick={() => console.log("clicked")}
-        >
-          {icon}
-        </Button>
-        <Button
-          className="bg-primary-dark"
-          onClick={() => console.log("clicked")}
-        >
-          {secondIcon}
-        </Button>
       </div>
     </div>
   );
