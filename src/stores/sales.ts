@@ -28,7 +28,7 @@ export const useSalesStore = create(
         totalSales: 0,
         totalPrice: 0,
         discount: 0,
-        paymentStatus: "PENDING",
+        paymentStatus: "PENDING" as const,
         companyId: "",
         id: "",
         total: 0,
@@ -43,7 +43,7 @@ export const useSalesStore = create(
       },
       setSelectedSell: (selectedSell) => {
         set((state) => ({
-          selectedSell: { ...state.sell, ...selectedSell },
+          selectedSell: { ...state.sell, ...selectedSell, soldItems: [...selectedSell.soldItems.map(item => ({ ...item, product: { ...item.product, photos: [] } }))] },
         }));
       },
       setIsLoading: (isLoading) => {
