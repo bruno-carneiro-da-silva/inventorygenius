@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { Company } from "@/queries/company/types";
 
 type CompanyStore = {
@@ -15,7 +15,12 @@ export const useCompanyStore = create(
       company: null,
       selectedCompany: null,
       setCompany: (company) => {
-        set(() => ({ company }));
+        if (company) {
+          const { photo_base64, ...rest } = company
+          set(() => ({ company: { ...rest, photo_base64: '' } }));
+        } else {
+          set({ company: null })
+        }
       },
       setSelectedCompany: (selectedCompany) => {
         set(() => ({ selectedCompany }));
@@ -24,7 +29,6 @@ export const useCompanyStore = create(
     {
       name: "my-company",
       version: 1,
-      storage: createJSONStorage(() => localStorage),
     }
   )
 );
