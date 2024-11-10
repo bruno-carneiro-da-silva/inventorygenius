@@ -38,8 +38,8 @@ class CreateSellMapper {
             base64: photo.base64,
             productId: photo.productId,
           })),
-          createdAt: soldItem.product.createdAt,
-          updatedAt: soldItem.product.updatedAt,
+          createdAt: soldItem.product?.createdAt,
+          updatedAt: soldItem.product?.updatedAt,
           category: {
             id: soldItem.product.category.id,
             name: soldItem.product.category.name,
@@ -47,8 +47,8 @@ class CreateSellMapper {
         },
         qtd: soldItem.qtd,
         price: soldItem.price,
-        createdAt: soldItem.createdAt,
-        updatedAt: soldItem.updatedAt,
+        createdAt: soldItem?.createdAt,
+        updatedAt: soldItem?.updatedAt,
       })),
       paymentStatus: sell.paymentStatus,
     }));

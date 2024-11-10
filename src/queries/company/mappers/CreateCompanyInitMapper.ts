@@ -43,7 +43,7 @@ class CreateCompanyInitMapper {
           persistenceCreateCompanyInit.data.companyTimeZone.currentUtcOffSet,
         companies: persistenceCreateCompanyInit.data.companyTimeZone.companies,
       },
-      createDate: persistenceCreateCompanyInit.data.createDate,
+      createDate: persistenceCreateCompanyInit.data?.createDate,
       modifiedDate: persistenceCreateCompanyInit.data.modifiedDate,
     };
   }

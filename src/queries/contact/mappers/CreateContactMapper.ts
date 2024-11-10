@@ -24,8 +24,8 @@ class CreateContactMapper {
       phone: contact.phone,
       status: contact.status,
       companyId: contact.companyId,
-      createdAt: contact.createdAt,
-      updatedAt: contact.updatedAt,
+      createdAt: contact?.createdAt,
+      updatedAt: contact?.updatedAt,
     }));
   }
 }

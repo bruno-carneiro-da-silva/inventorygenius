@@ -16,7 +16,7 @@ export default function DashboardChart({ data }: ChartProps) {
   const monthlyData = data.reduce(
     (acc, sale) => {
       sale.sales.forEach((saleItem) => {
-        const month = new Date(saleItem.soldItems[0].createdAt).getMonth();
+        const month = new Date(saleItem.soldItems[0]?.createdAt).getMonth();
 
         // Verifica se o mês já está no acumulador
         if (!acc[month]) {

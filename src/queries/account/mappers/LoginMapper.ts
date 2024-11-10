@@ -24,8 +24,8 @@ class LoginMapper {
         addressCompany: persistenceLogin.user.addressCompany,
         terms: persistenceLogin.user.terms,
         role: persistenceLogin.user.role,
-        createdAt: persistenceLogin.user.createdAt,
-        updatedAt: persistenceLogin.user.updatedAt,
+        createdAt: persistenceLogin?.user?.createdAt,
+        updatedAt: persistenceLogin?.user?.updatedAt,
       } : null,
     };
   }

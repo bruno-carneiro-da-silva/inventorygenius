@@ -184,7 +184,7 @@ export default function Sales() {
             {filteredData && (
               <p className="text-gray-500 mt-2 ml-7">
                 Criada em -{" "}
-                {filteredData.createdAt && maskDateISO(filteredData.createdAt)}
+                {filteredData?.createdAt && maskDateISO(filteredData?.createdAt)}
               </p>
             )}
           </div>

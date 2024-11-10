@@ -100,8 +100,8 @@ export default function SupplierDetails() {
           </ul>
           <p className="text-gray-500 mt-2 ml-7">
             Desde -{" "}
-            {selectedSupplier.createdAt &&
-              maskDateISO(selectedSupplier.createdAt)}
+            {selectedSupplier?.createdAt &&
+              maskDateISO(selectedSupplier?.createdAt)}
           </p>
         </div>
 

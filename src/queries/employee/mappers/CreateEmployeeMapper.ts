@@ -21,8 +21,8 @@ class CreateEmployeeMapper {
       address: employee.address,
       roleId: employee.roleId,
       userName: employee.userName,
-      createdAt: employee.createdAt,
-      updatedAt: employee.updatedAt,
+      createdAt: employee?.createdAt,
+      updatedAt: employee?.updatedAt,
       transactions: employee.transactions,
       sales: employee.sales,
     }));

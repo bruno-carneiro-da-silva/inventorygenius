@@ -10,8 +10,8 @@ class CreateCategoryMapper {
     return persistenceCreateCategory.map((category) => {
       id: category.id;
       name: category.name;
-      createdAt: category.createdAt;
-      updatedAt: category.updatedAt;
+      createdAt: category?.createdAt;
+      updatedAt: category?.updatedAt;
     });
   }
 }

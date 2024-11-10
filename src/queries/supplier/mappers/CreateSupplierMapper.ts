@@ -35,7 +35,7 @@ class CreateSupplierMapper {
       firstName: supplier.firstName,
       companyId: supplier.companyId,
       corporateReason: supplier.corporateReason,
-      createdAt: supplier.createdAt,
+      createdAt: supplier?.createdAt,
       dateOfBirth: supplier.dateOfBirth,
       email: supplier.email,
       endContractDate: supplier.endContractDate,
@@ -48,7 +48,7 @@ class CreateSupplierMapper {
       photo_base64: supplier.photo_base64,
       startContractDate: supplier.startContractDate,
       transactions: supplier.transactions,
-      updatedAt: supplier.updatedAt,
+      updatedAt: supplier?.updatedAt,
     }));
   }
 }

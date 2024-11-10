@@ -64,8 +64,8 @@ export default function Dashboard() {
                   />
                 )}
                 <div className="flex flex-col">
-                  {lastItem.product?.name && (
-                    <div className="text-sm text-primary-dark font-bold">{`${lastItem.product.name}`}</div>
+                  {lastItem?.product?.name && (
+                    <div className="text-sm text-primary-dark font-bold">{`${lastItem?.product?.name}`}</div>
                   )}
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function Dashboard() {
                   key={item.id}
                   className="text-primary-dark font-bold size-7 text-lg"
                 >
-                  {item.product.category.name}
+                  {item?.product?.category?.name}
                 </span>
               ))}
             </div>
@@ -115,7 +115,7 @@ export default function Dashboard() {
         return (
           <div className="flex flex-row items-center justify-start pl-10">
             <span className="text-primary-dark font-bold size-7 text-lg whitespace-nowrap">
-              R$ {data.totalPrice}
+              R$ {data?.totalPrice}
             </span>
           </div>
         );
@@ -131,7 +131,7 @@ export default function Dashboard() {
             {filteredData && (
               <p className="text-gray-500 mt-2 ml-7">
                 Criada em -{" "}
-                {filteredData.createdAt && maskDateISO(filteredData.createdAt)}
+                {filteredData?.createdAt && maskDateISO(filteredData?.createdAt)}
               </p>
             )}
           </div>

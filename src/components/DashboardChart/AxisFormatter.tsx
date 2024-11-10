@@ -21,7 +21,7 @@ export default function AxisFormatter({ data }: DatasetProps) {
       data.forEach((saleResponse) => {
         saleResponse.sales.forEach((sale) => {
           sale.soldItems.forEach((item) => {
-            const saleDate = new Date(item.createdAt);
+            const saleDate = new Date(item?.createdAt);
             const dayOfWeek = saleDate.getDay(); // 0 (Domingo) a 6 (Sábado)
             console.log(
               `Item vendido em: ${saleDate}, Dia da semana: ${dayOfWeek}, Preço: ${item.price}`
