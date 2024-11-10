@@ -5,8 +5,54 @@ import { BarPlot } from "@mui/x-charts/BarChart";
 import { ChartsXAxis } from "@mui/x-charts/ChartsXAxis";
 import { ChartsYAxis } from "@mui/x-charts/ChartsYAxis";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
+import { GetSalesResponse } from "@/queries/sales/types";
 
-export default function DashboardChart() {
+interface ChartProps {
+  data: GetSalesResponse[];
+}
+
+export default function DashboardChart({ data }: ChartProps) {
+  // Prepara os dados agrupando por mês
+  const monthlyData = data.reduce(
+    (acc, sale) => {
+      sale.sales.forEach((saleItem) => {
+        const month = new Date(saleItem.soldItems[0].createdAt).getMonth();
+
+        // Verifica se o mês já está no acumulador
+        if (!acc[month]) {
+          acc[month] = {
+            totalSales: 0,
+            totalQuantity: 0, // Novo campo para a quantidade total
+          };
+        }
+
+        // Atualizando os dados de vendas mensais
+        acc[month].totalSales += saleItem.totalPrice; // Atualizando o totalSales corretamente
+        acc[month].totalQuantity += saleItem.soldItems.length; // Atualizando a quantidade total
+      });
+      return acc;
+    },
+    Array(12)
+      .fill(null)
+      .map(() => ({
+        totalSales: 0,
+        totalQuantity: 0, // Inicializa com 0
+      }))
+  );
+
+  // Agora você tem os totais de faturamento e quantidade por mês
+  const revenueData = monthlyData.map((item) => item.totalSales); // Faturamento total por mês
+  const quantityData = monthlyData.map((item) => item.totalQuantity); // Quantidade total de vendas por mês
+
+  console.log(
+    "monthlyData",
+    monthlyData,
+    "revenueData",
+    revenueData,
+    "quantityData",
+    quantityData
+  );
+
   return (
     <Box sx={{ width: "100%", maxWidth: "90%", margin: "auto" }}>
       <ResponsiveChartContainer
@@ -27,7 +73,7 @@ export default function DashboardChart() {
               "Nov",
               "Dez",
             ],
-            id: "quarters",
+            id: "months",
             label: "Mês",
           },
         ]}
@@ -37,28 +83,13 @@ export default function DashboardChart() {
             type: "line",
             id: "revenue",
             yAxisId: "money",
-            data: [
-              5645, 7542, 9135, 12221, 13456, 14567, 15678, 16789, 17890, 18901,
-              19912, 21023,
-            ],
+            data: revenueData,
           },
           {
             type: "bar",
-            id: "cookies",
+            id: "quantity",
             yAxisId: "quantities",
-            data: [
-              3205, 2542, 3135, 8374, 4567, 5678, 6789, 7890, 8901, 9012, 10123,
-              11234,
-            ],
-          },
-          {
-            type: "bar",
-            id: "icecream",
-            yAxisId: "quantities",
-            data: [
-              1645, 5542, 5146, 3735, 2345, 3456, 4567, 5678, 6789, 7890, 8901,
-              9012,
-            ],
+            data: quantityData,
           },
         ]}
         height={400}
@@ -74,7 +105,7 @@ export default function DashboardChart() {
       >
         <BarPlot />
         <LinePlot />
-        <ChartsXAxis axisId="quarters" label="Mês" labelFontSize={18} />
+        <ChartsXAxis axisId="months" label="Mês" labelFontSize={18} />
         <ChartsYAxis axisId="quantities" label="Quantidade vendida" />
         <ChartsYAxis axisId="money" position="right" label="Faturamento" />
       </ResponsiveChartContainer>

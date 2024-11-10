@@ -1,3 +1,4 @@
+import { GetSales } from "@/queries/sales/types";
 import { ColumnTable as ColumnTableProps, KebabMenuItem } from "@/types/table";
 import cx from "classnames";
 import React from "react";
@@ -8,7 +9,7 @@ import Row from "./Row";
 
 interface TableProps extends React.TableHTMLAttributes<HTMLTableElement> {
   columns: ColumnTableProps[];
-  data: any[];
+  data: GetSales[];
   title: string;
   searchComponent?: React.ReactNode;
   kebabMenu?: KebabMenuItem[];
@@ -31,23 +32,6 @@ const DashboardTable: React.FC<TableProps> = ({
   handlePage,
   currentPage,
 }) => {
-  // const [_filteredData, setFilteredData] = useState(data);
-
-  // const handleFilterChange = (filter: string) => {
-  //   if (filter === "Todas") {
-  //     setFilteredData(data);
-  //   } else {
-  //     setFilteredData(
-  //       data.filter((item) => {
-  //         return item.gender === filter;
-  //       })
-  //     );
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   setFilteredData(data);
-  // }, [data]);
   const isDataEmpty = data.length === 0 && !isLoading;
 
   return (
@@ -74,10 +58,10 @@ const DashboardTable: React.FC<TableProps> = ({
                 <div className="animate-pulse bg-gray-200 h-16 w-full rounded-md"></div>
               </div>
             ) : (
-              data.map((data, index) => (
+              data.map((data) => (
                 <Row
                   item={data}
-                  key={`row-${index}`}
+                  key={data.id}
                   columns={columns}
                   kebabMenu={kebabMenu}
                 />

@@ -1,3 +1,5 @@
+import { GetSales } from "../sales/types";
+
 export type GetCompany = {
   succeeded: boolean;
   errors: {
@@ -51,7 +53,6 @@ export type Company = {
   _count: {
     contacts: number;
     suppliers: number;
-    sales: number;
   };
 };
 
@@ -139,4 +140,12 @@ export type RegisterData = {
   state: string;
   city: string;
   timeZoneIdCompany: string;
+};
+
+export type GetCompanyResponse = {
+  total: number;
+  per_page: number;
+  companyData: Company[];
+  sales: GetSales[];
+  totalSales: number;
 };

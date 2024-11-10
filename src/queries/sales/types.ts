@@ -116,11 +116,11 @@ export interface GetSales {
   id: string;
   total: number;
   per_page: number;
-  totalSales: number;
 }
 
 export interface GetSalesResponse {
   sales: GetSales[];
   total: number;
+  totalSales: number;
   per_page: number;
 }

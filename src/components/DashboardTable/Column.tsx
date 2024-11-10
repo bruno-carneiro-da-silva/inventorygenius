@@ -6,7 +6,10 @@ const Column: React.FC<ColumnTableProps> = ({ id, label, width }) => {
   return (
     <div
       key={id}
-      className={cx("font-bold text-primary-dark text-base", width ?? "flex-1")}
+      className={cx(
+        "font-bold items-center justify-center pl-10 pt-3 text-primary-dark text-base",
+        width ?? "flex-1"
+      )}
     >
       {label}
     </div>

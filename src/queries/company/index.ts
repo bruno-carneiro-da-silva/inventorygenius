@@ -8,13 +8,16 @@ import {
   CreateCompanyInit,
   CreateCompanyInitResponse,
   CreateCompanyResponse,
+  GetCompanyResponse,
   UpdateCompany,
 } from "@/queries/company/types";
 import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const listCompany = async () => {
-  const { data } = await api.get<Company>("/companies");
+const listCompany = async (page: number) => {
+  const { data } = await api.get<GetCompanyResponse>(
+    `/companies?page=${page}`
+  );
   return CreateCompanyMapper.toDomain(data);
 };
 
@@ -52,10 +55,10 @@ const createCompanyAdmin = async (payload: CreateCompanyAdmin) => {
   return data;
 };
 
-export const useListCompany = () => {
+export const useListCompany = (page: number) => {
   return useQuery({
-    queryKey: ["company"],
-    queryFn: listCompany,
+    queryKey: ["company", page],
+    queryFn: () => listCompany(page),
   });
 };
 

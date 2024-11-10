@@ -2,16 +2,17 @@ import cx from "classnames";
 import React from "react";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
 import KebabMenu from "@/components/KebabMenu";
+import { Company } from "@/queries/company/types";
 
 interface RowProps {
   columns: ColumnTable[];
-  item: Record<string, number | string>;
+  item: Company | any;
   kebabMenu?: KebabMenuItem[];
 }
 
 const Row: React.FC<RowProps> = ({ columns, item, kebabMenu }) => {
   return (
-    <div className="flex flex-row bg-white p-5 rounded-md">
+    <div className="flex flex-row bg-white pt-5 pb-5 pl-0 rounded-md">
       {columns.map((column) => (
         <div
           key={column.id}

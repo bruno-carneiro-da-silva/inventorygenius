@@ -39,7 +39,7 @@ export default function useCustomLogin() {
       ...credentials,
       phoneNumberAdmin: unmaskPhone(credentials.phoneNumberAdmin),
     };
-    
+
     login
       .mutateAsync(finalPayload)
       .then((res) => {
@@ -48,8 +48,10 @@ export default function useCustomLogin() {
         navigate("/dashboard");
       })
       .catch((err) => {
-        const errorMessage = err?.response?.data?.error || "Ocorreu um erro";
+        const errorMessage =
+          err?.response?.data?.errors?.[0]?.message || "Ocorreu um erro";
         showErrorToast(errorMessage);
+        setIsLoading(false);
       })
       .finally(() => {
         setIsLoading(false);

@@ -9,10 +9,7 @@ interface CardPropsWithMenu {
   item: Employee;
 }
 
-export const CardEmployee = ({
-  kebabMenuItems,
-  item,
-}: CardPropsWithMenu) => {
+export const CardEmployee = ({ kebabMenuItems, item }: CardPropsWithMenu) => {
   return (
     <div className="bg-white rounded-xl mt-10 border-gray-300 border p-4 flex w-[330px] h-[352px] flex-col items-center relative">
       <div className="absolute top-2 right-2">
@@ -28,7 +25,7 @@ export const CardEmployee = ({
         <Button
           className="bg-primary-dark"
           onClick={() => {
-            window.open(`mailto:${item.email}`, '_blank')
+            window.open(`mailto:${item.email}`, "_blank");
           }}
         >
           <Mail />
@@ -36,7 +33,7 @@ export const CardEmployee = ({
         <Button
           className="bg-primary-dark"
           onClick={() => {
-            window.open(`https://wa.me/+55${item.phone}`, '_blank')
+            window.open(`https://wa.me/+55${item.phone}`, "_blank");
           }}
         >
           <Phone />
