@@ -36,12 +36,12 @@ export default function ProductDetails() {
         <div className="relative flex flex-col items-start mt-24">
           <img
             src={data.photos?.[0]?.base64}
-            alt={data.name}
+            alt={data?.name}
             className="w-40 h-40 rounded-full mb-5 object-cover border-2 border-white -mt-20"
           />
           <div className="flex flex-col items-start">
             <h1 className="text-2xl mb-3 font-bold text-primary-darker">
-              {data.name}
+              {data?.name}
             </h1>
             <p className="text-sm text-gray-500">Categoria: {data.category?.name}</p>
           </div>
@@ -54,7 +54,7 @@ export default function ProductDetails() {
                 <DollarSignIcon className="w-5 h-5 text-orange-500" />
               </span>
               <span className="ml-2 text-primary-darker">
-                R$ {data.price}
+                R$ {data?.price}
               </span>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function ProductDetails() {
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">Sobre:</h2>
           <p className="text-primary-darker mt-2">
-            {data.description}
+            {data?.description}
           </p>
         </div>
 
