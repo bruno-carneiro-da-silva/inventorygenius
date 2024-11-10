@@ -1,9 +1,8 @@
 import { DashboardHeaderLayout } from "@/components/Dashboard/DashboardHeaderLayout";
 import DashboardChart from "@/components/DashboardChart";
 import DashboardTable from "@/components/DashboardTable";
-import { sellsTransactionsMock } from "@/mocks/sells";
 import { useGetSells } from "@/queries/sales";
-import { GetSales } from "@/queries/sales/types";
+import { GetSales, GetSalesResponse } from "@/queries/sales/types";
 import { useGetSuppliers } from "@/queries/supplier";
 import { salesTransactionsProps } from "@/types/sales";
 import { ColumnTable, KebabMenuItem } from "@/types/table";
@@ -18,6 +17,8 @@ export default function FinanceInspector() {
 
   const { data: suppliersResponse } = useGetSuppliers(page, filter || "");
   const { data: sellsResponse } = useGetSells(page, filter || "");
+
+  const salesData: GetSalesResponse[] = sellsResponse ? [sellsResponse] : [];
 
   const columns: ColumnTable[] = [
     {
@@ -190,7 +191,7 @@ export default function FinanceInspector() {
         />
       </div>
       <div className="flex flex-col border rounded-2xl shadow-md p-3 mb-4">
-        <DashboardChart />
+        <DashboardChart data={salesData} />
       </div>
       <div className="flex flex-row space-x-4 gap-4">
         <div className="w-full shadow-md rounded-2xl border p-4">
@@ -208,7 +209,7 @@ export default function FinanceInspector() {
           <DashboardTable
             columns={transactionsColumns}
             title="Vendas"
-            data={sellsTransactionsMock}
+            data={sellsResponse?.sales || []}
             totalPages={sellsResponse?.total || 0}
             handlePage={(page) => setPage(page)}
             currentPage={page}
