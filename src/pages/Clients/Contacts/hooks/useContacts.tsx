@@ -64,7 +64,7 @@ export default function useCreateContacts({
         setAddress(address);
         setLocation({ lat, lng });
       } else {
-        showErrorToast("No geometry found for this place.");
+        showErrorToast("Nenhuma localização encontrada");
       }
     }
   };
@@ -86,10 +86,10 @@ export default function useCreateContacts({
           id: editContact.id,
           ...finalPayload,
         });
-        showSuccessToast("Contact updated successfully");
+        showSuccessToast("Contato atualizado com sucesso");
       } else {
         data = await createContact.mutateAsync(finalPayload);
-        showSuccessToast("Contact created successfully");
+        showSuccessToast("Contato criado com sucesso");
       }
       onClose();
       if (onSaved && data) {
@@ -98,7 +98,7 @@ export default function useCreateContacts({
     } catch (errors) {
       const errorMessage =
         (errors as AxiosError<{ error: string }>)?.response?.data?.error ||
-        "An error occurred";
+        "Ocorreu um erro interno";
       showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);

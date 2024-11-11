@@ -33,10 +33,6 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
 
   const { data: contact, isLoading } = useGetContactDetail(selectedContact?.id);
 
-  // const { city, country } = selectedContact?.city
-  //   ? extractCityAndCountry(selectedContact?.city)
-  //   : { city: "", country: "" };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="!w-8/12">
       <ModalHeader
@@ -51,7 +47,6 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
           <div className="col-span-2 place-self-center">
             <img
               src={Profile}
-              // src={contact?.photo || Profile}
               className="w-20 h-20 rounded-md"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                 e.currentTarget.src = Profile;
@@ -117,34 +112,6 @@ const ModalDetails: React.FC<ModalDetailsProps> = ({
           </div>
         </div>
       )}
-      {/* {isLoading ? (
-        <LoadingPlaceholder />
-      ) : selectedContact?.groups?.length ? (
-        <div className="flex flex-row space-x-2 justify-between !my-8">
-          <div className="flex flex-row space-x-2 place-items-center">
-            <div className="text-sm font-light">Audience</div>
-            <div className="w-5 h-5 font-bold bg-primary/20 text-primary rounded-full text-xs text-center place-content-center">
-              {selectedContact?.groups?.length}
-            </div>
-          </div>
-          <button
-            onClick={() => navigate("/campaigns/audience")}
-            className="flex flex-row space-x-2 place-items-center"
-          >
-            <div className="text-sm font-semibold text-primary">View All</div>
-            <ArrowRight className="w-5 h-5 text-primary" />
-          </button>
-        </div>
-      ) : null}
-      {isLoading ? (
-        <LoadingPlaceholder />
-      ) : (
-        <div className="grid grid-cols-4 gap-2">
-          {selectedContact?.groups?.map((groupData, index) => (
-            <GroupItem group={groupData} key={index} />
-          ))}
-        </div>
-      )} */}
     </Modal>
   );
 };

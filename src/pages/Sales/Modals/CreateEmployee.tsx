@@ -75,7 +75,7 @@ const ModalCreateEmployee: React.FC<ModalCreateEmployeeProps> = ({
               <MaskedTextInput
                 name="phone"
                 label="Phone"
-                placeholder="+1 123 456 7890"
+                placeholder="(00) 00000-0000"
                 classNameIcon="text-gray-400"
               />
               <TextInput

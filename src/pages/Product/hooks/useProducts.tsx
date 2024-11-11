@@ -74,10 +74,10 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     try {
       if (editProduct) {
         await updateProduct({ id: editProduct.id, ...finalPayload });
-        showSuccessToast("Product updated successfully");
+        showSuccessToast("Produto atualizado com sucesso");
       } else {
         await createProduct(finalPayload);
-        showSuccessToast("Product created successfully");
+        showSuccessToast("Produto criado com sucesso");
       }
       onClose();
       // if (onSaved && data) {
@@ -86,7 +86,7 @@ export function useProducts({ editProduct, onClose }: UseProductsProps) {
     } catch (errors) {
       const errorMessage =
         (errors as AxiosError<{ error: string }>)?.response?.data?.error ||
-        "An error occurred";
+        "Ocorreu um erro interno";
       showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);

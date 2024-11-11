@@ -16,10 +16,7 @@ type LoginCredentials = {
 
 const schema: yup.ObjectSchema<LoginCredentials> = yup.object({
   phoneNumberAdmin: yup.string().required("Telefone é obrigatório"),
-  password: yup
-    .string()
-    .required("Senha é obrigatoria")
-    .min(8, "Senha deve ter no mínimo 8 caracteres"),
+  password: yup.string().required("Senha é obrigatoria"),
   isPersistent: yup.boolean(),
 });
 
@@ -48,13 +45,9 @@ export default function useCustomLogin() {
         navigate("/dashboard");
       })
       .catch((err) => {
-        const errorMessage =
-          err?.response?.data?.errors?.[0]?.message || "Ocorreu um erro";
+        setIsLoading(false);
+        const errorMessage = err?.response?.data?.error || "Ocorreu um erro";
         showErrorToast(errorMessage);
-        setIsLoading(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 

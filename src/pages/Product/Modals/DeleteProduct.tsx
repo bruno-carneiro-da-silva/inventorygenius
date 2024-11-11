@@ -27,12 +27,12 @@ const ModalDeleteProduct: React.FC<ModalDeleteProps> = ({
     deleteProduct
       .mutateAsync(product?.id || "")
       .then(() => {
-        showSuccessToast("Product deleted successfully");
+        showSuccessToast("Produto deletado com sucesso");
         onClose();
       })
       .catch((errors: any) => {
         const errorMessage =
-          errors?.response?.data?.errors?.message || "An error occurred";
+          errors?.response?.data?.errors?.message || "Ocorreu um erro interno";
         showErrorToast(errorMessage);
       })
       .finally(() => {

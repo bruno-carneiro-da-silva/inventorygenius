@@ -27,12 +27,13 @@ const ModalDeleteSupplier: React.FC<ModalDeleteProps> = ({
     deleteSupplier
       .mutateAsync(selectedSupplier?.id || "")
       .then(() => {
-        showSuccessToast("Campaign deleted successfully");
+        showSuccessToast("Fornecedor deletado com sucesso");
         onClose();
       })
       .catch((errors) => {
         const errorMessage =
-          errors?.response?.data?.errors?.[0]?.message || "An error occurred";
+          errors?.response?.data?.errors?.[0]?.message ||
+          "Ocorreu um erro interno";
         showErrorToast(errorMessage);
       })
       .finally(() => {

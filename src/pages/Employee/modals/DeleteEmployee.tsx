@@ -17,23 +17,22 @@ const ModalDeleteEmployee: React.FC<ModalDeleteProps> = ({
 }) => {
   const employee = useEmployeeStore((state) => state.employee);
 
-
   const deleteEmployee = useDeleteEmployee();
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleDeleteEmployee = () => {
-    if (!employee) return
+    if (!employee) return;
     setIsLoading(true);
     deleteEmployee
       .mutateAsync(employee.id || "")
       .then(() => {
-        showSuccessToast("Employee deleted successfully");
+        showSuccessToast("Funcionário deletado com sucesso");
         onClose();
       })
       .catch((errors: any) => {
         const errorMessage =
-          errors?.response?.data?.errors?.message || "An error occurred";
+          errors?.response?.data?.errors?.message || "Ocorreu um erro interno";
         showErrorToast(errorMessage);
       })
       .finally(() => {

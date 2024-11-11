@@ -79,13 +79,6 @@ export default function SupplierDetails() {
           </div>
         </div>
 
-        {/* <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">Contrato:</h2>
-          <p className="text-primary-darker mt-2">
-            {maskDateISO(selectedSupplier.startContractDate)} - {maskDateISO(selectedSupplier.endContractDate)}
-          </p>
-        </div> */}
-
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">
             Cadastro:
@@ -101,16 +94,6 @@ export default function SupplierDetails() {
               maskDateISO(selectedSupplier?.createdAt)}
           </p>
         </div>
-
-        {/* <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">
-            Categorias:
-          </h2>
-          <p className=" mt-4 mb-20 text-sm text-primary-darker">
-            {selectedSupplier.productCategory &&
-              selectedSupplier.productCategory.split(", ").join(", ")}{" "}
-          </p>
-        </div> */}
       </div>
     </React.Fragment>
   );

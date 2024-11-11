@@ -3,7 +3,6 @@ import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
-// import MaskedTextInput from "@/pages/Register/components/PhoneInput";
 import { CategoryDetails } from "@/queries/category/types";
 import React from "react";
 import { FormProvider } from "react-hook-form";

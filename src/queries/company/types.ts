@@ -145,7 +145,7 @@ export type RegisterData = {
 export type GetCompanyResponse = {
   total: number;
   per_page: number;
-  companyData: Company[];
+  companyData: Company;
   sales: GetSales[];
   totalSales: number;
 };

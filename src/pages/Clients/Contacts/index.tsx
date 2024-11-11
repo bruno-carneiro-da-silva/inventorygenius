@@ -146,7 +146,6 @@ export default function Contacts() {
           kebabMenu={KebabMenuItems}
           searchComponent={
             <div className="flex items-center space-x-6">
-              {/* <Filter itens={columns} /> */}
               <Button
                 onClick={handleOpenModalCreate}
                 className="!bg-primary-dark !text-white hover:!text-primary pr-5 pl-5 font-medium flex h-[50px] flex-row items-center space-x-2"

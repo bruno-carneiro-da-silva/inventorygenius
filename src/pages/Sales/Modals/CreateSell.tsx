@@ -152,22 +152,24 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
               </div>
 
               <div className="flex flex-row items-center space-x-2 w-full">
-                <Checkbox
+                {/* <Checkbox
                   name="isDiscountApplied"
                   type="checkbox"
                   onChange={(e) => setIsDiscountApplied(e.target.checked)}
-                />
-                <label className="text-gray-500">Teve desconto?</label>
+                /> */}
+                <label className="text-gray-500">
+                  Teve desconto? Caso sim digite o valor, caso não digite 0
+                </label>
               </div>
               <div className="flex flex-col">
-                {isDiscountApplied && (
-                  <TextInput
-                    name="discount"
-                    placeholder="10% de desconto"
-                    classNameIcon="text-gray-400"
-                    onChange={(e) => setDiscount(Number(e.target.value))}
-                  />
-                )}
+                {/* {isDiscountApplied && ( */}
+                <TextInput
+                  name="discount"
+                  placeholder="10% de desconto"
+                  classNameIcon="text-gray-400"
+                  onChange={(e) => setDiscount(Number(e.target.value))}
+                />
+                {/* )} */}
               </div>
               <div className="flex flex-row mb-4 justify-between">
                 <label className="text-gray-500 self-center">

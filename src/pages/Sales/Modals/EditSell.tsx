@@ -118,10 +118,12 @@ const ModalEditSell: React.FC<ModalEditSellProps> = ({
                   onChange={(value) =>
                     methods.setValue("paymentStatus", value as never)
                   }
-                  options={Object.values(PaymentStatus).map((status) => ({
-                    value: status,
-                    label: status,
-                  }))}
+                  options={[
+                    { value: "PAID", label: "Pago" },
+                    { value: "PENDING", label: "Pendente" },
+                    { value: "CANCELED", label: "Cancelado" },
+                    { value: "REFUSED", label: "Reembolsado" },
+                  ]}
                   defaultValue={editSell ? editSell?.paymentStatus : undefined}
                 />
               </div>
@@ -137,22 +139,15 @@ const ModalEditSell: React.FC<ModalEditSellProps> = ({
               </div>
 
               <div className="flex flex-row items-center space-x-2 w-full">
-                <Checkbox
-                  name="isDiscountApplied"
-                  type="checkbox"
-                  onChange={(e) => setIsDiscountApplied(e.target.checked)}
-                />
                 <label className="text-gray-500">Teve desconto?</label>
               </div>
               <div className="flex flex-col">
-                {isDiscountApplied && (
-                  <TextInput
-                    name="discount"
-                    placeholder="10% de desconto"
-                    classNameIcon="text-gray-400"
-                    onChange={(e) => setDiscount(Number(e.target.value))}
-                  />
-                )}
+                <TextInput
+                  name="discount"
+                  placeholder="10% de desconto"
+                  classNameIcon="text-gray-400"
+                  onChange={(e) => setDiscount(Number(e.target.value))}
+                />
               </div>
               <div className="flex flex-row mb-4 justify-between">
                 <label className="text-gray-500 self-center">

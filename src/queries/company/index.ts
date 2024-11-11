@@ -6,7 +6,6 @@ import {
   Company,
   CreateCompanyAdmin,
   CreateCompanyInit,
-  CreateCompanyInitResponse,
   CreateCompanyResponse,
   GetCompanyResponse,
   UpdateCompany,
@@ -15,10 +14,8 @@ import api from "@/services/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const listCompany = async (page: number) => {
-  const { data } = await api.get<GetCompanyResponse>(
-    `/companies?page=${page}`
-  );
-  return CreateCompanyMapper.toDomain(data);
+  const { data } = await api.get<GetCompanyResponse>(`/companies?page=${page}`);
+  return data;
 };
 
 const getCompanyByUid = async (uid?: string) => {
@@ -35,10 +32,7 @@ const createCompany = async (payload: Company) => {
 
 const createCompanyInit = async (payload: CreateCompanyInit) => {
   const body = CreateCompanyInitMapper.toPersistence(payload);
-  const { data } = await api.post<CreateCompanyInitResponse>(
-    "/companies",
-    body
-  );
+  const { data } = await api.post<Company>("/companies", body);
   return data;
 };
 

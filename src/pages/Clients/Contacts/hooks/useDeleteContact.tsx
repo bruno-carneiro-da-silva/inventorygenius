@@ -7,7 +7,9 @@ type useDeleteContactProps = {
   onClose: () => void;
 };
 
-export default function useDeleteContactHook({ onClose }: useDeleteContactProps) {
+export default function useDeleteContactHook({
+  onClose,
+}: useDeleteContactProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { selectedContact } = useMyContactStore();
 
@@ -22,12 +24,13 @@ export default function useDeleteContactHook({ onClose }: useDeleteContactProps)
     deleteContact
       .mutateAsync(finalDeletePayload)
       .then(() => {
-        showSuccessToast("Contact deleted successfully");
+        showSuccessToast("Contato deletado com sucesso");
         onClose();
       })
       .catch((errors) => {
         const errorMessage =
-          errors?.response?.data?.errors?.[0]?.message || "An error occurred";
+          errors?.response?.data?.errors?.[0]?.message ||
+          "Ocorreu um erro interno";
         showErrorToast(errorMessage);
         onClose();
       })

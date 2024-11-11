@@ -3,22 +3,21 @@ import DashboardChart from "@/components/DashboardChart";
 import AxisFormatter from "@/components/DashboardChart/AxisFormatter";
 import DashboardTable from "@/components/DashboardTable";
 import { showErrorToast } from "@/components/Toast";
+import { useListCompany } from "@/queries/company";
 import { useGetSells } from "@/queries/sales";
 import { GetSales, GetSalesResponse } from "@/queries/sales/types";
-import { useCompanyStore } from "@/stores/company";
 import { ColumnTable } from "@/types/table";
 import { maskDateISO } from "@/utils/functions";
 import { User } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-  const { company } = useCompanyStore((state) => ({
-    setCompany: state.setCompany,
-    company: state.company,
-  }));
   const [page, setPage] = useState<number>(1);
   const [filter, _setFilter] = useState("");
   const { data, isError } = useGetSells(page, filter);
+  const { data: companyData } = useListCompany(page);
+
+  console.log(companyData);
 
   const salesData: GetSalesResponse[] = data ? [data] : [];
 
@@ -131,7 +130,8 @@ export default function Dashboard() {
             {filteredData && (
               <p className="text-gray-500 mt-2 ml-7">
                 Criada em -{" "}
-                {filteredData?.createdAt && maskDateISO(filteredData?.createdAt)}
+                {filteredData?.createdAt &&
+                  maskDateISO(filteredData?.createdAt)}
               </p>
             )}
           </div>
@@ -146,17 +146,17 @@ export default function Dashboard() {
         <HeaderLayout
           overviewItems={[
             {
-              number: company?._count.contacts,
+              number: companyData?.companyData._count.contacts || 0,
               text: "Clientes",
               percentage: 30,
             },
             {
-              number: company?._count.suppliers,
+              number: companyData?.companyData?._count.suppliers || 0,
               text: "Total de Fornecedores",
               percentage: 20,
             },
             {
-              number: data?.totalSales,
+              number: data?.totalSales || 0,
               text: "Balanço",
               percentage: 50,
             },

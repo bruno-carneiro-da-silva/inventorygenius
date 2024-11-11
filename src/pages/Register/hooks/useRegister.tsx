@@ -1,6 +1,7 @@
 import { showErrorToast } from "@/components/Toast";
 import { useCreateCompanyInit } from "@/queries/company";
 import { CreateCompanyInit } from "@/queries/company/types";
+import { useCompanyStore } from "@/stores/company";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,18 +9,20 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 const schema: yup.ObjectSchema<CreateCompanyInit> = yup.object({
-  firstName: yup.string().required("Name is required"),
-  lastName: yup.string().required("Last name is required"),
-  emailAdmin: yup.string().required("E-mail is required"),
-  phoneNumberAdmin: yup.string().required("Please write a valid phone number"),
+  firstName: yup.string().required("Nome é obrigatório"),
+  lastName: yup.string().required("Sobrenome é obrigatório"),
+  emailAdmin: yup.string().required("E-mail é obrigatório"),
+  phoneNumberAdmin: yup
+    .string()
+    .required("Por favor, insira seu número de telefone"),
   password: yup
     .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long"),
-  nameCompany: yup.string().required("Digital name is required"),
-  emailCompany: yup.string().required("Company e-mail is required"),
-  phoneNumberCompany: yup.string().required("Company phone is required"),
-  addressCompany: yup.string().required("Address is required"),
+    .required("Senha é obrigatória")
+    .min(8, "Senha deve ter no mínimo 8 caracteres"),
+  nameCompany: yup.string().required("Nome da empresa é obrigatório"),
+  emailCompany: yup.string().required("Email da empresa é obrigatório"),
+  phoneNumberCompany: yup.string().required("Telefone da empresa é obrigatório"),
+  addressCompany: yup.string().required("Endereço da empresa é obrigatório"),
   terms: yup.boolean().nullable(),
   role: yup.string().nullable(),
 });
@@ -32,11 +35,14 @@ export const useRegister = () => {
     resolver: yupResolver(schema),
   });
 
+  const { setCompany } = useCompanyStore();
+
   const onSubmit = (company: CreateCompanyInit) => {
     setIsLoading(true);
     createCompany
       .mutateAsync(company)
-      .then(() => {
+      .then((res) => {
+        setCompany(res);
         navigate("/cadastrar/confirm-account");
       })
       .catch((err) => {

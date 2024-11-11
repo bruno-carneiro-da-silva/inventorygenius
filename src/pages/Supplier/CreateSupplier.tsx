@@ -107,18 +107,6 @@ export default function CreateSupplier() {
                   placeholder="Roupas femininas"
                   className="w-full"
                 />
-                {/* <div className="grid grid-cols-2 gap-2">
-                  <DateTextInput
-                    name="contract_start"
-                    label="Inicio de cadastro *"
-                    placeholder="10/10/2000"
-                  />
-                  <DateTextInput
-                    name="contract_end"
-                    label="Fim do cadastro *"
-                    placeholder="10/10/2005"
-                  />
-                </div> */}
               </div>
               <TextInput
                 label="Cidade *"

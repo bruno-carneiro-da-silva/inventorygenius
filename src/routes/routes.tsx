@@ -61,11 +61,7 @@ export const routes: Route[] = [
   ...itensAndSubItensSidebar,
   {
     path: "/",
-    element: (
-      <PublicRoutes>
-        <Login />
-      </PublicRoutes>
-    ),
+    element: <PublicRoutes>{<Login />}</PublicRoutes>,
   },
   {
     path: "/cadastrar",
