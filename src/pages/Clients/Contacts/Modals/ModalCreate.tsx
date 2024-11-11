@@ -34,11 +34,11 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalHeader
-        title={editContact ? "Editar cliente" : "Nova cliente"}
+        title={editContact ? "Editar cliente" : "Novo cliente"}
         subtitle={
           editContact
             ? undefined
-            : "Crie um novo cliente para fazer parte da sua lista"
+            : "Cadastro de novos clientes"
         }
         onClose={onClose}
       />
@@ -71,14 +71,14 @@ const ModalCreateContact: React.FC<ModalCreateContactProps> = ({
             <div className="flex flex-row space-x-2">
               <MaskedTextInput
                 name="phoneNumber"
-                label="Phone"
-                placeholder="+1 123 456 7890"
+                label="Telefone"
+                placeholder="(00) 00000-0000"
                 classNameIcon="text-gray-400"
               />
               <DateTextInput
                 name="dateOfBirth"
                 label="Data de nascimento"
-                placeholder="03/06/1997"
+                placeholder="10/10/2000"
               />
             </div>
             <TextInput

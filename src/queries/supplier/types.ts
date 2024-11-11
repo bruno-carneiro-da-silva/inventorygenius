@@ -4,10 +4,10 @@ export interface Supplier {
     phone: string
     email: string
     address: string
-    dateOfBirth: string
+    dateOfBirth?: string
     photo: string
     document: string
-    nationality: string
+    nationality?: string
     niche: string
     contract_start: string
     contract_end: string
@@ -29,13 +29,13 @@ export interface SupplierResponse {
     companyId: string
     corporateReason: string
     createdAt: string
-    dateOfBirth: string
+    dateOfBirth?: string
     email: string
     endContractDate: string
     id: string
     lastName: string
     name: string
-    nationality: string
+    nationality?: string
     niche: string
     phone: string
     photo_base64: string

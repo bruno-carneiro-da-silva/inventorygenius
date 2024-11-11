@@ -1,15 +1,15 @@
+import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import DateTextInput from "@/components/DateInput/DateInput";
 import TextInput from "@/components/Input";
 import { maskCNPJ } from "@/utils/functions";
 import { Autocomplete } from "@react-google-maps/api";
-import { Flag, Mail, Map, Shirt, StickyNote, User } from "lucide-react";
+import { Mail, Map, Shirt, StickyNote, User } from "lucide-react";
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import MaskedTextInput from "../Register/components/PhoneInput";
 import useCreateSuppliers from "./hooks/useSuppliers";
-import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 
 export default function CreateSupplier() {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ export default function CreateSupplier() {
 
   const { methods, onLoad, onPlaceChanged, updateFile, onSubmit } =
     useCreateSuppliers({ onClose });
+
   return (
     <React.Fragment>
       <DashboardLayout />
@@ -56,8 +57,8 @@ export default function CreateSupplier() {
                 />
                 <MaskedTextInput
                   name="phone"
-                  label="Phone *"
-                  placeholder="+1 123 456 7890"
+                  label="Telefone *"
+                  placeholder="(00) 00000-0000"
                   classNameIcon="text-gray-400"
                 />
               </div>
@@ -74,10 +75,16 @@ export default function CreateSupplier() {
                     classNameIcon="text-gray-400"
                   />
                 </Autocomplete>
-                <DateTextInput
-                  name="dateOfBirth"
-                  label="Data de nascimento *"
-                  placeholder="03/06/1997"
+                <TextInput
+                  label="CNPJ *"
+                  type="textarea"
+                  name="document"
+                  onChange={(e) => {
+                    methods.setValue("document", maskCNPJ(e.target.value));
+                  }}
+                  icon={<StickyNote />}
+                  placeholder="00.000.000/0000-00"
+                  className="w-full"
                 />
               </div>
               <div className="space-y-5">
@@ -86,24 +93,6 @@ export default function CreateSupplier() {
                 </div>
               </div>
 
-              <TextInput
-                label="CNPJ *"
-                type="textarea"
-                name="document"
-                onChange={(e) => {
-                  methods.setValue("document", maskCNPJ(e.target.value));
-                }}
-                icon={<StickyNote />}
-                placeholder="00.000.000/0000-00"
-                className="w-full"
-              />
-              <TextInput
-                label="Nacionalidade *"
-                name="nationality"
-                icon={<Flag />}
-                placeholder="Brasileiro/Estadunidense/Japonês"
-                className="w-full"
-              />
             </div>
           </div>
           <div className="relative max-w-7xl mx-auto border p-6 bg-white shadow-lg mb-5 rounded-lg mt-0">
@@ -123,13 +112,12 @@ export default function CreateSupplier() {
                   <DateTextInput
                     name="contract_start"
                     label="Inicio de cadastro *"
-                    placeholder="1999/06/03"
+                    placeholder="10/10/2000"
                   />
-
                   <DateTextInput
                     name="contract_end"
                     label="Fim do cadastro *"
-                    placeholder="2000/06/03"
+                    placeholder="10/10/2005"
                   />
                 </div>
               </div>
@@ -144,13 +132,6 @@ export default function CreateSupplier() {
           </div>
 
           <div className="flex container ml-11 justify-end gap-3 mb-10">
-            <button
-              type="button"
-              className="bg-white text-primary-dark border border-primary-dark rounded-full px-6 py-3"
-              onClick={() => alert("TODO")}
-            >
-              Salvar rascunho
-            </button>
             <button
               type="submit"
               className="bg-primary-dark text-white border border-primary-dark rounded-full px-6 py-3"

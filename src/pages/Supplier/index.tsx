@@ -6,7 +6,7 @@ import { useGetSuppliers } from "@/queries/supplier";
 import { SupplierResponse } from "@/queries/supplier/types";
 import { useSupplierStore } from "@/stores/supplier";
 import { KebabMenuItem } from "@/types/table";
-import { Eye, Mail, Phone, Trash2 } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -81,8 +81,6 @@ export default function Supplier() {
                 <CardSupplier
                   key={supplier.id}
                   item={supplier}
-                  icon={<Mail />}
-                  secondIcon={<Phone />}
                   kebabMenuItems={KebabMenuItems}
                 />
               </div>

@@ -2,17 +2,14 @@ import Button from "@/components/Button";
 import KebabMenu from "@/components/KebabMenu";
 import { SupplierResponse } from "@/queries/supplier/types";
 import { KebabMenuItem } from "@/types/table";
+import { Mail, Phone } from "lucide-react";
 
 interface CardPropsWithMenu {
   kebabMenuItems: KebabMenuItem[];
   item: SupplierResponse;
-  icon: React.ReactNode;
-  secondIcon: React.ReactNode;
 }
 
 export const CardSupplier = ({
-  icon,
-  secondIcon,
   kebabMenuItems,
   item,
 }: CardPropsWithMenu) => {
@@ -31,15 +28,19 @@ export const CardSupplier = ({
       <div className="flex space-x-2">
         <Button
           className="bg-primary-dark"
-          onClick={() => console.log("clicked")}
+          onClick={() => {
+            window.open(`mailto:${item.email}`, "_blank");
+          }}
         >
-          {icon}
+          <Mail />
         </Button>
         <Button
           className="bg-primary-dark"
-          onClick={() => console.log("clicked")}
+          onClick={() => {
+            window.open(`https://wa.me/+55${item.phone}`, "_blank");
+          }}
         >
-          {secondIcon}
+          <Phone />
         </Button>
       </div>
     </div>

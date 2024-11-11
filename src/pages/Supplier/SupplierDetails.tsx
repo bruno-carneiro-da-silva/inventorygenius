@@ -2,7 +2,7 @@ import coverImage from "@/assets/cover.png";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
 import { LoadingIcon } from "@/icons";
 import { useSupplierStore } from "@/stores/supplier";
-import { maskDateISO } from "@/utils/functions";
+import { maskDateISO, maskPhone } from "@/utils/functions";
 import { ChevronLeftIcon, Locate, Mail, Phone } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,7 +61,7 @@ export default function SupplierDetails() {
                 <Phone className="w-5 h-5" />
               </span>
               <span className="ml-2 text-primary-darker">
-                {selectedSupplier.phone}
+                {maskPhone(selectedSupplier.phone)}
               </span>
             </div>
             <div className="flex items-center">
@@ -73,13 +73,6 @@ export default function SupplierDetails() {
               </span>
             </div>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-primary-darker">Nacionalidade:</h2>
-          <p className="text-primary-darker mt-2">
-            {selectedSupplier.nationality}
-          </p>
         </div>
 
         <div className="mt-6">
