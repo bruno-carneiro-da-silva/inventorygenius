@@ -31,7 +31,7 @@ export const DashboardLayout: React.FC = () => {
     login,
   } = useDashboard();
 
-  const { data: company } = useGetCompanyByUid(login?.user?.id)
+  const { data: company } = useGetCompanyByUid(login?.user?.id);
 
   const buttonText = isLoading ? <LoadingIcon /> : "Sim, sair";
 
@@ -77,7 +77,6 @@ export const DashboardLayout: React.FC = () => {
           </Button>
         </Tooltip>
       </div>
-      {/* <div className="py-5 pr-5 md:col-span-11 col-span-9">{children}</div> */}
       <div className="w-full fixed pl-28 bg-white z-20">
         <div className="flex flex-row justify-between">
           <div className="flex space-x-5">
@@ -98,27 +97,6 @@ export const DashboardLayout: React.FC = () => {
           </div>
           <FormProvider {...methods}>
             <div className="flex items-center rounded-full flex-row space-x-2 p-2">
-              {/* <div>
-                <TextInput
-                  name="search"
-                  placeholder="Search here"
-                  classNameContainer="!p-1"
-                  icon={<Search />}
-                  classNameIcon="text-gray-400"
-                />
-              </div>
-              <Button
-                onClick={() => console.log("/")}
-                className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
-              >
-                <Bell className="h-5 w-5" />
-              </Button>
-              <Button
-                onClick={() => console.log("/")}
-                className="bg-white !text-primary-dark hover:!text-primary-dark hover:border-primary-dark border border-primary-dark hover:bg-white rounded-full"
-              >
-                <Settings className="h-5 w-5" />
-              </Button> */}
               <button
                 onClick={handleOpenOptions}
                 className="border-l-2 pl-2 pr-5 flex-row flex space-x-3"

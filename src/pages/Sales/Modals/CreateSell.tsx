@@ -83,10 +83,6 @@ const ModalCreateSell: React.FC<ModalCreateSellProps> = ({
     "Criar"
   );
 
-  useEffect(() => {
-    console.log(methods.watch("paymentStatus"));
-  }, [methods.watch("paymentStatus")]);
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>

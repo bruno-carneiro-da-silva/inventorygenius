@@ -17,8 +17,6 @@ export default function Dashboard() {
   const { data, isError } = useGetSells(page, filter);
   const { data: companyData } = useListCompany(page);
 
-  console.log(companyData);
-
   const salesData: GetSalesResponse[] = data ? [data] : [];
 
   useEffect(() => {

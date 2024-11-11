@@ -42,7 +42,6 @@ export default function useCreateCategories({
         }
       })
       .catch((errors) => {
-        console.log(errors);
         const errorMessage =
           errors?.response?.data.error || "Aconteceu um erro interno";
         showErrorToast(errorMessage);
