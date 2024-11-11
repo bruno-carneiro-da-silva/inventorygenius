@@ -1,6 +1,6 @@
 import ModalCropImage from "@/components/Dashboard/components/ModalCropImage";
 import { DashboardLayout } from "@/components/Dashboard/DashboardLayout";
-import DateTextInput from "@/components/DateInput/DateInput";
+// import DateTextInput from "@/components/DateInput/DateInput";
 import TextInput from "@/components/Input";
 import { maskCNPJ } from "@/utils/functions";
 import { Autocomplete } from "@react-google-maps/api";
@@ -92,7 +92,6 @@ export default function CreateSupplier() {
                   <ModalCropImage updateFile={updateFile} />
                 </div>
               </div>
-
             </div>
           </div>
           <div className="relative max-w-7xl mx-auto border p-6 bg-white shadow-lg mb-5 rounded-lg mt-0">
@@ -108,7 +107,7 @@ export default function CreateSupplier() {
                   placeholder="Roupas femininas"
                   className="w-full"
                 />
-                <div className="grid grid-cols-2 gap-2">
+                {/* <div className="grid grid-cols-2 gap-2">
                   <DateTextInput
                     name="contract_start"
                     label="Inicio de cadastro *"
@@ -119,7 +118,7 @@ export default function CreateSupplier() {
                     label="Fim do cadastro *"
                     placeholder="10/10/2005"
                   />
-                </div>
+                </div> */}
               </div>
               <TextInput
                 label="Cidade *"

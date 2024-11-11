@@ -20,14 +20,17 @@ const schema: yup.ObjectSchema<SupplierForm> = yup.object({
   name: yup.string().required("Nome é obrigatório"),
   lastName: yup.string().required("Sobrenome é obrigatório"),
   phone: yup.string().required("Telefone é obrigatório"),
-  email: yup.string().email("Email deve ser válido").required("Email é obrigatório"),
+  email: yup
+    .string()
+    .email("Email deve ser válido")
+    .required("Email é obrigatório"),
   address: yup.string().required("Endereço é obrigatório"),
   dateOfBirth: yup.string().optional(),
   document: yup.string().required("CNPJ é obrigatório"),
   nationality: yup.string().optional(),
   niche: yup.string().required("Nicho é obrigatório"),
-  contract_start: yup.string().required("Começo do contrato é obrigatório"),
-  contract_end: yup.string().required("Fim do contrato é obrigatório"),
+  contract_start: yup.string().optional(),
+  contract_end: yup.string().optional(),
   city: yup.string().required("Cidade é obrigatório"),
 });
 
@@ -61,7 +64,7 @@ export default function useCreateSuppliers({
         setAddress(address);
         setLocation({ lat, lng });
       } else {
-        showErrorToast("No geometry found for this place.");
+        showErrorToast("Nenhuma localização encontrada");
       }
     }
   };
@@ -83,7 +86,7 @@ export default function useCreateSuppliers({
 
     try {
       const data = await createSupplier.mutateAsync(finalPayload);
-      showSuccessToast("Supplier created successfully");
+      showSuccessToast("Fornecedor criado com sucesso!");
       onClose();
       if (onSaved && data) {
         onSaved(data.data);
@@ -91,7 +94,7 @@ export default function useCreateSuppliers({
     } catch (errors) {
       const errorMessage =
         (errors as AxiosError<{ error: string }>)?.response?.data?.error ||
-        "An error occurred";
+        "Ocorreu um erro";
       showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);
