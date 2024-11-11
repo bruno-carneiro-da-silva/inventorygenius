@@ -1,16 +1,15 @@
 import Button from "@/components/Button";
+import CustomSelect from "@/components/CustomSelect";
 import TextInput from "@/components/Input";
 import Modal from "@/components/Modal";
 import ModalHeader from "@/components/ModalHeader";
 import { LoadingIcon } from "@/icons";
-import Checkbox from "@/components/Checkbox";
-import CustomSelect from "@/components/CustomSelect";
+import { PaymentStatus } from "@/utils/enum";
+import { X } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import useCreateSell from "../hooks/useSales";
 import ModalCreateEmployee from "./CreateEmployee";
-import { X } from "lucide-react";
-import { PaymentStatus } from "@/utils/enum";
 
 interface ModalCreateSellProps {
   isOpen: boolean;
