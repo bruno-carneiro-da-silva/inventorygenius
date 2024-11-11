@@ -8,10 +8,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SupplierDetails() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { selectedSupplier } = useSupplierStore();
 
-  const handleGoBack = () => navigate(-1)
+  const handleGoBack = () => navigate(-1);
 
   if (!selectedSupplier) {
     return (
@@ -29,7 +29,11 @@ export default function SupplierDetails() {
           className="absolute top-0 -left-[48px] w-[1374px] rounded-t-lg  h-32 bg-cover bg-center z-0"
           style={{ backgroundImage: `url(${coverImage})` }}
         ></div>
-        <button className="absolute z-50 text-black top-0 left-0 p-2" type="button" onClick={handleGoBack}>
+        <button
+          className="absolute z-50 text-black top-0 left-0 p-2"
+          type="button"
+          onClick={handleGoBack}
+        >
           <ChevronLeftIcon className="text-white w-8 h-8" />
         </button>
         <div className="relative flex flex-col items-start mt-24">
@@ -75,12 +79,12 @@ export default function SupplierDetails() {
           </div>
         </div>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">Contrato:</h2>
           <p className="text-primary-darker mt-2">
             {maskDateISO(selectedSupplier.startContractDate)} - {maskDateISO(selectedSupplier.endContractDate)}
           </p>
-        </div>
+        </div> */}
 
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-primary-darker">
