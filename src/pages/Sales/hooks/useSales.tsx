@@ -77,6 +77,10 @@ export default function useCreateSales({
     setPage(page);
   };
 
+  useEffect(() => {
+    console.log("test", methods.formState.errors);
+  }, [methods.watch]);
+
   const handleSearch = (input: string) => {
     setFilter(input);
     setPage(1);

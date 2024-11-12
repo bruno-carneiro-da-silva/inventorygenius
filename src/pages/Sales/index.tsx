@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import ModalCreateSell from "./Modals/CreateSell";
 import ModalDeleteSell from "./Modals/DeleteSell";
 import ModalEditSell from "./Modals/EditSell";
+import KebabMenu from "@/components/KebabMenu";
 
 export default function Sales() {
   const methods = useForm();
@@ -182,13 +183,49 @@ export default function Sales() {
         return (
           <div>
             {filteredData && (
-              <p className="text-gray-500 mt-2 ml-7">
-                Criada em -{" "}
-                {filteredData?.createdAt && maskDateISO(filteredData?.createdAt)}
+              <p className="text-gray-500 mt-2 ml-4">
+                {filteredData?.createdAt &&
+                  maskDateISO(filteredData?.createdAt)}
               </p>
             )}
           </div>
         );
+      },
+    },
+    {
+      id: "actions",
+      label: "Ações",
+      width: "w-[36px]",
+      render: (data: GetSales) => {
+        const KebabMenuItems: KebabMenuItem[] = [
+          {
+            id: "details",
+            label: "Detalhes",
+            onClick: () => handleOpenSalesDetails(data),
+            icon: <Eye />,
+          },
+          {
+            id: "update",
+            label: "Editar",
+            onClick: () => handleOpenEditSell(data),
+            icon: <Pencil />,
+          },
+          {
+            id: "delete",
+            label: "Deletar",
+            onClick: () => handleOpenModalDelete(data),
+            icon: <Trash2 />,
+          },
+        ];
+
+        const filteredMenuItems = KebabMenuItems.filter(
+          (item) =>
+            item.id !== "update" ||
+            (data.paymentStatus !== "CANCELED" &&
+              data.paymentStatus !== "REFUSED")
+        );
+
+        return <KebabMenu data={data} items={filteredMenuItems} />;
       },
     },
   ];
@@ -205,26 +242,26 @@ export default function Sales() {
     setOpenDeleteModal(!openDeleteModal);
   };
 
-  const KebabMenuItems: KebabMenuItem[] = [
-    {
-      id: "details",
-      label: "Detalhes",
-      onClick: (data) => handleOpenSalesDetails(data),
-      icon: <Eye />,
-    },
-    {
-      id: "update",
-      label: "Editar",
-      onClick: (data) => handleOpenEditSell(data),
-      icon: <Pencil />,
-    },
-    {
-      id: "delete",
-      label: "Deletar",
-      onClick: handleOpenModalDelete,
-      icon: <Trash2 />,
-    },
-  ];
+  // const KebabMenuItems: KebabMenuItem[] = [
+  //   {
+  //     id: "details",
+  //     label: "Detalhes",
+  //     onClick: (data) => handleOpenSalesDetails(data),
+  //     icon: <Eye />,
+  //   },
+  //   {
+  //     id: "update",
+  //     label: "Editar",
+  //     onClick: (data) => handleOpenEditSell(data),
+  //     icon: <Pencil />,
+  //   },
+  //   {
+  //     id: "delete",
+  //     label: "Deletar",
+  //     onClick: handleOpenModalDelete,
+  //     icon: <Trash2 />,
+  //   },
+  // ];
 
   return (
     <div>
@@ -234,7 +271,7 @@ export default function Sales() {
           columns={columns}
           data={sales?.sales || []}
           onSearch={handleSearch}
-          kebabMenu={KebabMenuItems}
+          // kebabMenu={KebabMenuItems}
           totalPages={sales ? Math.ceil(sales.total / sales.per_page) : 0}
           handlePage={(page) => setPage(page)}
           currentPage={page}
