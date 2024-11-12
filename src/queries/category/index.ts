@@ -42,6 +42,9 @@ export const useCreateCategory = () => {
   return useMutation({
     mutationFn: (payload: CategoryMapperInit) => createCategory(payload),
     onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["create-categories"] });
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
@@ -52,6 +55,9 @@ export const useUpdateCategory = () => {
   return useMutation({
     mutationFn: (payload: CategoryMapperInit) => updateCategory(payload),
     onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["update-categories"] });
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
@@ -62,6 +68,9 @@ export const useDeleteCategory = () => {
   return useMutation({
     mutationFn: (id: string) => deleteCategory(id),
     onMutate: () => {
+      queryClient.invalidateQueries({ queryKey: ["delete-categories"] });
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
