@@ -38,7 +38,12 @@ const schema: yup.ObjectSchema<FormValues> = yup.object({
     .mixed<"PENDING" | "PAID" | "CANCELED" | "REFUSED">()
     .oneOf(["PENDING", "PAID", "CANCELED", "REFUSED"])
     .required("Status de pagamento é obrigatório"),
-  discount: yup.number().nullable(),
+  discount: yup
+    .number()
+    .nullable()
+    .transform((value, originalValue) =>
+      String(originalValue).trim() === "" ? null : value
+    ),
   soldItems: yup.array().required("Itens vendidos são obrigatórios"),
 });
 
