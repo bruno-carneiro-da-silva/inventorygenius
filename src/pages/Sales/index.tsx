@@ -242,27 +242,6 @@ export default function Sales() {
     setOpenDeleteModal(!openDeleteModal);
   };
 
-  // const KebabMenuItems: KebabMenuItem[] = [
-  //   {
-  //     id: "details",
-  //     label: "Detalhes",
-  //     onClick: (data) => handleOpenSalesDetails(data),
-  //     icon: <Eye />,
-  //   },
-  //   {
-  //     id: "update",
-  //     label: "Editar",
-  //     onClick: (data) => handleOpenEditSell(data),
-  //     icon: <Pencil />,
-  //   },
-  //   {
-  //     id: "delete",
-  //     label: "Deletar",
-  //     onClick: handleOpenModalDelete,
-  //     icon: <Trash2 />,
-  //   },
-  // ];
-
   return (
     <div>
       <FormProvider {...methods}>
@@ -271,7 +250,6 @@ export default function Sales() {
           columns={columns}
           data={sales?.sales || []}
           onSearch={handleSearch}
-          // kebabMenu={KebabMenuItems}
           totalPages={sales ? Math.ceil(sales.total / sales.per_page) : 0}
           handlePage={(page) => setPage(page)}
           currentPage={page}
