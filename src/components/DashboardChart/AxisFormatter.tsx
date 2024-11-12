@@ -24,7 +24,7 @@ export default function AxisFormatter({ data }: DatasetProps) {
             const saleDate = new Date(item?.createdAt);
             const dayOfWeek = saleDate.getDay(); // 0 (Domingo) a 6 (Sábado)
 
-            salesByDay[dayOfWeek].gdp += item.price; // Soma o total faturado para cada item vendido no dia específico
+            salesByDay[dayOfWeek].gdp += sale.totalPrice; // Soma o total faturado para cada item vendido no dia específico
           });
         });
       });
