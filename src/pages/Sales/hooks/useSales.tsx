@@ -53,6 +53,7 @@ export default function useCreateSales({
 }: UseCreateSalesProps) {
   const [isLoading, setIsLoading] = useState(false);
   const companyUid = useCompanyStore((state) => state.company?.id || "");
+
   const methods = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -81,10 +82,6 @@ export default function useCreateSales({
   const handlePage = (page: number) => {
     setPage(page);
   };
-
-  useEffect(() => {
-    console.log("test", methods.formState.errors);
-  }, [methods.watch]);
 
   const handleSearch = (input: string) => {
     setFilter(input);
